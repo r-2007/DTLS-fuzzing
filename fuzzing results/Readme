@@ -1,1 +1,14 @@
 
+
+s0 - Client Hello (From Client)
+s1 - Hello verify Request (From server)
+s2 - Client Hello (with cookie value from Vello Verify Request) (From Client)
+s3 - Server Hello (From server)
+S4 - Server Hello Done (From server)
+s5 - Client Key Exchange (From Client)
+s6 - Change Cipher Spec (From Client) 
+s7 - Encrypted Handshake Message (Aplication message) (From client)
+s8 - Change Cipher Spec (From server)
+s9 - Encrypted Handshake Message (Aplication message) 
+s10 - Encrypted Alert
+s11 - Encrypted Alert
