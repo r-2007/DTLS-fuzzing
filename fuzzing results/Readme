@@ -9,6 +9,6 @@ s5 - Client Key Exchange (From Client)
 s6 - Change Cipher Spec (From Client) 
 s7 - Encrypted Handshake Message (Aplication message) (From client)
 s8 - Change Cipher Spec (From server)
-s9 - Encrypted Handshake Message (Aplication message) 
+s9 - Encrypted Handshake Message (Aplication message) (From server)
 s10 - Encrypted Alert
 s11 - Encrypted Alert
