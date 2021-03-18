@@ -1,0 +1,6 @@
+diff id:000153,src:000056+000118,time:2006809,op:splice,rep:4 -> id:000154,src:000057+000128,time:2025571,op:splice,rep:4,+cov
+Src file: /home/rahbar/tinydtls-fuzz-cov/netq.c
+  New 'line' coverage: 111
+  New 'line' coverage: 116
+Src file: /home/rahbar/tinydtls-fuzz-cov/dtls.c
+  New 'line' coverage: 3656

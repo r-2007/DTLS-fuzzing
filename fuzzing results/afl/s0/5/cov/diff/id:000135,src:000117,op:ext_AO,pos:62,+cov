@@ -1,0 +1,43 @@
+diff id:000134,src:000115,op:havoc,rep:128 -> id:000135,src:000117,op:ext_AO,pos:62,+cov
+Src file: /home/rahbar/tinydtls-fuzz-cov/dtls-peer.h
+  New 'line' coverage: 54
+Src file: /home/rahbar/tinydtls-fuzz-cov/netq.c
+  New 'line' coverage: 165
+  New 'line' coverage: 166
+  New 'line' coverage: 167
+  New 'line' coverage: 168
+Src file: /home/rahbar/tinydtls-fuzz-cov/dtls.c
+  New 'function' coverage: hs_attempt_with_existing_peer()
+  New 'line' coverage: 1052
+  New 'line' coverage: 1053
+  New 'line' coverage: 1056
+  New 'line' coverage: 3043
+  New 'line' coverage: 3044
+  New 'line' coverage: 3488
+  New 'line' coverage: 3489
+  New 'line' coverage: 3602
+  New 'line' coverage: 3607
+  New 'line' coverage: 3608
+  New 'line' coverage: 3609
+  New 'line' coverage: 3610
+  New 'line' coverage: 3614
+  New 'line' coverage: 3617
+  New 'line' coverage: 3618
+  New 'line' coverage: 3623
+  New 'line' coverage: 3624
+  New 'line' coverage: 3625
+  New 'line' coverage: 3627
+  New 'line' coverage: 3629
+  New 'line' coverage: 3631
+  New 'line' coverage: 3632
+  New 'line' coverage: 3775
+  New 'line' coverage: 3776
+  New 'line' coverage: 3822
+  New 'line' coverage: 3828
+  New 'line' coverage: 3829
+  New 'line' coverage: 3830
+  New 'line' coverage: 3836
+  New 'line' coverage: 545
+  New 'line' coverage: 548
+  New 'line' coverage: 560
+  New 'line' coverage: 983

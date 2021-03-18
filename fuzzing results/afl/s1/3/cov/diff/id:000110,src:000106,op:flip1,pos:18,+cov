@@ -1,0 +1,9 @@
+diff id:000109,src:000106,op:flip1,pos:17,+cov -> id:000110,src:000106,op:flip1,pos:18,+cov
+Src file: /home/rahbar/tinydtls-fuzz-cov/dtls.c
+  New 'line' coverage: 3177
+  New 'line' coverage: 3272
+  New 'line' coverage: 3649
+  New 'line' coverage: 3650
+  New 'line' coverage: 3651
+  New 'line' coverage: 3652
+  New 'line' coverage: 3653

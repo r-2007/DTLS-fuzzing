@@ -1,0 +1,20 @@
+diff id:000082,src:000080,time:7125840,op:havoc,rep:4 -> id:000083,src:000082,time:7141929,op:havoc,rep:4
+Src file: /home/rahbar/tinydtls-fuzz-cov/dtls.c
+  New 'function' coverage: hs_attempt_with_existing_peer()
+  New 'line' coverage: 3090
+  New 'line' coverage: 3775
+  New 'line' coverage: 3776
+  New 'line' coverage: 3822
+  New 'line' coverage: 3828
+  New 'line' coverage: 3829
+  New 'line' coverage: 3830
+  New 'line' coverage: 3831
+  New 'line' coverage: 3832
+  New 'line' coverage: 3833
+  New 'line' coverage: 3834
+  New 'line' coverage: 3836
+  New 'line' coverage: 545
+  New 'line' coverage: 548
+  New 'line' coverage: 560
+Src file: /home/rahbar/tinydtls-fuzz-cov/dtls-ccm.c
+  New 'line' coverage: 287

@@ -1,0 +1,4 @@
+diff id:000009,src:000000,time:3323,op:havoc,rep:2,+cov -> id:000010,src:000000,time:3364,op:havoc,rep:2,+cov
+Src file: /home/rahbar/tinydtls-fuzz-cov/dtls.c
+  New 'line' coverage: 2645
+  New 'line' coverage: 2646

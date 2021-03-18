@@ -1,0 +1,38 @@
+diff id:000002,src:000000,time:3146,op:havoc,rep:8,+cov -> id:000003,src:000000,time:3159,op:havoc-smart,rep:8,+cov
+Src file: /home/rahbar/tinydtls-fuzz-cov/dtls-alert.h
+  New 'function' coverage: dtls_alert_create()
+  New 'function' coverage: dtls_alert_fatal_create()
+  New 'line' coverage: 62
+  New 'line' coverage: 64
+  New 'line' coverage: 68
+  New 'line' coverage: 70
+Src file: /home/rahbar/tinydtls-fuzz-cov/dtls.c
+  New 'function' coverage: dtls_alert_send_from_err()
+  New 'line' coverage: 1624
+  New 'line' coverage: 315
+  New 'line' coverage: 3419
+  New 'line' coverage: 3420
+  New 'line' coverage: 3762
+  New 'line' coverage: 3768
+  New 'line' coverage: 3769
+  New 'line' coverage: 3770
+  New 'line' coverage: 3771
+  New 'line' coverage: 3772
+  New 'line' coverage: 3774
+  New 'line' coverage: 3787
+  New 'line' coverage: 3924
+  New 'line' coverage: 3925
+  New 'line' coverage: 3926
+Src file: /home/rahbar/tinydtls-fuzz-cov/posix/dtls-support.c
+  New 'function' coverage: dtls_support_log_prefix()
+  New 'line' coverage: 34
+  New 'line' coverage: 38
+  New 'line' coverage: 41
+  New 'line' coverage: 42
+  New 'line' coverage: 43
+  New 'line' coverage: 44
+  New 'line' coverage: 45
+  New 'line' coverage: 50
+Src file: /home/rahbar/tinydtls-fuzz-cov/tests/dtls-fuzz.c
+  New 'line' coverage: 372
+  New 'line' coverage: 376

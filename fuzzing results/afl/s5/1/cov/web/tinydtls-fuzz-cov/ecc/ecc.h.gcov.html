@@ -1,0 +1,171 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+
+<html lang="en">
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <title>LCOV - trace.lcov_info_final - tinydtls-fuzz-cov/ecc/ecc.h</title>
+  <link rel="stylesheet" type="text/css" href="../../gcov.css">
+</head>
+
+<body>
+
+  <table width="100%" border=0 cellspacing=0 cellpadding=0>
+    <tr><td class="title">LCOV - code coverage report</td></tr>
+    <tr><td class="ruler"><img src="../../glass.png" width=3 height=3 alt=""></td></tr>
+
+    <tr>
+      <td width="100%">
+        <table cellpadding=1 border=0 width="100%">
+          <tr>
+            <td width="10%" class="headerItem">Current view:</td>
+            <td width="35%" class="headerValue"><a href="../../index.html">top level</a> - <a href="index.html">tinydtls-fuzz-cov/ecc</a> - ecc.h<span style="font-size: 80%;"> (source / <a href="ecc.h.func-sort-c.html">functions</a>)</span></td>
+            <td width="5%"></td>
+            <td width="15%"></td>
+            <td width="10%" class="headerCovTableHead">Hit</td>
+            <td width="10%" class="headerCovTableHead">Total</td>
+            <td width="15%" class="headerCovTableHead">Coverage</td>
+          </tr>
+          <tr>
+            <td class="headerItem">Test:</td>
+            <td class="headerValue">trace.lcov_info_final</td>
+            <td></td>
+            <td class="headerItem">Lines:</td>
+            <td class="headerCovTableEntry">0</td>
+            <td class="headerCovTableEntry">6</td>
+            <td class="headerCovTableEntryLo">0.0 %</td>
+          </tr>
+          <tr>
+            <td class="headerItem">Date:</td>
+            <td class="headerValue">2020-11-25 04:14:09</td>
+            <td></td>
+            <td class="headerItem">Functions:</td>
+            <td class="headerCovTableEntry">0</td>
+            <td class="headerCovTableEntry">2</td>
+            <td class="headerCovTableEntryLo">0.0 %</td>
+          </tr>
+          <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td class="headerItem">Branches:</td>
+            <td class="headerCovTableEntry">0</td>
+            <td class="headerCovTableEntry">0</td>
+            <td class="headerCovTableEntryHi">-</td>
+          </tr>
+          <tr><td><img src="../../glass.png" width=3 height=3 alt=""></td></tr>
+        </table>
+      </td>
+    </tr>
+
+    <tr><td class="ruler"><img src="../../glass.png" width=3 height=3 alt=""></td></tr>
+  </table>
+
+  <table cellpadding=0 cellspacing=0 border=0>
+    <tr>
+      <td><br></td>
+    </tr>
+    <tr>
+      <td>
+<pre class="sourceHeading">           Branch data     Line data    Source code</pre>
+<pre class="source">
+<a name="1"><span class="lineNum">       1 </span>                :            : /*</a>
+<span class="lineNum">       2 </span>                :            :  * Copyright (c) 2009 Chris K Cockrum &lt;ckc@cockrum.net&gt;
+<span class="lineNum">       3 </span>                :            :  *
+<span class="lineNum">       4 </span>                :            :  * Copyright (c) 2013 Jens Trillmann &lt;jtrillma@tzi.de&gt;
+<span class="lineNum">       5 </span>                :            :  * Copyright (c) 2013 Marc Müller-Weinhardt &lt;muewei@tzi.de&gt;
+<span class="lineNum">       6 </span>                :            :  * Copyright (c) 2013 Lars Schmertmann &lt;lars@tzi.de&gt;
+<span class="lineNum">       7 </span>                :            :  * Copyright (c) 2013 Hauke Mehrtens &lt;hauke@hauke-m.de&gt;
+<span class="lineNum">       8 </span>                :            :  *
+<span class="lineNum">       9 </span>                :            :  * Permission is hereby granted, free of charge, to any person obtaining a copy
+<span class="lineNum">      10 </span>                :            :  * of this software and associated documentation files (the &quot;Software&quot;), to deal
+<span class="lineNum">      11 </span>                :            :  * in the Software without restriction, including without limitation the rights
+<span class="lineNum">      12 </span>                :            :  * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+<span class="lineNum">      13 </span>                :            :  * copies of the Software, and to permit persons to whom the Software is
+<span class="lineNum">      14 </span>                :            :  * furnished to do so, subject to the following conditions:
+<span class="lineNum">      15 </span>                :            :  *
+<span class="lineNum">      16 </span>                :            :  * The above copyright notice and this permission notice shall be included in
+<span class="lineNum">      17 </span>                :            :  * all copies or substantial portions of the Software.
+<span class="lineNum">      18 </span>                :            :  *
+<span class="lineNum">      19 </span>                :            :  * THE SOFTWARE IS PROVIDED &quot;AS IS&quot;, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+<span class="lineNum">      20 </span>                :            :  * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+<span class="lineNum">      21 </span>                :            :  * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+<span class="lineNum">      22 </span>                :            :  * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+<span class="lineNum">      23 </span>                :            :  * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+<span class="lineNum">      24 </span>                :            :  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+<span class="lineNum">      25 </span>                :            :  * THE SOFTWARE.
+<span class="lineNum">      26 </span>                :            :  *
+<span class="lineNum">      27 </span>                :            :  *
+<span class="lineNum">      28 </span>                :            :  * This implementation is based in part on the paper Implementation of an
+<span class="lineNum">      29 </span>                :            :  * Elliptic Curve Cryptosystem on an 8-bit Microcontroller [0] by
+<span class="lineNum">      30 </span>                :            :  * Chris K Cockrum &lt;ckc@cockrum.net&gt;.
+<span class="lineNum">      31 </span>                :            :  *
+<span class="lineNum">      32 </span>                :            :  * [0]: http://cockrum.net/Implementation_of_ECC_on_an_8-bit_microcontroller.pdf
+<span class="lineNum">      33 </span>                :            :  *
+<span class="lineNum">      34 </span>                :            :  * This is a efficient ECC implementation on the secp256r1 curve for 32 Bit CPU
+<span class="lineNum">      35 </span>                :            :  * architectures. It provides basic operations on the secp256r1 curve and support
+<span class="lineNum">      36 </span>                :            :  * for ECDH and ECDSA.
+<span class="lineNum">      37 </span>                :            :  */
+<span class="lineNum">      38 </span>                :            : #include &lt;inttypes.h&gt;
+<span class="lineNum">      39 </span>                :            : 
+<span class="lineNum">      40 </span>                :            : #define keyLengthInBytes 32
+<span class="lineNum">      41 </span>                :            : #define arrayLength 8
+<span class="lineNum">      42 </span>                :            : 
+<span class="lineNum">      43 </span>                :            : extern const uint32_t ecc_g_point_x[8];
+<span class="lineNum">      44 </span>                :            : extern const uint32_t ecc_g_point_y[8];
+<span class="lineNum">      45 </span>                :            : 
+<span class="lineNum">      46 </span>                :            : //ec Functions
+<a name="47"><span class="lineNum">      47 </span>                :            : void ecc_ec_mult(const uint32_t *px, const uint32_t *py, const uint32_t *secret, uint32_t *resultx, uint32_t *resulty);</a>
+<span class="lineNum">      48 </span>                :            : 
+<span class="lineNum">      49 </span>                :<span class="lineNoCov">          0 : static inline void ecc_ecdh(const uint32_t *px, const uint32_t *py, const uint32_t *secret, uint32_t *resultx, uint32_t *resulty) {</span>
+<span class="lineNum">      50 </span>                :<span class="lineNoCov">          0 :         ecc_ec_mult(px, py, secret, resultx, resulty);</span>
+<span class="lineNum">      51 </span>                :<span class="lineNoCov">          0 : }</span>
+<span class="lineNum">      52 </span>                :            : int ecc_ecdsa_validate(const uint32_t *x, const uint32_t *y, const uint32_t *e, const uint32_t *r, const uint32_t *s);
+<span class="lineNum">      53 </span>                :            : int ecc_ecdsa_sign_hash(const uint32_t *d, const uint32_t *e, const uint32_t *k, uint32_t *r, uint32_t *s);
+<a name="54"><span class="lineNum">      54 </span>                :            : </a>
+<span class="lineNum">      55 </span>                :            : int ecc_is_valid_key(const uint32_t * priv_key);
+<span class="lineNum">      56 </span>                :<span class="lineNoCov">          0 : static inline void ecc_gen_pub_key(const uint32_t *priv_key, uint32_t *pub_x, uint32_t *pub_y)</span>
+<span class="lineNum">      57 </span>                :            : {
+<span class="lineNum">      58 </span>                :<span class="lineNoCov">          0 :         ecc_ec_mult(ecc_g_point_x, ecc_g_point_y, priv_key, pub_x, pub_y);</span>
+<span class="lineNum">      59 </span>                :<span class="lineNoCov">          0 : }</span>
+<span class="lineNum">      60 </span>                :            : 
+<span class="lineNum">      61 </span>                :            : #ifdef TEST_INCLUDE
+<span class="lineNum">      62 </span>                :            : //ec Functions
+<span class="lineNum">      63 </span>                :            : void ecc_ec_add(const uint32_t *px, const uint32_t *py, const uint32_t *qx, const uint32_t *qy, uint32_t *Sx, uint32_t *Sy);
+<span class="lineNum">      64 </span>                :            : void ecc_ec_double(const uint32_t *px, const uint32_t *py, uint32_t *Dx, uint32_t *Dy);
+<span class="lineNum">      65 </span>                :            : 
+<span class="lineNum">      66 </span>                :            : //simple Functions for addition and substraction of big numbers
+<span class="lineNum">      67 </span>                :            : uint32_t ecc_add( const uint32_t *x, const uint32_t *y, uint32_t *result, uint8_t length);
+<span class="lineNum">      68 </span>                :            : uint32_t ecc_sub( const uint32_t *x, const uint32_t *y, uint32_t *result, uint8_t length);
+<span class="lineNum">      69 </span>                :            : 
+<span class="lineNum">      70 </span>                :            : //field functions for big numbers
+<span class="lineNum">      71 </span>                :            : int ecc_fieldAdd(const uint32_t *x, const uint32_t *y, const uint32_t *reducer, uint32_t *result);
+<span class="lineNum">      72 </span>                :            : int ecc_fieldSub(const uint32_t *x, const uint32_t *y, const uint32_t *modulus, uint32_t *result);
+<span class="lineNum">      73 </span>                :            : int ecc_fieldMult(const uint32_t *x, const uint32_t *y, uint32_t *result, uint8_t length);
+<span class="lineNum">      74 </span>                :            : void ecc_fieldModP(uint32_t *A, const uint32_t *B);
+<span class="lineNum">      75 </span>                :            : void ecc_fieldModO(const uint32_t *A, uint32_t *result, uint8_t length);
+<span class="lineNum">      76 </span>                :            : void ecc_fieldInv(const uint32_t *A, const uint32_t *modulus, const uint32_t *reducer, uint32_t *B);
+<span class="lineNum">      77 </span>                :            : 
+<span class="lineNum">      78 </span>                :            : //simple functions to work with the big numbers
+<span class="lineNum">      79 </span>                :            : void ecc_copy(const uint32_t *from, uint32_t *to, uint8_t length);
+<span class="lineNum">      80 </span>                :            : int ecc_isSame(const uint32_t *A, const uint32_t *B, uint8_t length);
+<span class="lineNum">      81 </span>                :            : void ecc_setZero(uint32_t *A, const int length);
+<span class="lineNum">      82 </span>                :            : int ecc_isOne(const uint32_t* A);
+<span class="lineNum">      83 </span>                :            : void ecc_rshift(uint32_t* A);
+<span class="lineNum">      84 </span>                :            : int ecc_isGreater(const uint32_t *A, const uint32_t *B, uint8_t length);
+<span class="lineNum">      85 </span>                :            : 
+<span class="lineNum">      86 </span>                :            : #endif /* TEST_INCLUDE */
+</pre>
+      </td>
+    </tr>
+  </table>
+  <br>
+
+  <table width="100%" border=0 cellspacing=0 cellpadding=0>
+    <tr><td class="ruler"><img src="../../glass.png" width=3 height=3 alt=""></td></tr>
+    <tr><td class="versionInfo">Generated by: <a href="http://ltp.sourceforge.net/coverage/lcov.php" target="_parent">LCOV version 1.13</a></td></tr>
+  </table>
+  <br>
+
+</body>
+</html>

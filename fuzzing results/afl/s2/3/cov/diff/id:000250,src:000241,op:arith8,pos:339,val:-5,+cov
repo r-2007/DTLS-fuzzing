@@ -1,0 +1,14 @@
+diff id:000249,src:000241,op:flip2,pos:339,+cov -> id:000250,src:000241,op:arith8,pos:339,val:-5,+cov
+Src file: /home/rahbar/tinydtls-fuzz-cov/dtls.c
+  New 'function' coverage: verify_ext_ec_point_formats()
+  New 'line' coverage: 788
+  New 'line' coverage: 792
+  New 'line' coverage: 793
+  New 'line' coverage: 794
+  New 'line' coverage: 799
+  New 'line' coverage: 808
+  New 'line' coverage: 809
+  New 'line' coverage: 892
+  New 'line' coverage: 893
+  New 'line' coverage: 894
+  New 'line' coverage: 895

@@ -1,0 +1,2588 @@
+
+*** Imported 190 new test cases from: //home/rahbar/plot/cov/aflsmart/s9/4//queue
+
+[+] AFL test case: id:000000,time:0,orig:9 (0 / 190), cycle: 0
+    lines......: 42.4% (1540 of 3635 lines)
+    functions..: 59.9% (154 of 257 functions)
+    branches...: 32.3% (523 of 1621 branches)
+
+    Coverage diff (init) id:000000,time:0,orig:9
+diff (init) -> id:000000,time:0,orig:9
+New src file: /home/rahbar/tinydtls-fuzz-cov/aes/rijndael.c
+  New 'function' coverage: rijndaelEncrypt()
+  New 'function' coverage: rijndaelKeySetupEnc()
+  New 'function' coverage: rijndael_encrypt()
+  New 'function' coverage: rijndael_set_key_enc_only()
+  New 'line' coverage: 1000
+  New 'line' coverage: 1001
+  New 'line' coverage: 1002
+  New 'line' coverage: 1003
+  New 'line' coverage: 1004
+  New 'line' coverage: 1005
+  New 'line' coverage: 1006
+  New 'line' coverage: 1007
+  New 'line' coverage: 1008
+  New 'line' coverage: 1009
+  New 'line' coverage: 1016
+  New 'line' coverage: 1017
+  New 'line' coverage: 1018
+  New 'line' coverage: 1019
+  New 'line' coverage: 1020
+  New 'line' coverage: 1021
+  New 'line' coverage: 1022
+  New 'line' coverage: 1023
+  New 'line' coverage: 1024
+  New 'line' coverage: 1025
+  New 'line' coverage: 1026
+  New 'line' coverage: 1027
+  New 'line' coverage: 1028
+  New 'line' coverage: 1029
+  New 'line' coverage: 1030
+  New 'line' coverage: 1031
+  New 'line' coverage: 1032
+  New 'line' coverage: 1033
+  New 'line' coverage: 1034
+  New 'line' coverage: 1035
+  New 'line' coverage: 1036
+  New 'line' coverage: 1037
+  New 'line' coverage: 1038
+  New 'line' coverage: 1039
+  New 'line' coverage: 1040
+  New 'line' coverage: 1041
+  New 'line' coverage: 1042
+  New 'line' coverage: 1043
+  New 'line' coverage: 1044
+  New 'line' coverage: 1234
+  New 'line' coverage: 1238
+  New 'line' coverage: 1239
+  New 'line' coverage: 1242
+  New 'line' coverage: 1247
+  New 'line' coverage: 1277
+  New 'line' coverage: 1279
+  New 'line' coverage: 1280
+  New 'line' coverage: 731
+  New 'line' coverage: 733
+  New 'line' coverage: 736
+  New 'line' coverage: 737
+  New 'line' coverage: 738
+  New 'line' coverage: 739
+  New 'line' coverage: 740
+  New 'line' coverage: 742
+  New 'line' coverage: 743
+  New 'line' coverage: 744
+  New 'line' coverage: 745
+  New 'line' coverage: 746
+  New 'line' coverage: 747
+  New 'line' coverage: 748
+  New 'line' coverage: 749
+  New 'line' coverage: 750
+  New 'line' coverage: 751
+  New 'line' coverage: 752
+  New 'line' coverage: 753
+  New 'line' coverage: 755
+  New 'line' coverage: 863
+  New 'line' coverage: 875
+  New 'line' coverage: 876
+  New 'line' coverage: 877
+  New 'line' coverage: 878
+  New 'line' coverage: 954
+  New 'line' coverage: 956
+  New 'line' coverage: 957
+  New 'line' coverage: 958
+  New 'line' coverage: 959
+  New 'line' coverage: 960
+  New 'line' coverage: 961
+  New 'line' coverage: 962
+  New 'line' coverage: 963
+  New 'line' coverage: 964
+  New 'line' coverage: 965
+  New 'line' coverage: 966
+  New 'line' coverage: 967
+  New 'line' coverage: 968
+  New 'line' coverage: 969
+  New 'line' coverage: 970
+  New 'line' coverage: 971
+  New 'line' coverage: 972
+  New 'line' coverage: 973
+  New 'line' coverage: 974
+  New 'line' coverage: 975
+  New 'line' coverage: 976
+  New 'line' coverage: 977
+  New 'line' coverage: 978
+  New 'line' coverage: 979
+  New 'line' coverage: 981
+  New 'line' coverage: 982
+  New 'line' coverage: 983
+  New 'line' coverage: 986
+  New 'line' coverage: 987
+  New 'line' coverage: 988
+  New 'line' coverage: 989
+  New 'line' coverage: 990
+  New 'line' coverage: 991
+  New 'line' coverage: 992
+  New 'line' coverage: 993
+  New 'line' coverage: 994
+  New 'line' coverage: 995
+  New 'line' coverage: 996
+  New 'line' coverage: 997
+  New 'line' coverage: 998
+  New 'line' coverage: 999
+New src file: /home/rahbar/tinydtls-fuzz-cov/dtls-alert.h
+  New 'function' coverage: dtls_alert_create()
+  New 'function' coverage: dtls_alert_fatal_create()
+  New 'line' coverage: 62
+  New 'line' coverage: 64
+  New 'line' coverage: 68
+  New 'line' coverage: 70
+New src file: /home/rahbar/tinydtls-fuzz-cov/dtls-peer.c
+  New 'function' coverage: dtls_free_peer()
+  New 'function' coverage: dtls_malloc_peer()
+  New 'function' coverage: dtls_new_peer()
+  New 'function' coverage: dtls_peer_init()
+  New 'line' coverage: 30
+  New 'line' coverage: 32
+  New 'line' coverage: 33
+  New 'line' coverage: 36
+  New 'line' coverage: 37
+  New 'line' coverage: 41
+  New 'line' coverage: 42
+  New 'line' coverage: 43
+  New 'line' coverage: 44
+  New 'line' coverage: 45
+  New 'line' coverage: 46
+  New 'line' coverage: 49
+  New 'line' coverage: 52
+  New 'line' coverage: 53
+  New 'line' coverage: 54
+  New 'line' coverage: 55
+  New 'line' coverage: 56
+  New 'line' coverage: 58
+  New 'line' coverage: 63
+  New 'line' coverage: 66
+New src file: /home/rahbar/tinydtls-fuzz-cov/dtls-peer.h
+  New 'function' coverage: dtls_security_params()
+  New 'function' coverage: dtls_security_params_epoch()
+  New 'function' coverage: dtls_security_params_free_other()
+  New 'function' coverage: dtls_security_params_next()
+  New 'function' coverage: dtls_security_params_switch()
+  New 'line' coverage: 47
+  New 'line' coverage: 49
+  New 'line' coverage: 50
+  New 'line' coverage: 51
+  New 'line' coverage: 52
+  New 'line' coverage: 58
+  New 'line' coverage: 60
+  New 'line' coverage: 63
+  New 'line' coverage: 65
+  New 'line' coverage: 68
+  New 'line' coverage: 69
+  New 'line' coverage: 72
+  New 'line' coverage: 73
+  New 'line' coverage: 76
+  New 'line' coverage: 78
+  New 'line' coverage: 79
+  New 'line' coverage: 81
+  New 'line' coverage: 82
+  New 'line' coverage: 84
+  New 'line' coverage: 85
+  New 'line' coverage: 88
+  New 'line' coverage: 90
+  New 'line' coverage: 92
+  New 'line' coverage: 93
+  New 'line' coverage: 94
+New src file: /home/rahbar/tinydtls-fuzz-cov/tinydtls.h
+  New 'function' coverage: dtls_equals()
+  New 'function' coverage: memxor()
+  New 'line' coverage: 109
+  New 'line' coverage: 110
+  New 'line' coverage: 111
+  New 'line' coverage: 112
+  New 'line' coverage: 114
+  New 'line' coverage: 127
+  New 'line' coverage: 129
+  New 'line' coverage: 130
+  New 'line' coverage: 131
+  New 'line' coverage: 133
+New src file: /home/rahbar/tinydtls-fuzz-cov/dtls-crypto.c
+  New 'function' coverage: dtls_ccm_decrypt()
+  New 'function' coverage: dtls_ccm_encrypt()
+  New 'function' coverage: dtls_crypto_init()
+  New 'function' coverage: dtls_decrypt()
+  New 'function' coverage: dtls_encrypt()
+  New 'function' coverage: dtls_handshake_dealloc()
+  New 'function' coverage: dtls_handshake_free()
+  New 'function' coverage: dtls_handshake_malloc()
+  New 'function' coverage: dtls_handshake_new()
+  New 'function' coverage: dtls_p_hash()
+  New 'function' coverage: dtls_prf()
+  New 'function' coverage: dtls_psk_pre_master_secret()
+  New 'function' coverage: dtls_security_dealloc()
+  New 'function' coverage: dtls_security_free()
+  New 'function' coverage: dtls_security_malloc()
+  New 'function' coverage: dtls_security_new()
+  New 'line' coverage: 102
+  New 'line' coverage: 106
+  New 'line' coverage: 107
+  New 'line' coverage: 112
+  New 'line' coverage: 114
+  New 'line' coverage: 115
+  New 'line' coverage: 116
+  New 'line' coverage: 118
+  New 'line' coverage: 121
+  New 'line' coverage: 123
+  New 'line' coverage: 124
+  New 'line' coverage: 126
+  New 'line' coverage: 130
+  New 'line' coverage: 141
+  New 'line' coverage: 143
+  New 'line' coverage: 144
+  New 'line' coverage: 148
+  New 'line' coverage: 149
+  New 'line' coverage: 150
+  New 'line' coverage: 152
+  New 'line' coverage: 154
+  New 'line' coverage: 155
+  New 'line' coverage: 158
+  New 'line' coverage: 161
+  New 'line' coverage: 162
+  New 'line' coverage: 164
+  New 'line' coverage: 165
+  New 'line' coverage: 166
+  New 'line' coverage: 168
+  New 'line' coverage: 169
+  New 'line' coverage: 170
+  New 'line' coverage: 173
+  New 'line' coverage: 174
+  New 'line' coverage: 175
+  New 'line' coverage: 178
+  New 'line' coverage: 179
+  New 'line' coverage: 181
+  New 'line' coverage: 182
+  New 'line' coverage: 183
+  New 'line' coverage: 185
+  New 'line' coverage: 186
+  New 'line' coverage: 188
+  New 'line' coverage: 189
+  New 'line' coverage: 190
+  New 'line' coverage: 192
+  New 'line' coverage: 196
+  New 'line' coverage: 203
+  New 'line' coverage: 204
+  New 'line' coverage: 230
+  New 'line' coverage: 236
+  New 'line' coverage: 238
+  New 'line' coverage: 243
+  New 'line' coverage: 247
+  New 'line' coverage: 253
+  New 'line' coverage: 255
+  New 'line' coverage: 260
+  New 'line' coverage: 265
+  New 'line' coverage: 267
+  New 'line' coverage: 269
+  New 'line' coverage: 273
+  New 'line' coverage: 274
+  New 'line' coverage: 276
+  New 'line' coverage: 277
+  New 'line' coverage: 279
+  New 'line' coverage: 280
+  New 'line' coverage: 282
+  New 'line' coverage: 284
+  New 'line' coverage: 471
+  New 'line' coverage: 478
+  New 'line' coverage: 48
+  New 'line' coverage: 480
+  New 'line' coverage: 481
+  New 'line' coverage: 487
+  New 'line' coverage: 489
+  New 'line' coverage: 491
+  New 'line' coverage: 492
+  New 'line' coverage: 493
+  New 'line' coverage: 497
+  New 'line' coverage: 50
+  New 'line' coverage: 504
+  New 'line' coverage: 506
+  New 'line' coverage: 507
+  New 'line' coverage: 51
+  New 'line' coverage: 513
+  New 'line' coverage: 515
+  New 'line' coverage: 517
+  New 'line' coverage: 518
+  New 'line' coverage: 519
+  New 'line' coverage: 52
+  New 'line' coverage: 54
+  New 'line' coverage: 55
+  New 'line' coverage: 58
+  New 'line' coverage: 59
+  New 'line' coverage: 60
+  New 'line' coverage: 62
+  New 'line' coverage: 63
+  New 'line' coverage: 66
+  New 'line' coverage: 67
+  New 'line' coverage: 68
+  New 'line' coverage: 70
+  New 'line' coverage: 74
+  New 'line' coverage: 75
+  New 'line' coverage: 80
+  New 'line' coverage: 82
+  New 'line' coverage: 88
+  New 'line' coverage: 90
+  New 'line' coverage: 93
+  New 'line' coverage: 95
+  New 'line' coverage: 96
+  New 'line' coverage: 98
+  New 'line' coverage: 99
+New src file: /home/rahbar/tinydtls-fuzz-cov/dtls-hmac.h
+  New 'function' coverage: dtls_hash_finalize()
+  New 'function' coverage: dtls_hash_init()
+  New 'function' coverage: dtls_hash_update()
+  New 'line' coverage: 33
+  New 'line' coverage: 34
+  New 'line' coverage: 35
+  New 'line' coverage: 38
+  New 'line' coverage: 39
+  New 'line' coverage: 40
+  New 'line' coverage: 43
+  New 'line' coverage: 44
+  New 'line' coverage: 45
+New src file: /home/rahbar/tinydtls-fuzz-cov/dtls-numeric.h
+  New 'function' coverage: dtls_int_to_uint16()
+  New 'function' coverage: dtls_int_to_uint24()
+  New 'function' coverage: dtls_int_to_uint32()
+  New 'function' coverage: dtls_int_to_uint48()
+  New 'function' coverage: dtls_int_to_uint8()
+  New 'function' coverage: dtls_uint16_to_int()
+  New 'function' coverage: dtls_uint24_to_int()
+  New 'function' coverage: dtls_uint8_to_int()
+  New 'line' coverage: 100
+  New 'line' coverage: 101
+  New 'line' coverage: 32
+  New 'line' coverage: 34
+  New 'line' coverage: 35
+  New 'line' coverage: 38
+  New 'line' coverage: 40
+  New 'line' coverage: 41
+  New 'line' coverage: 42
+  New 'line' coverage: 45
+  New 'line' coverage: 47
+  New 'line' coverage: 48
+  New 'line' coverage: 49
+  New 'line' coverage: 50
+  New 'line' coverage: 53
+  New 'line' coverage: 55
+  New 'line' coverage: 56
+  New 'line' coverage: 57
+  New 'line' coverage: 58
+  New 'line' coverage: 59
+  New 'line' coverage: 62
+  New 'line' coverage: 64
+  New 'line' coverage: 65
+  New 'line' coverage: 66
+  New 'line' coverage: 67
+  New 'line' coverage: 68
+  New 'line' coverage: 69
+  New 'line' coverage: 70
+  New 'line' coverage: 86
+  New 'line' coverage: 88
+  New 'line' coverage: 91
+  New 'line' coverage: 93
+  New 'line' coverage: 94
+  New 'line' coverage: 97
+  New 'line' coverage: 99
+New src file: /home/rahbar/tinydtls-fuzz-cov/dtls-hmac.c
+  New 'function' coverage: dtls_hmac_context_free()
+  New 'function' coverage: dtls_hmac_context_new()
+  New 'function' coverage: dtls_hmac_finalize()
+  New 'function' coverage: dtls_hmac_free()
+  New 'function' coverage: dtls_hmac_init()
+  New 'function' coverage: dtls_hmac_new()
+  New 'function' coverage: dtls_hmac_storage_init()
+  New 'function' coverage: dtls_hmac_update()
+  New 'line' coverage: 102
+  New 'line' coverage: 103
+  New 'line' coverage: 104
+  New 'line' coverage: 105
+  New 'line' coverage: 108
+  New 'line' coverage: 112
+  New 'line' coverage: 113
+  New 'line' coverage: 115
+  New 'line' coverage: 117
+  New 'line' coverage: 118
+  New 'line' coverage: 119
+  New 'line' coverage: 121
+  New 'line' coverage: 123
+  New 'line' coverage: 41
+  New 'line' coverage: 42
+  New 'line' coverage: 46
+  New 'line' coverage: 47
+  New 'line' coverage: 48
+  New 'line' coverage: 51
+  New 'line' coverage: 52
+  New 'line' coverage: 53
+  New 'line' coverage: 57
+  New 'line' coverage: 59
+  New 'line' coverage: 60
+  New 'line' coverage: 61
+  New 'line' coverage: 64
+  New 'line' coverage: 67
+  New 'line' coverage: 68
+  New 'line' coverage: 69
+  New 'line' coverage: 71
+  New 'line' coverage: 75
+  New 'line' coverage: 78
+  New 'line' coverage: 80
+  New 'line' coverage: 82
+  New 'line' coverage: 87
+  New 'line' coverage: 90
+  New 'line' coverage: 91
+  New 'line' coverage: 93
+  New 'line' coverage: 94
+  New 'line' coverage: 97
+  New 'line' coverage: 98
+  New 'line' coverage: 99
+New src file: /home/rahbar/tinydtls-fuzz-cov/dtls-log.h
+  New 'function' coverage: dtls_debug_dump()
+  New 'function' coverage: dtls_debug_hexdump()
+  New 'function' coverage: dtls_debug_session()
+  New 'line' coverage: 103
+  New 'line' coverage: 106
+  New 'line' coverage: 111
+  New 'line' coverage: 90
+  New 'line' coverage: 95
+  New 'line' coverage: 98
+New src file: /home/rahbar/tinydtls-fuzz-cov/netq.c
+  New 'function' coverage: netq_delete_all()
+  New 'function' coverage: netq_free_node()
+  New 'function' coverage: netq_head()
+  New 'function' coverage: netq_init()
+  New 'function' coverage: netq_insert_node()
+  New 'function' coverage: netq_malloc_node()
+  New 'function' coverage: netq_next()
+  New 'function' coverage: netq_node_free()
+  New 'function' coverage: netq_node_new()
+  New 'function' coverage: netq_remove()
+  New 'line' coverage: 103
+  New 'line' coverage: 104
+  New 'line' coverage: 105
+  New 'line' coverage: 106
+  New 'line' coverage: 108
+  New 'line' coverage: 113
+  New 'line' coverage: 114
+  New 'line' coverage: 135
+  New 'line' coverage: 137
+  New 'line' coverage: 139
+  New 'line' coverage: 143
+  New 'line' coverage: 144
+  New 'line' coverage: 147
+  New 'line' coverage: 151
+  New 'line' coverage: 153
+  New 'line' coverage: 154
+  New 'line' coverage: 156
+  New 'line' coverage: 159
+  New 'line' coverage: 162
+  New 'line' coverage: 163
+  New 'line' coverage: 164
+  New 'line' coverage: 170
+  New 'line' coverage: 172
+  New 'line' coverage: 40
+  New 'line' coverage: 41
+  New 'line' coverage: 45
+  New 'line' coverage: 46
+  New 'line' coverage: 47
+  New 'line' coverage: 50
+  New 'line' coverage: 51
+  New 'line' coverage: 52
+  New 'line' coverage: 55
+  New 'line' coverage: 58
+  New 'line' coverage: 59
+  New 'line' coverage: 61
+  New 'line' coverage: 62
+  New 'line' coverage: 63
+  New 'line' coverage: 64
+  New 'line' coverage: 65
+  New 'line' coverage: 68
+  New 'line' coverage: 69
+  New 'line' coverage: 70
+  New 'line' coverage: 72
+  New 'line' coverage: 74
+  New 'line' coverage: 78
+  New 'line' coverage: 79
+  New 'line' coverage: 83
+  New 'line' coverage: 84
+  New 'line' coverage: 87
+  New 'line' coverage: 91
+  New 'line' coverage: 95
+  New 'line' coverage: 99
+New src file: /home/rahbar/tinydtls-fuzz-cov/dtls.c
+  New 'function' coverage: add_peer()
+  New 'function' coverage: calculate_key_block()
+  New 'function' coverage: check_client_keyexchange()
+  New 'function' coverage: check_finished()
+  New 'function' coverage: check_server_hello()
+  New 'function' coverage: check_server_hello_verify_request()
+  New 'function' coverage: check_server_hellodone()
+  New 'function' coverage: clear_hs_hash()
+  New 'function' coverage: copy_hs_hash()
+  New 'function' coverage: decrypt_verify()
+  New 'function' coverage: delete_peer()
+  New 'function' coverage: dtls_add_peer()
+  New 'function' coverage: dtls_alert_send_from_err()
+  New 'function' coverage: dtls_check_tls_extension()
+  New 'function' coverage: dtls_close()
+  New 'function' coverage: dtls_connect()
+  New 'function' coverage: dtls_connect_peer()
+  New 'function' coverage: dtls_create_cookie()
+  New 'function' coverage: dtls_debug_keyblock()
+  New 'function' coverage: dtls_destroy_peer()
+  New 'function' coverage: dtls_free_context()
+  New 'function' coverage: dtls_get_cookie()
+  New 'function' coverage: dtls_get_peer()
+  New 'function' coverage: dtls_handle_message()
+  New 'function' coverage: dtls_init()
+  New 'function' coverage: dtls_new_context()
+  New 'function' coverage: dtls_prepare_record()
+  New 'function' coverage: dtls_send()
+  New 'function' coverage: dtls_send_alert()
+  New 'function' coverage: dtls_send_ccs()
+  New 'function' coverage: dtls_send_client_hello()
+  New 'function' coverage: dtls_send_client_key_exchange()
+  New 'function' coverage: dtls_send_finished()
+  New 'function' coverage: dtls_send_handshake_msg()
+  New 'function' coverage: dtls_send_handshake_msg_hash()
+  New 'function' coverage: dtls_send_multi()
+  New 'function' coverage: dtls_send_server_hello()
+  New 'function' coverage: dtls_send_server_hello_done()
+  New 'function' coverage: dtls_send_server_hello_msgs()
+  New 'function' coverage: dtls_set_handshake_header()
+  New 'function' coverage: dtls_set_record_header()
+  New 'function' coverage: dtls_stop_retransmission()
+  New 'function' coverage: dtls_update_parameters()
+  New 'function' coverage: dtls_verify_peer()
+  New 'function' coverage: finalize_hs_hash()
+  New 'function' coverage: handle_ccs()
+  New 'function' coverage: handle_handshake()
+  New 'function' coverage: handle_handshake_msg()
+  New 'function' coverage: is_ecdsa_supported()
+  New 'function' coverage: is_psk_supported()
+  New 'function' coverage: is_record()
+  New 'function' coverage: is_tls_ecdhe_ecdsa_with_aes_128_ccm_8()
+  New 'function' coverage: is_tls_psk_with_aes_128_ccm_8()
+  New 'function' coverage: known_cipher()
+  New 'function' coverage: update_hs_hash()
+  New 'line' coverage: 1001
+  New 'line' coverage: 1002
+  New 'line' coverage: 1003
+  New 'line' coverage: 1004
+  New 'line' coverage: 1005
+  New 'line' coverage: 1006
+  New 'line' coverage: 1010
+  New 'line' coverage: 1012
+  New 'line' coverage: 1019
+  New 'line' coverage: 1028
+  New 'line' coverage: 1029
+  New 'line' coverage: 1032
+  New 'line' coverage: 1033
+  New 'line' coverage: 1035
+  New 'line' coverage: 1036
+  New 'line' coverage: 1037
+  New 'line' coverage: 1038
+  New 'line' coverage: 1039
+  New 'line' coverage: 1040
+  New 'line' coverage: 1042
+  New 'line' coverage: 1043
+  New 'line' coverage: 1046
+  New 'line' coverage: 1051
+  New 'line' coverage: 1065
+  New 'line' coverage: 1068
+  New 'line' coverage: 1073
+  New 'line' coverage: 1103
+  New 'line' coverage: 1106
+  New 'line' coverage: 1110
+  New 'line' coverage: 1112
+  New 'line' coverage: 1113
+  New 'line' coverage: 1115
+  New 'line' coverage: 1120
+  New 'line' coverage: 1125
+  New 'line' coverage: 1126
+  New 'line' coverage: 1129
+  New 'line' coverage: 1133
+  New 'line' coverage: 1134
+  New 'line' coverage: 1135
+  New 'line' coverage: 1136
+  New 'line' coverage: 1139
+  New 'line' coverage: 1140
+  New 'line' coverage: 1142
+  New 'line' coverage: 1145
+  New 'line' coverage: 1146
+  New 'line' coverage: 1150
+  New 'line' coverage: 1151
+  New 'line' coverage: 1153
+  New 'line' coverage: 1154
+  New 'line' coverage: 1167
+  New 'line' coverage: 1173
+  New 'line' coverage: 1176
+  New 'line' coverage: 1190
+  New 'line' coverage: 1192
+  New 'line' coverage: 1196
+  New 'line' coverage: 1198
+  New 'line' coverage: 1199
+  New 'line' coverage: 1200
+  New 'line' coverage: 1202
+  New 'line' coverage: 1203
+  New 'line' coverage: 1206
+  New 'line' coverage: 1213
+  New 'line' coverage: 1214
+  New 'line' coverage: 1217
+  New 'line' coverage: 1219
+  New 'line' coverage: 1247
+  New 'line' coverage: 1256
+  New 'line' coverage: 1261
+  New 'line' coverage: 1262
+  New 'line' coverage: 1264
+  New 'line' coverage: 1267
+  New 'line' coverage: 1268
+  New 'line' coverage: 1270
+  New 'line' coverage: 1275
+  New 'line' coverage: 1276
+  New 'line' coverage: 1277
+  New 'line' coverage: 1288
+  New 'line' coverage: 1292
+  New 'line' coverage: 1340
+  New 'line' coverage: 1341
+  New 'line' coverage: 1342
+  New 'line' coverage: 1344
+  New 'line' coverage: 1346
+  New 'line' coverage: 1351
+  New 'line' coverage: 1352
+  New 'line' coverage: 1353
+  New 'line' coverage: 1356
+  New 'line' coverage: 1357
+  New 'line' coverage: 1359
+  New 'line' coverage: 1361
+  New 'line' coverage: 1362
+  New 'line' coverage: 1370
+  New 'line' coverage: 1371
+  New 'line' coverage: 1372
+  New 'line' coverage: 1374
+  New 'line' coverage: 1375
+  New 'line' coverage: 1379
+  New 'line' coverage: 1382
+  New 'line' coverage: 1383
+  New 'line' coverage: 1387
+  New 'line' coverage: 1389
+  New 'line' coverage: 1390
+  New 'line' coverage: 1394
+  New 'line' coverage: 1404
+  New 'line' coverage: 1405
+  New 'line' coverage: 1407
+  New 'line' coverage: 1410
+  New 'line' coverage: 1411
+  New 'line' coverage: 1413
+  New 'line' coverage: 1414
+  New 'line' coverage: 1415
+  New 'line' coverage: 1417
+  New 'line' coverage: 1418
+  New 'line' coverage: 1419
+  New 'line' coverage: 1421
+  New 'line' coverage: 1422
+  New 'line' coverage: 1423
+  New 'line' coverage: 1427
+  New 'line' coverage: 1432
+  New 'line' coverage: 1437
+  New 'line' coverage: 1440
+  New 'line' coverage: 1481
+  New 'line' coverage: 149
+  New 'line' coverage: 1493
+  New 'line' coverage: 1496
+  New 'line' coverage: 1498
+  New 'line' coverage: 150
+  New 'line' coverage: 1500
+  New 'line' coverage: 1506
+  New 'line' coverage: 1507
+  New 'line' coverage: 1508
+  New 'line' coverage: 1509
+  New 'line' coverage: 151
+  New 'line' coverage: 1512
+  New 'line' coverage: 1515
+  New 'line' coverage: 1516
+  New 'line' coverage: 1518
+  New 'line' coverage: 1519
+  New 'line' coverage: 152
+  New 'line' coverage: 1520
+  New 'line' coverage: 1521
+  New 'line' coverage: 1522
+  New 'line' coverage: 1523
+  New 'line' coverage: 1524
+  New 'line' coverage: 1525
+  New 'line' coverage: 1526
+  New 'line' coverage: 1527
+  New 'line' coverage: 1528
+  New 'line' coverage: 153
+  New 'line' coverage: 1531
+  New 'line' coverage: 1535
+  New 'line' coverage: 154
+  New 'line' coverage: 1544
+  New 'line' coverage: 1549
+  New 'line' coverage: 155
+  New 'line' coverage: 1553
+  New 'line' coverage: 1555
+  New 'line' coverage: 1557
+  New 'line' coverage: 1558
+  New 'line' coverage: 1562
+  New 'line' coverage: 1563
+  New 'line' coverage: 1566
+  New 'line' coverage: 1568
+  New 'line' coverage: 1569
+  New 'line' coverage: 1571
+  New 'line' coverage: 1573
+  New 'line' coverage: 1576
+  New 'line' coverage: 1578
+  New 'line' coverage: 1581
+  New 'line' coverage: 1582
+  New 'line' coverage: 1583
+  New 'line' coverage: 1584
+  New 'line' coverage: 1585
+  New 'line' coverage: 1587
+  New 'line' coverage: 1607
+  New 'line' coverage: 1614
+  New 'line' coverage: 1615
+  New 'line' coverage: 1616
+  New 'line' coverage: 1622
+  New 'line' coverage: 1623
+  New 'line' coverage: 1626
+  New 'line' coverage: 1628
+  New 'line' coverage: 1631
+  New 'line' coverage: 1632
+  New 'line' coverage: 1638
+  New 'line' coverage: 1641
+  New 'line' coverage: 1643
+  New 'line' coverage: 1675
+  New 'line' coverage: 1812
+  New 'line' coverage: 1824
+  New 'line' coverage: 1828
+  New 'line' coverage: 1830
+  New 'line' coverage: 1832
+  New 'line' coverage: 1835
+  New 'line' coverage: 1838
+  New 'line' coverage: 1839
+  New 'line' coverage: 1843
+  New 'line' coverage: 1847
+  New 'line' coverage: 1848
+  New 'line' coverage: 1850
+  New 'line' coverage: 1851
+  New 'line' coverage: 1853
+  New 'line' coverage: 1855
+  New 'line' coverage: 1857
+  New 'line' coverage: 1858
+  New 'line' coverage: 1861
+  New 'line' coverage: 1864
+  New 'line' coverage: 187
+  New 'line' coverage: 1870
+  New 'line' coverage: 189
+  New 'line' coverage: 190
+  New 'line' coverage: 1909
+  New 'line' coverage: 1913
+  New 'line' coverage: 1914
+  New 'line' coverage: 202
+  New 'line' coverage: 204
+  New 'line' coverage: 205
+  New 'line' coverage: 206
+  New 'line' coverage: 207
+  New 'line' coverage: 208
+  New 'line' coverage: 213
+  New 'line' coverage: 2151
+  New 'line' coverage: 2158
+  New 'line' coverage: 2163
+  New 'line' coverage: 2167
+  New 'line' coverage: 2169
+  New 'line' coverage: 2174
+  New 'line' coverage: 2179
+  New 'line' coverage: 2215
+  New 'line' coverage: 222
+  New 'line' coverage: 2221
+  New 'line' coverage: 2224
+  New 'line' coverage: 2229
+  New 'line' coverage: 223
+  New 'line' coverage: 2234
+  New 'line' coverage: 224
+  New 'line' coverage: 2240
+  New 'line' coverage: 2242
+  New 'line' coverage: 2246
+  New 'line' coverage: 2250
+  New 'line' coverage: 2251
+  New 'line' coverage: 2253
+  New 'line' coverage: 2258
+  New 'line' coverage: 226
+  New 'line' coverage: 2264
+  New 'line' coverage: 2267
+  New 'line' coverage: 2269
+  New 'line' coverage: 2271
+  New 'line' coverage: 2273
+  New 'line' coverage: 2276
+  New 'line' coverage: 2281
+  New 'line' coverage: 2286
+  New 'line' coverage: 2291
+  New 'line' coverage: 2292
+  New 'line' coverage: 2294
+  New 'line' coverage: 2295
+  New 'line' coverage: 2297
+  New 'line' coverage: 2298
+  New 'line' coverage: 2300
+  New 'line' coverage: 2332
+  New 'line' coverage: 2334
+  New 'line' coverage: 2335
+  New 'line' coverage: 2380
+  New 'line' coverage: 2387
+  New 'line' coverage: 2389
+  New 'line' coverage: 2393
+  New 'line' coverage: 2395
+  New 'line' coverage: 2397
+  New 'line' coverage: 2404
+  New 'line' coverage: 2406
+  New 'line' coverage: 2408
+  New 'line' coverage: 2410
+  New 'line' coverage: 2411
+  New 'line' coverage: 2415
+  New 'line' coverage: 2418
+  New 'line' coverage: 2426
+  New 'line' coverage: 2429
+  New 'line' coverage: 2431
+  New 'line' coverage: 2432
+  New 'line' coverage: 2434
+  New 'line' coverage: 2435
+  New 'line' coverage: 2437
+  New 'line' coverage: 2441
+  New 'line' coverage: 2442
+  New 'line' coverage: 2444
+  New 'line' coverage: 2449
+  New 'line' coverage: 2452
+  New 'line' coverage: 2453
+  New 'line' coverage: 2454
+  New 'line' coverage: 2458
+  New 'line' coverage: 2459
+  New 'line' coverage: 2462
+  New 'line' coverage: 2463
+  New 'line' coverage: 2466
+  New 'line' coverage: 2467
+  New 'line' coverage: 2468
+  New 'line' coverage: 2469
+  New 'line' coverage: 2470
+  New 'line' coverage: 2474
+  New 'line' coverage: 2475
+  New 'line' coverage: 2477
+  New 'line' coverage: 2481
+  New 'line' coverage: 2482
+  New 'line' coverage: 2483
+  New 'line' coverage: 2487
+  New 'line' coverage: 2488
+  New 'line' coverage: 2490
+  New 'line' coverage: 2491
+  New 'line' coverage: 2493
+  New 'line' coverage: 2499
+  New 'line' coverage: 255
+  New 'line' coverage: 2561
+  New 'line' coverage: 2563
+  New 'line' coverage: 2564
+  New 'line' coverage: 2566
+  New 'line' coverage: 2568
+  New 'line' coverage: 2572
+  New 'line' coverage: 258
+  New 'line' coverage: 2583
+  New 'line' coverage: 2587
+  New 'line' coverage: 2590
+  New 'line' coverage: 2592
+  New 'line' coverage: 2602
+  New 'line' coverage: 2603
+  New 'line' coverage: 2605
+  New 'line' coverage: 261
+  New 'line' coverage: 2611
+  New 'line' coverage: 2615
+  New 'line' coverage: 2616
+  New 'line' coverage: 2619
+  New 'line' coverage: 2621
+  New 'line' coverage: 2622
+  New 'line' coverage: 2624
+  New 'line' coverage: 2629
+  New 'line' coverage: 2630
+  New 'line' coverage: 2637
+  New 'line' coverage: 264
+  New 'line' coverage: 2640
+  New 'line' coverage: 2641
+  New 'line' coverage: 2644
+  New 'line' coverage: 2649
+  New 'line' coverage: 265
+  New 'line' coverage: 2652
+  New 'line' coverage: 2653
+  New 'line' coverage: 2655
+  New 'line' coverage: 2662
+  New 'line' coverage: 2669
+  New 'line' coverage: 267
+  New 'line' coverage: 2672
+  New 'line' coverage: 2674
+  New 'line' coverage: 2676
+  New 'line' coverage: 2679
+  New 'line' coverage: 269
+  New 'line' coverage: 272
+  New 'line' coverage: 273
+  New 'line' coverage: 280
+  New 'line' coverage: 2950
+  New 'line' coverage: 2960
+  New 'line' coverage: 2963
+  New 'line' coverage: 2967
+  New 'line' coverage: 2970
+  New 'line' coverage: 2988
+  New 'line' coverage: 2990
+  New 'line' coverage: 2996
+  New 'line' coverage: 3007
+  New 'line' coverage: 3009
+  New 'line' coverage: 3013
+  New 'line' coverage: 3014
+  New 'line' coverage: 3020
+  New 'line' coverage: 3023
+  New 'line' coverage: 3027
+  New 'line' coverage: 3030
+  New 'line' coverage: 3034
+  New 'line' coverage: 3037
+  New 'line' coverage: 3039
+  New 'line' coverage: 304
+  New 'line' coverage: 3040
+  New 'line' coverage: 3042
+  New 'line' coverage: 3047
+  New 'line' coverage: 3049
+  New 'line' coverage: 3059
+  New 'line' coverage: 306
+  New 'line' coverage: 3062
+  New 'line' coverage: 3063
+  New 'line' coverage: 3067
+  New 'line' coverage: 3068
+  New 'line' coverage: 3069
+  New 'line' coverage: 307
+  New 'line' coverage: 3071
+  New 'line' coverage: 3072
+  New 'line' coverage: 3074
+  New 'line' coverage: 308
+  New 'line' coverage: 3081
+  New 'line' coverage: 3082
+  New 'line' coverage: 3083
+  New 'line' coverage: 3085
+  New 'line' coverage: 3086
+  New 'line' coverage: 3089
+  New 'line' coverage: 3093
+  New 'line' coverage: 3094
+  New 'line' coverage: 3097
+  New 'line' coverage: 312
+  New 'line' coverage: 313
+  New 'line' coverage: 314
+  New 'line' coverage: 3148
+  New 'line' coverage: 3152
+  New 'line' coverage: 3159
+  New 'line' coverage: 3160
+  New 'line' coverage: 3169
+  New 'line' coverage: 317
+  New 'line' coverage: 3174
+  New 'line' coverage: 3176
+  New 'line' coverage: 3180
+  New 'line' coverage: 3181
+  New 'line' coverage: 3186
+  New 'line' coverage: 3187
+  New 'line' coverage: 3189
+  New 'line' coverage: 3193
+  New 'line' coverage: 3197
+  New 'line' coverage: 3198
+  New 'line' coverage: 320
+  New 'line' coverage: 3202
+  New 'line' coverage: 3205
+  New 'line' coverage: 3208
+  New 'line' coverage: 321
+  New 'line' coverage: 322
+  New 'line' coverage: 325
+  New 'line' coverage: 326
+  New 'line' coverage: 3269
+  New 'line' coverage: 327
+  New 'line' coverage: 3271
+  New 'line' coverage: 3275
+  New 'line' coverage: 3279
+  New 'line' coverage: 3280
+  New 'line' coverage: 3284
+  New 'line' coverage: 3287
+  New 'line' coverage: 329
+  New 'line' coverage: 3307
+  New 'line' coverage: 331
+  New 'line' coverage: 3310
+  New 'line' coverage: 3314
+  New 'line' coverage: 3318
+  New 'line' coverage: 3319
+  New 'line' coverage: 3323
+  New 'line' coverage: 3325
+  New 'line' coverage: 3328
+  New 'line' coverage: 3329
+  New 'line' coverage: 3334
+  New 'line' coverage: 3336
+  New 'line' coverage: 3337
+  New 'line' coverage: 3342
+  New 'line' coverage: 3343
+  New 'line' coverage: 3345
+  New 'line' coverage: 3348
+  New 'line' coverage: 3354
+  New 'line' coverage: 3357
+  New 'line' coverage: 336
+  New 'line' coverage: 3361
+  New 'line' coverage: 3365
+  New 'line' coverage: 3366
+  New 'line' coverage: 3370
+  New 'line' coverage: 3372
+  New 'line' coverage: 3376
+  New 'line' coverage: 3377
+  New 'line' coverage: 339
+  New 'line' coverage: 340
+  New 'line' coverage: 3401
+  New 'line' coverage: 3403
+  New 'line' coverage: 3404
+  New 'line' coverage: 3417
+  New 'line' coverage: 3418
+  New 'line' coverage: 342
+  New 'line' coverage: 3423
+  New 'line' coverage: 3434
+  New 'line' coverage: 3441
+  New 'line' coverage: 3448
+  New 'line' coverage: 3449
+  New 'line' coverage: 3453
+  New 'line' coverage: 3458
+  New 'line' coverage: 3459
+  New 'line' coverage: 3461
+  New 'line' coverage: 3467
+  New 'line' coverage: 3468
+  New 'line' coverage: 3470
+  New 'line' coverage: 3471
+  New 'line' coverage: 3474
+  New 'line' coverage: 3475
+  New 'line' coverage: 3478
+  New 'line' coverage: 3486
+  New 'line' coverage: 3487
+  New 'line' coverage: 3493
+  New 'line' coverage: 3495
+  New 'line' coverage: 3496
+  New 'line' coverage: 3499
+  New 'line' coverage: 3503
+  New 'line' coverage: 3510
+  New 'line' coverage: 3546
+  New 'line' coverage: 3547
+  New 'line' coverage: 3550
+  New 'line' coverage: 3554
+  New 'line' coverage: 3561
+  New 'line' coverage: 3565
+  New 'line' coverage: 3567
+  New 'line' coverage: 3568
+  New 'line' coverage: 3569
+  New 'line' coverage: 3575
+  New 'line' coverage: 3577
+  New 'line' coverage: 3583
+  New 'line' coverage: 3585
+  New 'line' coverage: 3593
+  New 'line' coverage: 3597
+  New 'line' coverage: 361
+  New 'line' coverage: 362
+  New 'line' coverage: 3633
+  New 'line' coverage: 3635
+  New 'line' coverage: 3637
+  New 'line' coverage: 3638
+  New 'line' coverage: 364
+  New 'line' coverage: 3642
+  New 'line' coverage: 3643
+  New 'line' coverage: 3644
+  New 'line' coverage: 3645
+  New 'line' coverage: 366
+  New 'line' coverage: 3662
+  New 'line' coverage: 3669
+  New 'line' coverage: 368
+  New 'line' coverage: 3680
+  New 'line' coverage: 3685
+  New 'line' coverage: 3689
+  New 'line' coverage: 369
+  New 'line' coverage: 3690
+  New 'line' coverage: 3692
+  New 'line' coverage: 3697
+  New 'line' coverage: 3699
+  New 'line' coverage: 371
+  New 'line' coverage: 372
+  New 'line' coverage: 375
+  New 'line' coverage: 3762
+  New 'line' coverage: 3768
+  New 'line' coverage: 3769
+  New 'line' coverage: 3770
+  New 'line' coverage: 3771
+  New 'line' coverage: 3772
+  New 'line' coverage: 3774
+  New 'line' coverage: 3787
+  New 'line' coverage: 379
+  New 'line' coverage: 3794
+  New 'line' coverage: 3797
+  New 'line' coverage: 3805
+  New 'line' coverage: 3807
+  New 'line' coverage: 3809
+  New 'line' coverage: 3814
+  New 'line' coverage: 3819
+  New 'line' coverage: 3820
+  New 'line' coverage: 3821
+  New 'line' coverage: 3839
+  New 'line' coverage: 3840
+  New 'line' coverage: 3844
+  New 'line' coverage: 3845
+  New 'line' coverage: 3846
+  New 'line' coverage: 3847
+  New 'line' coverage: 3850
+  New 'line' coverage: 3851
+  New 'line' coverage: 3858
+  New 'line' coverage: 3860
+  New 'line' coverage: 3861
+  New 'line' coverage: 3862
+  New 'line' coverage: 3864
+  New 'line' coverage: 3865
+  New 'line' coverage: 3877
+  New 'line' coverage: 3892
+  New 'line' coverage: 3896
+  New 'line' coverage: 3897
+  New 'line' coverage: 3898
+  New 'line' coverage: 3899
+  New 'line' coverage: 390
+  New 'line' coverage: 3906
+  New 'line' coverage: 3907
+  New 'line' coverage: 3910
+  New 'line' coverage: 3922
+  New 'line' coverage: 3923
+  New 'line' coverage: 3924
+  New 'line' coverage: 3925
+  New 'line' coverage: 3926
+  New 'line' coverage: 3928
+  New 'line' coverage: 393
+  New 'line' coverage: 3930
+  New 'line' coverage: 3931
+  New 'line' coverage: 3933
+  New 'line' coverage: 394
+  New 'line' coverage: 3950
+  New 'line' coverage: 3951
+  New 'line' coverage: 3954
+  New 'line' coverage: 3958
+  New 'line' coverage: 396
+  New 'line' coverage: 3962
+  New 'line' coverage: 3964
+  New 'line' coverage: 3965
+  New 'line' coverage: 3969
+  New 'line' coverage: 397
+  New 'line' coverage: 3970
+  New 'line' coverage: 3972
+  New 'line' coverage: 3973
+  New 'line' coverage: 3977
+  New 'line' coverage: 3983
+  New 'line' coverage: 399
+  New 'line' coverage: 3993
+  New 'line' coverage: 3996
+  New 'line' coverage: 400
+  New 'line' coverage: 4000
+  New 'line' coverage: 4002
+  New 'line' coverage: 4003
+  New 'line' coverage: 4004
+  New 'line' coverage: 4005
+  New 'line' coverage: 4006
+  New 'line' coverage: 401
+  New 'line' coverage: 4010
+  New 'line' coverage: 4014
+  New 'line' coverage: 4017
+  New 'line' coverage: 4018
+  New 'line' coverage: 4022
+  New 'line' coverage: 4028
+  New 'line' coverage: 403
+  New 'line' coverage: 4030
+  New 'line' coverage: 4036
+  New 'line' coverage: 4037
+  New 'line' coverage: 404
+  New 'line' coverage: 4040
+  New 'line' coverage: 4041
+  New 'line' coverage: 4042
+  New 'line' coverage: 4043
+  New 'line' coverage: 4046
+  New 'line' coverage: 4048
+  New 'line' coverage: 4052
+  New 'line' coverage: 4056
+  New 'line' coverage: 4058
+  New 'line' coverage: 4059
+  New 'line' coverage: 4061
+  New 'line' coverage: 4066
+  New 'line' coverage: 407
+  New 'line' coverage: 4070
+  New 'line' coverage: 4071
+  New 'line' coverage: 4076
+  New 'line' coverage: 413
+  New 'line' coverage: 4131
+  New 'line' coverage: 4134
+  New 'line' coverage: 4138
+  New 'line' coverage: 4139
+  New 'line' coverage: 414
+  New 'line' coverage: 4140
+  New 'line' coverage: 4141
+  New 'line' coverage: 4142
+  New 'line' coverage: 4143
+  New 'line' coverage: 4144
+  New 'line' coverage: 424
+  New 'line' coverage: 429
+  New 'line' coverage: 430
+  New 'line' coverage: 432
+  New 'line' coverage: 433
+  New 'line' coverage: 435
+  New 'line' coverage: 437
+  New 'line' coverage: 440
+  New 'line' coverage: 444
+  New 'line' coverage: 446
+  New 'line' coverage: 447
+  New 'line' coverage: 449
+  New 'line' coverage: 450
+  New 'line' coverage: 452
+  New 'line' coverage: 461
+  New 'line' coverage: 464
+  New 'line' coverage: 471
+  New 'line' coverage: 474
+  New 'line' coverage: 481
+  New 'line' coverage: 484
+  New 'line' coverage: 491
+  New 'line' coverage: 494
+  New 'line' coverage: 495
+  New 'line' coverage: 522
+  New 'line' coverage: 526
+  New 'line' coverage: 527
+  New 'line' coverage: 528
+  New 'line' coverage: 56
+  New 'line' coverage: 564
+  New 'line' coverage: 566
+  New 'line' coverage: 571
+  New 'line' coverage: 572
+  New 'line' coverage: 575
+  New 'line' coverage: 576
+  New 'line' coverage: 579
+  New 'line' coverage: 580
+  New 'line' coverage: 583
+  New 'line' coverage: 584
+  New 'line' coverage: 587
+  New 'line' coverage: 588
+  New 'line' coverage: 59
+  New 'line' coverage: 591
+  New 'line' coverage: 592
+  New 'line' coverage: 62
+  New 'line' coverage: 63
+  New 'line' coverage: 634
+  New 'line' coverage: 64
+  New 'line' coverage: 640
+  New 'line' coverage: 644
+  New 'line' coverage: 647
+  New 'line' coverage: 648
+  New 'line' coverage: 65
+  New 'line' coverage: 652
+  New 'line' coverage: 654
+  New 'line' coverage: 656
+  New 'line' coverage: 660
+  New 'line' coverage: 664
+  New 'line' coverage: 669
+  New 'line' coverage: 67
+  New 'line' coverage: 673
+  New 'line' coverage: 675
+  New 'line' coverage: 676
+  New 'line' coverage: 681
+  New 'line' coverage: 704
+  New 'line' coverage: 705
+  New 'line' coverage: 706
+  New 'line' coverage: 708
+  New 'line' coverage: 710
+  New 'line' coverage: 711
+  New 'line' coverage: 715
+  New 'line' coverage: 72
+  New 'line' coverage: 721
+  New 'line' coverage: 724
+  New 'line' coverage: 725
+  New 'line' coverage: 726
+  New 'line' coverage: 729
+  New 'line' coverage: 73
+  New 'line' coverage: 730
+  New 'line' coverage: 732
+  New 'line' coverage: 733
+  New 'line' coverage: 734
+  New 'line' coverage: 736
+  New 'line' coverage: 80
+  New 'line' coverage: 816
+  New 'line' coverage: 82
+  New 'line' coverage: 820
+  New 'line' coverage: 821
+  New 'line' coverage: 822
+  New 'line' coverage: 823
+  New 'line' coverage: 826
+  New 'line' coverage: 83
+  New 'line' coverage: 830
+  New 'line' coverage: 832
+  New 'line' coverage: 834
+  New 'line' coverage: 837
+  New 'line' coverage: 84
+  New 'line' coverage: 945
+  New 'line' coverage: 953
+  New 'line' coverage: 956
+  New 'line' coverage: 957
+  New 'line' coverage: 960
+  New 'line' coverage: 962
+  New 'line' coverage: 963
+  New 'line' coverage: 966
+  New 'line' coverage: 967
+  New 'line' coverage: 970
+  New 'line' coverage: 971
+  New 'line' coverage: 972
+  New 'line' coverage: 975
+  New 'line' coverage: 976
+  New 'line' coverage: 978
+  New 'line' coverage: 979
+  New 'line' coverage: 993
+  New 'line' coverage: 998
+  New 'line' coverage: 999
+New src file: /home/rahbar/tinydtls-fuzz-cov/sha2/sha2.c
+  New 'function' coverage: dtls_sha256_final()
+  New 'function' coverage: dtls_sha256_init()
+  New 'function' coverage: dtls_sha256_transform()
+  New 'function' coverage: dtls_sha256_update()
+  New 'line' coverage: 369
+  New 'line' coverage: 370
+  New 'line' coverage: 373
+  New 'line' coverage: 374
+  New 'line' coverage: 375
+  New 'line' coverage: 473
+  New 'line' coverage: 478
+  New 'line' coverage: 481
+  New 'line' coverage: 482
+  New 'line' coverage: 483
+  New 'line' coverage: 484
+  New 'line' coverage: 485
+  New 'line' coverage: 486
+  New 'line' coverage: 487
+  New 'line' coverage: 488
+  New 'line' coverage: 490
+  New 'line' coverage: 494
+  New 'line' coverage: 496
+  New 'line' coverage: 501
+  New 'line' coverage: 502
+  New 'line' coverage: 503
+  New 'line' coverage: 504
+  New 'line' coverage: 505
+  New 'line' coverage: 506
+  New 'line' coverage: 507
+  New 'line' coverage: 508
+  New 'line' coverage: 509
+  New 'line' coverage: 511
+  New 'line' coverage: 512
+  New 'line' coverage: 516
+  New 'line' coverage: 517
+  New 'line' coverage: 518
+  New 'line' coverage: 519
+  New 'line' coverage: 522
+  New 'line' coverage: 523
+  New 'line' coverage: 524
+  New 'line' coverage: 525
+  New 'line' coverage: 526
+  New 'line' coverage: 527
+  New 'line' coverage: 528
+  New 'line' coverage: 529
+  New 'line' coverage: 530
+  New 'line' coverage: 531
+  New 'line' coverage: 532
+  New 'line' coverage: 534
+  New 'line' coverage: 535
+  New 'line' coverage: 538
+  New 'line' coverage: 539
+  New 'line' coverage: 540
+  New 'line' coverage: 541
+  New 'line' coverage: 542
+  New 'line' coverage: 543
+  New 'line' coverage: 544
+  New 'line' coverage: 545
+  New 'line' coverage: 548
+  New 'line' coverage: 549
+  New 'line' coverage: 553
+  New 'line' coverage: 556
+  New 'line' coverage: 562
+  New 'line' coverage: 564
+  New 'line' coverage: 565
+  New 'line' coverage: 567
+  New 'line' coverage: 569
+  New 'line' coverage: 571
+  New 'line' coverage: 572
+  New 'line' coverage: 573
+  New 'line' coverage: 574
+  New 'line' coverage: 575
+  New 'line' coverage: 578
+  New 'line' coverage: 579
+  New 'line' coverage: 581
+  New 'line' coverage: 582
+  New 'line' coverage: 585
+  New 'line' coverage: 587
+  New 'line' coverage: 588
+  New 'line' coverage: 589
+  New 'line' coverage: 590
+  New 'line' coverage: 592
+  New 'line' coverage: 594
+  New 'line' coverage: 595
+  New 'line' coverage: 598
+  New 'line' coverage: 601
+  New 'line' coverage: 602
+  New 'line' coverage: 606
+  New 'line' coverage: 609
+  New 'line' coverage: 610
+  New 'line' coverage: 613
+  New 'line' coverage: 615
+  New 'line' coverage: 617
+  New 'line' coverage: 619
+  New 'line' coverage: 621
+  New 'line' coverage: 623
+  New 'line' coverage: 624
+  New 'line' coverage: 627
+  New 'line' coverage: 630
+  New 'line' coverage: 640
+  New 'line' coverage: 643
+  New 'line' coverage: 649
+  New 'line' coverage: 650
+  New 'line' coverage: 651
+  New 'line' coverage: 660
+  New 'line' coverage: 661
+  New 'line' coverage: 662
+New src file: /home/rahbar/tinydtls-fuzz-cov/dtls.h
+  New 'function' coverage: dtls_set_handler()
+  New 'line' coverage: 247
+  New 'line' coverage: 250
+  New 'line' coverage: 251
+New src file: /home/rahbar/tinydtls-fuzz-cov/dtls-ccm.c
+  New 'function' coverage: add_auth_data()
+  New 'function' coverage: block0()
+  New 'function' coverage: dtls_ccm_decrypt_message()
+  New 'function' coverage: dtls_ccm_encrypt_message()
+  New 'function' coverage: encrypt()
+  New 'function' coverage: mac()
+  New 'line' coverage: 100
+  New 'line' coverage: 101
+  New 'line' coverage: 102
+  New 'line' coverage: 103
+  New 'line' coverage: 105
+  New 'line' coverage: 107
+  New 'line' coverage: 109
+  New 'line' coverage: 117
+  New 'line' coverage: 127
+  New 'line' coverage: 134
+  New 'line' coverage: 135
+  New 'line' coverage: 136
+  New 'line' coverage: 137
+  New 'line' coverage: 140
+  New 'line' coverage: 146
+  New 'line' coverage: 147
+  New 'line' coverage: 149
+  New 'line' coverage: 151
+  New 'line' coverage: 154
+  New 'line' coverage: 160
+  New 'line' coverage: 167
+  New 'line' coverage: 169
+  New 'line' coverage: 170
+  New 'line' coverage: 173
+  New 'line' coverage: 176
+  New 'line' coverage: 178
+  New 'line' coverage: 180
+  New 'line' coverage: 183
+  New 'line' coverage: 186
+  New 'line' coverage: 187
+  New 'line' coverage: 188
+  New 'line' coverage: 191
+  New 'line' coverage: 197
+  New 'line' coverage: 198
+  New 'line' coverage: 201
+  New 'line' coverage: 204
+  New 'line' coverage: 208
+  New 'line' coverage: 209
+  New 'line' coverage: 211
+  New 'line' coverage: 212
+  New 'line' coverage: 214
+  New 'line' coverage: 218
+  New 'line' coverage: 225
+  New 'line' coverage: 232
+  New 'line' coverage: 235
+  New 'line' coverage: 236
+  New 'line' coverage: 239
+  New 'line' coverage: 240
+  New 'line' coverage: 243
+  New 'line' coverage: 246
+  New 'line' coverage: 248
+  New 'line' coverage: 250
+  New 'line' coverage: 253
+  New 'line' coverage: 256
+  New 'line' coverage: 257
+  New 'line' coverage: 258
+  New 'line' coverage: 261
+  New 'line' coverage: 263
+  New 'line' coverage: 270
+  New 'line' coverage: 271
+  New 'line' coverage: 274
+  New 'line' coverage: 278
+  New 'line' coverage: 279
+  New 'line' coverage: 281
+  New 'line' coverage: 284
+  New 'line' coverage: 285
+  New 'line' coverage: 288
+  New 'line' coverage: 41
+  New 'line' coverage: 49
+  New 'line' coverage: 52
+  New 'line' coverage: 54
+  New 'line' coverage: 55
+  New 'line' coverage: 56
+  New 'line' coverage: 58
+  New 'line' coverage: 75
+  New 'line' coverage: 80
+  New 'line' coverage: 82
+  New 'line' coverage: 84
+  New 'line' coverage: 87
+  New 'line' coverage: 88
+  New 'line' coverage: 89
+New src file: /home/rahbar/tinydtls-fuzz-cov/posix/dtls-support.c
+  New 'function' coverage: dtls_cipher_context_acquire()
+  New 'function' coverage: dtls_cipher_context_release()
+  New 'function' coverage: dtls_context_acquire()
+  New 'function' coverage: dtls_context_release()
+  New 'function' coverage: dtls_fill_random()
+  New 'function' coverage: dtls_session_equals()
+  New 'function' coverage: dtls_session_get_address()
+  New 'function' coverage: dtls_session_get_address_size()
+  New 'function' coverage: dtls_set_retransmit_timer()
+  New 'function' coverage: dtls_support_init()
+  New 'function' coverage: dtls_support_log_prefix()
+  New 'function' coverage: dtls_ticks()
+  New 'function' coverage: memb_alloc()
+  New 'function' coverage: memb_free()
+  New 'function' coverage: memb_init()
+  New 'line' coverage: 104
+  New 'line' coverage: 107
+  New 'line' coverage: 108
+  New 'line' coverage: 109
+  New 'line' coverage: 110
+  New 'line' coverage: 113
+  New 'line' coverage: 115
+  New 'line' coverage: 117
+  New 'line' coverage: 122
+  New 'line' coverage: 128
+  New 'line' coverage: 131
+  New 'line' coverage: 132
+  New 'line' coverage: 135
+  New 'line' coverage: 139
+  New 'line' coverage: 142
+  New 'line' coverage: 153
+  New 'line' coverage: 154
+  New 'line' coverage: 156
+  New 'line' coverage: 157
+  New 'line' coverage: 158
+  New 'line' coverage: 163
+  New 'line' coverage: 164
+  New 'line' coverage: 166
+  New 'line' coverage: 167
+  New 'line' coverage: 180
+  New 'line' coverage: 183
+  New 'line' coverage: 187
+  New 'line' coverage: 190
+  New 'line' coverage: 263
+  New 'line' coverage: 266
+  New 'line' coverage: 275
+  New 'line' coverage: 34
+  New 'line' coverage: 38
+  New 'line' coverage: 41
+  New 'line' coverage: 42
+  New 'line' coverage: 43
+  New 'line' coverage: 44
+  New 'line' coverage: 45
+  New 'line' coverage: 50
+  New 'line' coverage: 53
+  New 'line' coverage: 55
+  New 'line' coverage: 56
+  New 'line' coverage: 60
+  New 'line' coverage: 63
+  New 'line' coverage: 64
+  New 'line' coverage: 68
+  New 'line' coverage: 70
+  New 'line' coverage: 74
+  New 'line' coverage: 76
+  New 'line' coverage: 80
+  New 'line' coverage: 82
+  New 'line' coverage: 83
+  New 'line' coverage: 88
+  New 'line' coverage: 90
+  New 'line' coverage: 94
+  New 'line' coverage: 96
+  New 'line' coverage: 97
+New src file: /home/rahbar/tinydtls-fuzz-cov/tests/dtls-fuzz.c
+  New 'function' coverage: check_handshake_dir()
+  New 'function' coverage: check_packet_file()
+  New 'function' coverage: dtls_handle_read()
+  New 'function' coverage: fuzz_file()
+  New 'function' coverage: get_psk_info()
+  New 'function' coverage: main()
+  New 'function' coverage: populate_sockaddr()
+  New 'function' coverage: send_to_peer()
+  New 'line' coverage: 155
+  New 'line' coverage: 158
+  New 'line' coverage: 172
+  New 'line' coverage: 173
+  New 'line' coverage: 177
+  New 'line' coverage: 178
+  New 'line' coverage: 179
+  New 'line' coverage: 180
+  New 'line' coverage: 181
+  New 'line' coverage: 206
+  New 'line' coverage: 211
+  New 'line' coverage: 213
+  New 'line' coverage: 215
+  New 'line' coverage: 216
+  New 'line' coverage: 217
+  New 'line' coverage: 219
+  New 'line' coverage: 227
+  New 'line' coverage: 248
+  New 'line' coverage: 250
+  New 'line' coverage: 256
+  New 'line' coverage: 258
+  New 'line' coverage: 260
+  New 'line' coverage: 264
+  New 'line' coverage: 267
+  New 'line' coverage: 268
+  New 'line' coverage: 269
+  New 'line' coverage: 272
+  New 'line' coverage: 273
+  New 'line' coverage: 276
+  New 'line' coverage: 278
+  New 'line' coverage: 280
+  New 'line' coverage: 287
+  New 'line' coverage: 288
+  New 'line' coverage: 289
+  New 'line' coverage: 292
+  New 'line' coverage: 294
+  New 'line' coverage: 295
+  New 'line' coverage: 297
+  New 'line' coverage: 298
+  New 'line' coverage: 299
+  New 'line' coverage: 300
+  New 'line' coverage: 320
+  New 'line' coverage: 321
+  New 'line' coverage: 322
+  New 'line' coverage: 324
+  New 'line' coverage: 325
+  New 'line' coverage: 330
+  New 'line' coverage: 331
+  New 'line' coverage: 332
+  New 'line' coverage: 334
+  New 'line' coverage: 336
+  New 'line' coverage: 337
+  New 'line' coverage: 339
+  New 'line' coverage: 340
+  New 'line' coverage: 341
+  New 'line' coverage: 342
+  New 'line' coverage: 344
+  New 'line' coverage: 348
+  New 'line' coverage: 350
+  New 'line' coverage: 351
+  New 'line' coverage: 363
+  New 'line' coverage: 365
+  New 'line' coverage: 368
+  New 'line' coverage: 371
+  New 'line' coverage: 372
+  New 'line' coverage: 376
+  New 'line' coverage: 381
+  New 'line' coverage: 382
+  New 'line' coverage: 386
+  New 'line' coverage: 387
+  New 'line' coverage: 388
+  New 'line' coverage: 392
+  New 'line' coverage: 393
+  New 'line' coverage: 396
+  New 'line' coverage: 398
+  New 'line' coverage: 408
+  New 'line' coverage: 430
+  New 'line' coverage: 431
+  New 'line' coverage: 432
+  New 'line' coverage: 435
+  New 'line' coverage: 436
+  New 'line' coverage: 437
+  New 'line' coverage: 438
+  New 'line' coverage: 439
+  New 'line' coverage: 440
+  New 'line' coverage: 446
+  New 'line' coverage: 448
+  New 'line' coverage: 449
+  New 'line' coverage: 453
+  New 'line' coverage: 68
+  New 'line' coverage: 72
+  New 'line' coverage: 73
+  New 'line' coverage: 75
+  New 'line' coverage: 76
+  New 'line' coverage: 78
+  New 'line' coverage: 79
+  New 'line' coverage: 80
+  New 'line' coverage: 81
+  New 'line' coverage: 82
+
+
+
+++++++ BEGIN - first exec output for CMD: ./dtls-fuzz //home/rahbar/plot/cov/aflsmart/s9/4//queue/id:000000,time:0,orig:9 psk 0
+    2020-11-19 01:45:50.021 [dtls] WARN - fragment length field does not match the actual length of the fragment
+    2020-11-19 01:45:50.021 [dtls] WARN - error while handling handshake packet
+    2020-11-19 01:45:50.021 [dtls-fuzz] ERR  - Couldn't handle message
+++++++ END
+
+[+] AFL test case: id:000001,src:000000,time:2950,op:havoc,rep:16,+cov (1 / 190), cycle: 0
+    lines......: 42.4% (1540 of 3635 lines)
+    functions..: 59.9% (154 of 257 functions)
+    branches...: 32.3% (523 of 1621 branches)
+[+] AFL test case: id:000002,src:000000,time:2964,op:havoc,rep:128,+cov (2 / 190), cycle: 0
+    lines......: 42.4% (1540 of 3635 lines)
+    functions..: 59.9% (154 of 257 functions)
+    branches...: 32.3% (524 of 1621 branches)
+[+] AFL test case: id:000003,src:000000,time:2980,op:havoc-smart,rep:32,+cov (3 / 190), cycle: 0
+    lines......: 42.4% (1540 of 3635 lines)
+    functions..: 59.9% (154 of 257 functions)
+    branches...: 32.4% (525 of 1621 branches)
+[+] AFL test case: id:000004,src:000000,time:2996,op:havoc,rep:2,+cov (4 / 190), cycle: 0
+    lines......: 42.4% (1542 of 3635 lines)
+    functions..: 59.9% (154 of 257 functions)
+    branches...: 32.4% (526 of 1621 branches)
+
+    Coverage diff id:000003,src:000000,time:2980,op:havoc-smart,rep:32,+cov id:000004,src:000000,time:2996,op:havoc,rep:2,+cov
+diff id:000003,src:000000,time:2980,op:havoc-smart,rep:32,+cov -> id:000004,src:000000,time:2996,op:havoc,rep:2,+cov
+Src file: /home/rahbar/tinydtls-fuzz-cov/dtls.c
+  New 'line' coverage: 3562
+  New 'line' coverage: 3563
+
+[+] AFL test case: id:000005,src:000000,time:3015,op:havoc,rep:16,+cov (5 / 190), cycle: 0
+    lines......: 42.4% (1543 of 3635 lines)
+    functions..: 59.9% (154 of 257 functions)
+    branches...: 32.5% (527 of 1621 branches)
+
+    Coverage diff id:000004,src:000000,time:2996,op:havoc,rep:2,+cov id:000005,src:000000,time:3015,op:havoc,rep:16,+cov
+diff id:000004,src:000000,time:2996,op:havoc,rep:2,+cov -> id:000005,src:000000,time:3015,op:havoc,rep:16,+cov
+Src file: /home/rahbar/tinydtls-fuzz-cov/dtls.c
+  New 'line' coverage: 376
+
+[+] AFL test case: id:000006,src:000000,time:3035,op:havoc,rep:2,+cov (6 / 190), cycle: 0
+    lines......: 42.4% (1543 of 3635 lines)
+    functions..: 59.9% (154 of 257 functions)
+    branches...: 32.5% (527 of 1621 branches)
+[+] AFL test case: id:000007,src:000000,time:3083,op:havoc,rep:2,+cov (7 / 190), cycle: 0
+    lines......: 42.4% (1543 of 3635 lines)
+    functions..: 59.9% (154 of 257 functions)
+    branches...: 32.5% (527 of 1621 branches)
+[+] AFL test case: id:000008,src:000000,time:3111,op:havoc,rep:16,+cov (8 / 190), cycle: 0
+    lines......: 42.4% (1543 of 3635 lines)
+    functions..: 59.9% (154 of 257 functions)
+    branches...: 32.6% (528 of 1621 branches)
+[+] AFL test case: id:000009,src:000000,time:3195,op:havoc-smart,rep:4,+cov (9 / 190), cycle: 0
+    lines......: 42.4% (1543 of 3635 lines)
+    functions..: 59.9% (154 of 257 functions)
+    branches...: 32.6% (528 of 1621 branches)
+[+] AFL test case: id:000010,src:000000,time:3300,op:havoc,rep:8,+cov (10 / 190), cycle: 0
+    lines......: 42.4% (1543 of 3635 lines)
+    functions..: 59.9% (154 of 257 functions)
+    branches...: 32.6% (528 of 1621 branches)
+[+] AFL test case: id:000011,src:000000,time:3517,op:havoc-smart,rep:8,+cov (11 / 190), cycle: 0
+    lines......: 42.4% (1543 of 3635 lines)
+    functions..: 59.9% (154 of 257 functions)
+    branches...: 32.6% (528 of 1621 branches)
+[+] AFL test case: id:000012,src:000000,time:3736,op:havoc-smart,rep:4,+cov (12 / 190), cycle: 0
+    lines......: 42.4% (1543 of 3635 lines)
+    functions..: 59.9% (154 of 257 functions)
+    branches...: 32.6% (528 of 1621 branches)
+[+] AFL test case: id:000013,src:000000,time:4314,op:havoc,rep:16,+cov (13 / 190), cycle: 0
+    lines......: 42.4% (1543 of 3635 lines)
+    functions..: 59.9% (154 of 257 functions)
+    branches...: 32.6% (528 of 1621 branches)
+[+] AFL test case: id:000014,src:000000,time:5857,op:havoc,rep:32,+cov (14 / 190), cycle: 0
+    lines......: 42.4% (1543 of 3635 lines)
+    functions..: 59.9% (154 of 257 functions)
+    branches...: 32.6% (528 of 1621 branches)
+[+] AFL test case: id:000015,src:000000,time:5918,op:havoc,rep:2,+cov (15 / 190), cycle: 0
+    lines......: 42.4% (1543 of 3635 lines)
+    functions..: 59.9% (154 of 257 functions)
+    branches...: 32.6% (528 of 1621 branches)
+[+] AFL test case: id:000016,src:000000,time:6225,op:havoc,rep:4,+cov (16 / 190), cycle: 0
+    lines......: 42.4% (1543 of 3635 lines)
+    functions..: 59.9% (154 of 257 functions)
+    branches...: 32.6% (528 of 1621 branches)
+[+] AFL test case: id:000017,src:000000,time:7756,op:havoc-smart,rep:4,+cov (17 / 190), cycle: 0
+    lines......: 42.4% (1543 of 3635 lines)
+    functions..: 59.9% (154 of 257 functions)
+    branches...: 32.6% (528 of 1621 branches)
+[+] AFL test case: id:000018,src:000000,time:8247,op:havoc,rep:4,+cov (18 / 190), cycle: 0
+    lines......: 42.4% (1543 of 3635 lines)
+    functions..: 59.9% (154 of 257 functions)
+    branches...: 32.6% (528 of 1621 branches)
+[+] AFL test case: id:000019,src:000000,time:9285,op:havoc,rep:16,+cov (19 / 190), cycle: 0
+    lines......: 42.5% (1545 of 3635 lines)
+    functions..: 59.9% (154 of 257 functions)
+    branches...: 32.6% (529 of 1621 branches)
+
+    Coverage diff id:000018,src:000000,time:8247,op:havoc,rep:4,+cov id:000019,src:000000,time:9285,op:havoc,rep:16,+cov
+diff id:000018,src:000000,time:8247,op:havoc,rep:4,+cov -> id:000019,src:000000,time:9285,op:havoc,rep:16,+cov
+Src file: /home/rahbar/tinydtls-fuzz-cov/dtls.c
+  New 'line' coverage: 3945
+  New 'line' coverage: 3946
+
+[+] AFL test case: id:000020,src:000000,time:9540,op:havoc,rep:4,+cov (20 / 190), cycle: 0
+    lines......: 42.5% (1545 of 3635 lines)
+    functions..: 59.9% (154 of 257 functions)
+    branches...: 32.6% (529 of 1621 branches)
+[+] AFL test case: id:000021,src:000000,time:9758,op:havoc,rep:2,+cov (21 / 190), cycle: 0
+    lines......: 42.5% (1545 of 3635 lines)
+    functions..: 59.9% (154 of 257 functions)
+    branches...: 32.6% (529 of 1621 branches)
+[+] AFL test case: id:000022,src:000000,time:10814,op:havoc-smart,rep:4,+cov (22 / 190), cycle: 0
+    lines......: 42.5% (1545 of 3635 lines)
+    functions..: 59.9% (154 of 257 functions)
+    branches...: 32.6% (529 of 1621 branches)
+[+] AFL test case: id:000023,src:000000,time:10977,op:havoc-smart,rep:32,+cov (23 / 190), cycle: 0
+    lines......: 42.5% (1545 of 3635 lines)
+    functions..: 59.9% (154 of 257 functions)
+    branches...: 32.6% (529 of 1621 branches)
+[+] AFL test case: id:000024,src:000000,time:11980,op:havoc,rep:8,+cov (24 / 190), cycle: 0
+    lines......: 42.5% (1545 of 3635 lines)
+    functions..: 59.9% (154 of 257 functions)
+    branches...: 32.6% (529 of 1621 branches)
+[+] AFL test case: id:000025,src:000000,time:12411,op:havoc-smart,rep:8,+cov (25 / 190), cycle: 0
+    lines......: 42.5% (1545 of 3635 lines)
+    functions..: 59.9% (154 of 257 functions)
+    branches...: 32.6% (529 of 1621 branches)
+[+] AFL test case: id:000026,src:000008+000019,time:48672,op:splice,rep:4,+cov (26 / 190), cycle: 0
+    lines......: 42.5% (1545 of 3635 lines)
+    functions..: 59.9% (154 of 257 functions)
+    branches...: 32.6% (529 of 1621 branches)
+[+] AFL test case: id:000027,src:000009,time:52965,op:havoc,rep:16 (27 / 190), cycle: 0
+    lines......: 42.5% (1545 of 3635 lines)
+    functions..: 59.9% (154 of 257 functions)
+    branches...: 32.6% (529 of 1621 branches)
+[+] AFL test case: id:000028,src:000009+000003,time:54373,op:splice,rep:2,+cov (28 / 190), cycle: 0
+    lines......: 42.6% (1550 of 3635 lines)
+    functions..: 59.9% (154 of 257 functions)
+    branches...: 32.8% (531 of 1621 branches)
+
+    Coverage diff id:000027,src:000009,time:52965,op:havoc,rep:16 id:000028,src:000009+000003,time:54373,op:splice,rep:2,+cov
+diff id:000027,src:000009,time:52965,op:havoc,rep:16 -> id:000028,src:000009+000003,time:54373,op:splice,rep:2,+cov
+Src file: /home/rahbar/tinydtls-fuzz-cov/dtls.c
+  New 'line' coverage: 3935
+  New 'line' coverage: 3936
+  New 'line' coverage: 3937
+  New 'line' coverage: 3938
+  New 'line' coverage: 3940
+
+[+] AFL test case: id:000029,src:000011+000002,time:64210,op:splice,rep:8 (29 / 190), cycle: 0
+    lines......: 42.6% (1550 of 3635 lines)
+    functions..: 59.9% (154 of 257 functions)
+    branches...: 32.8% (531 of 1621 branches)
+[+] AFL test case: id:000030,src:000012,time:67498,op:havoc-smart,rep:16,+cov (30 / 190), cycle: 0
+    lines......: 42.6% (1550 of 3635 lines)
+    functions..: 59.9% (154 of 257 functions)
+    branches...: 32.8% (531 of 1621 branches)
+[+] AFL test case: id:000031,src:000012+000028,time:69204,op:splice,rep:16,+cov (31 / 190), cycle: 0
+    lines......: 42.7% (1552 of 3635 lines)
+    functions..: 59.9% (154 of 257 functions)
+    branches...: 32.9% (533 of 1621 branches)
+
+    Coverage diff id:000030,src:000012,time:67498,op:havoc-smart,rep:16,+cov id:000031,src:000012+000028,time:69204,op:splice,rep:16,+cov
+diff id:000030,src:000012,time:67498,op:havoc-smart,rep:16,+cov -> id:000031,src:000012+000028,time:69204,op:splice,rep:16,+cov
+Src file: /home/rahbar/tinydtls-fuzz-cov/dtls.c
+  New 'line' coverage: 3681
+  New 'line' coverage: 3682
+
+[+] AFL test case: id:000032,src:000012+000023,time:69829,op:splice,rep:4 (32 / 190), cycle: 0
+    lines......: 42.7% (1552 of 3635 lines)
+    functions..: 59.9% (154 of 257 functions)
+    branches...: 32.9% (533 of 1621 branches)
+[+] AFL test case: id:000033,src:000015+000023,time:86795,op:splice,rep:8 (33 / 190), cycle: 0
+    lines......: 42.7% (1552 of 3635 lines)
+    functions..: 59.9% (154 of 257 functions)
+    branches...: 32.9% (533 of 1621 branches)
+[+] AFL test case: id:000034,src:000015+000023,time:86919,op:splice,rep:8 (34 / 190), cycle: 0
+    lines......: 42.7% (1552 of 3635 lines)
+    functions..: 59.9% (154 of 257 functions)
+    branches...: 32.9% (533 of 1621 branches)
+[+] AFL test case: id:000035,src:000026,time:138687,op:havoc,rep:8,+cov (35 / 190), cycle: 0
+    lines......: 42.7% (1552 of 3635 lines)
+    functions..: 59.9% (154 of 257 functions)
+    branches...: 32.9% (533 of 1621 branches)
+[+] AFL test case: id:000036,src:000028,time:143252,op:havoc-smart,rep:4,+cov (36 / 190), cycle: 0
+    lines......: 42.7% (1552 of 3635 lines)
+    functions..: 59.9% (154 of 257 functions)
+    branches...: 32.9% (533 of 1621 branches)
+[+] AFL test case: id:000037,src:000028,time:143290,op:havoc,rep:4,+cov (37 / 190), cycle: 0
+    lines......: 42.7% (1552 of 3635 lines)
+    functions..: 59.9% (154 of 257 functions)
+    branches...: 32.9% (533 of 1621 branches)
+[+] AFL test case: id:000038,src:000028,time:144091,op:havoc,rep:8 (38 / 190), cycle: 0
+    lines......: 42.7% (1552 of 3635 lines)
+    functions..: 59.9% (154 of 257 functions)
+    branches...: 32.9% (533 of 1621 branches)
+[+] AFL test case: id:000039,src:000028,time:144793,op:havoc,rep:2,+cov (39 / 190), cycle: 0
+    lines......: 42.7% (1552 of 3635 lines)
+    functions..: 59.9% (154 of 257 functions)
+    branches...: 32.9% (533 of 1621 branches)
+[+] AFL test case: id:000040,src:000028,time:144973,op:havoc,rep:2,+cov (40 / 190), cycle: 0
+    lines......: 42.7% (1552 of 3635 lines)
+    functions..: 59.9% (154 of 257 functions)
+    branches...: 32.9% (533 of 1621 branches)
+[+] AFL test case: id:000041,src:000028,time:146557,op:havoc,rep:2,+cov (41 / 190), cycle: 0
+    lines......: 43.0% (1563 of 3635 lines)
+    functions..: 60.3% (155 of 257 functions)
+    branches...: 33.1% (537 of 1621 branches)
+
+    Coverage diff id:000040,src:000028,time:144973,op:havoc,rep:2,+cov id:000041,src:000028,time:146557,op:havoc,rep:2,+cov
+diff id:000040,src:000028,time:144973,op:havoc,rep:2,+cov -> id:000041,src:000028,time:146557,op:havoc,rep:2,+cov
+Src file: /home/rahbar/tinydtls-fuzz-cov/dtls.c
+  New 'function' coverage: handle_alert()
+  New 'line' coverage: 3707
+  New 'line' coverage: 3709
+  New 'line' coverage: 3711
+  New 'line' coverage: 3712
+  New 'line' coverage: 3879
+  New 'line' coverage: 3880
+  New 'line' coverage: 3883
+  New 'line' coverage: 3884
+  New 'line' coverage: 3885
+  New 'line' coverage: 3887
+  New 'line' coverage: 3888
+
+[+] AFL test case: id:000042,src:000028,time:146646,op:havoc-smart,rep:8,+cov (42 / 190), cycle: 0
+    lines......: 43.0% (1563 of 3635 lines)
+    functions..: 60.3% (155 of 257 functions)
+    branches...: 33.1% (537 of 1621 branches)
+[+] AFL test case: id:000043,src:000028,time:146976,op:havoc,rep:2,+cov (43 / 190), cycle: 0
+    lines......: 43.0% (1563 of 3635 lines)
+    functions..: 60.3% (155 of 257 functions)
+    branches...: 33.1% (537 of 1621 branches)
+[+] AFL test case: id:000044,src:000028,time:147398,op:havoc,rep:8,+cov (44 / 190), cycle: 0
+    lines......: 43.0% (1563 of 3635 lines)
+    functions..: 60.3% (155 of 257 functions)
+    branches...: 33.1% (537 of 1621 branches)
+[+] AFL test case: id:000045,src:000028,time:148932,op:havoc-smart,rep:4,+cov (45 / 190), cycle: 0
+    lines......: 43.0% (1563 of 3635 lines)
+    functions..: 60.3% (155 of 257 functions)
+    branches...: 33.1% (537 of 1621 branches)
+[+] AFL test case: id:000046,src:000028,time:149408,op:havoc,rep:4,+cov (46 / 190), cycle: 0
+    lines......: 43.0% (1563 of 3635 lines)
+    functions..: 60.3% (155 of 257 functions)
+    branches...: 33.1% (537 of 1621 branches)
+[+] AFL test case: id:000047,src:000028,time:154305,op:havoc,rep:8 (47 / 190), cycle: 0
+    lines......: 43.0% (1563 of 3635 lines)
+    functions..: 60.3% (155 of 257 functions)
+    branches...: 33.1% (537 of 1621 branches)
+[+] AFL test case: id:000048,src:000028,time:157488,op:havoc-smart,rep:8 (48 / 190), cycle: 0
+    lines......: 43.0% (1563 of 3635 lines)
+    functions..: 60.3% (155 of 257 functions)
+    branches...: 33.1% (537 of 1621 branches)
+[+] AFL test case: id:000049,src:000028+000033,time:158383,op:splice,rep:2 (49 / 190), cycle: 0
+    lines......: 43.0% (1563 of 3635 lines)
+    functions..: 60.3% (155 of 257 functions)
+    branches...: 33.1% (537 of 1621 branches)
+[+] AFL test case: id:000050,src:000029,time:161596,op:havoc,rep:2 (50 / 190), cycle: 0
+    lines......: 43.0% (1563 of 3635 lines)
+    functions..: 60.3% (155 of 257 functions)
+    branches...: 33.1% (537 of 1621 branches)
+[+] AFL test case: id:000051,src:000029,time:161688,op:havoc,rep:2 (51 / 190), cycle: 0
+    lines......: 43.0% (1563 of 3635 lines)
+    functions..: 60.3% (155 of 257 functions)
+    branches...: 33.1% (537 of 1621 branches)
+[+] AFL test case: id:000052,src:000035+000007,time:183900,op:splice,rep:16,+cov (52 / 190), cycle: 0
+    lines......: 43.1% (1568 of 3635 lines)
+    functions..: 60.3% (155 of 257 functions)
+    branches...: 33.4% (541 of 1621 branches)
+
+    Coverage diff id:000051,src:000029,time:161688,op:havoc,rep:2 id:000052,src:000035+000007,time:183900,op:splice,rep:16,+cov
+diff id:000051,src:000029,time:161688,op:havoc,rep:2 -> id:000052,src:000035+000007,time:183900,op:splice,rep:16,+cov
+Src file: /home/rahbar/tinydtls-fuzz-cov/dtls.c
+  New 'line' coverage: 3714
+  New 'line' coverage: 3716
+  New 'line' coverage: 3717
+  New 'line' coverage: 3718
+  New 'line' coverage: 3890
+
+[+] AFL test case: id:000053,src:000037+000051,time:190386,op:splice,rep:2,+cov (53 / 190), cycle: 0
+    lines......: 43.1% (1568 of 3635 lines)
+    functions..: 60.3% (155 of 257 functions)
+    branches...: 33.4% (541 of 1621 branches)
+[+] AFL test case: id:000054,src:000039,time:205245,op:havoc-smart,rep:8,+cov (54 / 190), cycle: 0
+    lines......: 43.1% (1568 of 3635 lines)
+    functions..: 60.3% (155 of 257 functions)
+    branches...: 33.4% (541 of 1621 branches)
+[+] AFL test case: id:000055,src:000039,time:207798,op:havoc,rep:2 (55 / 190), cycle: 0
+    lines......: 43.1% (1568 of 3635 lines)
+    functions..: 60.3% (155 of 257 functions)
+    branches...: 33.4% (541 of 1621 branches)
+[+] AFL test case: id:000056,src:000041,time:218776,op:havoc,rep:2,+cov (56 / 190), cycle: 0
+    lines......: 43.1% (1568 of 3635 lines)
+    functions..: 60.3% (155 of 257 functions)
+    branches...: 33.4% (541 of 1621 branches)
+[+] AFL test case: id:000057,src:000054+000005,time:284428,op:splice,rep:4,+cov (57 / 190), cycle: 0
+    lines......: 43.1% (1568 of 3635 lines)
+    functions..: 60.3% (155 of 257 functions)
+    branches...: 33.4% (541 of 1621 branches)
+[+] AFL test case: id:000058,src:000055,time:290907,op:havoc,rep:2 (58 / 190), cycle: 0
+    lines......: 43.1% (1568 of 3635 lines)
+    functions..: 60.3% (155 of 257 functions)
+    branches...: 33.4% (541 of 1621 branches)
+[+] AFL test case: id:000059,src:000019+000027,time:347328,op:splice,rep:2 (59 / 190), cycle: 0
+    lines......: 43.1% (1568 of 3635 lines)
+    functions..: 60.3% (155 of 257 functions)
+    branches...: 33.4% (541 of 1621 branches)
+[+] AFL test case: id:000060,src:000026+000058,time:364224,op:splice,rep:2 (60 / 190), cycle: 0
+    lines......: 43.1% (1568 of 3635 lines)
+    functions..: 60.3% (155 of 257 functions)
+    branches...: 33.4% (541 of 1621 branches)
+[+] AFL test case: id:000061,src:000037,time:378106,op:havoc,rep:2 (61 / 190), cycle: 0
+    lines......: 43.1% (1568 of 3635 lines)
+    functions..: 60.3% (155 of 257 functions)
+    branches...: 33.4% (541 of 1621 branches)
+[+] AFL test case: id:000062,src:000061,time:386733,op:havoc,rep:16 (62 / 190), cycle: 0
+    lines......: 43.1% (1568 of 3635 lines)
+    functions..: 60.3% (155 of 257 functions)
+    branches...: 33.4% (541 of 1621 branches)
+[+] AFL test case: id:000063,src:000062,time:397768,op:havoc,rep:2 (63 / 190), cycle: 0
+    lines......: 43.1% (1568 of 3635 lines)
+    functions..: 60.3% (155 of 257 functions)
+    branches...: 33.4% (541 of 1621 branches)
+[+] AFL test case: id:000064,src:000062,time:399243,op:havoc,rep:2 (64 / 190), cycle: 0
+    lines......: 43.1% (1568 of 3635 lines)
+    functions..: 60.3% (155 of 257 functions)
+    branches...: 33.4% (541 of 1621 branches)
+[+] AFL test case: id:000065,src:000024+000055,time:461968,op:splice,rep:8 (65 / 190), cycle: 0
+    lines......: 43.1% (1568 of 3635 lines)
+    functions..: 60.3% (155 of 257 functions)
+    branches...: 33.4% (541 of 1621 branches)
+[+] AFL test case: id:000066,src:000034,time:486612,op:havoc,rep:4 (66 / 190), cycle: 0
+    lines......: 43.1% (1568 of 3635 lines)
+    functions..: 60.3% (155 of 257 functions)
+    branches...: 33.4% (541 of 1621 branches)
+[+] AFL test case: id:000067,src:000038+000033,time:501123,op:splice,rep:32 (67 / 190), cycle: 0
+    lines......: 43.1% (1568 of 3635 lines)
+    functions..: 60.3% (155 of 257 functions)
+    branches...: 33.4% (541 of 1621 branches)
+[+] AFL test case: id:000068,src:000042+000030,time:512796,op:splice,rep:4 (68 / 190), cycle: 0
+    lines......: 43.1% (1568 of 3635 lines)
+    functions..: 60.3% (155 of 257 functions)
+    branches...: 33.4% (541 of 1621 branches)
+[+] AFL test case: id:000069,src:000052+000065,time:550156,op:splice,rep:16 (69 / 190), cycle: 0
+    lines......: 43.1% (1568 of 3635 lines)
+    functions..: 60.3% (155 of 257 functions)
+    branches...: 33.4% (541 of 1621 branches)
+[+] AFL test case: id:000070,src:000056+000069,time:561286,op:splice,rep:4 (70 / 190), cycle: 0
+    lines......: 43.1% (1568 of 3635 lines)
+    functions..: 60.3% (155 of 257 functions)
+    branches...: 33.4% (541 of 1621 branches)
+[+] AFL test case: id:000071,src:000058+000070,time:574216,op:splice,rep:2,+cov (71 / 190), cycle: 0
+    lines......: 43.1% (1568 of 3635 lines)
+    functions..: 60.3% (155 of 257 functions)
+    branches...: 33.4% (541 of 1621 branches)
+[+] AFL test case: id:000072,src:000018,time:615076,op:havoc,rep:16 (72 / 190), cycle: 0
+    lines......: 43.1% (1568 of 3635 lines)
+    functions..: 60.3% (155 of 257 functions)
+    branches...: 33.4% (541 of 1621 branches)
+[+] AFL test case: id:000073,src:000020,time:622269,op:havoc,rep:128 (73 / 190), cycle: 0
+    lines......: 43.1% (1568 of 3635 lines)
+    functions..: 60.3% (155 of 257 functions)
+    branches...: 33.4% (541 of 1621 branches)
+[+] AFL test case: id:000074,src:000023,time:634263,op:havoc,rep:64 (74 / 190), cycle: 0
+    lines......: 43.1% (1568 of 3635 lines)
+    functions..: 60.3% (155 of 257 functions)
+    branches...: 33.4% (541 of 1621 branches)
+[+] AFL test case: id:000075,src:000025+000041,time:641152,op:splice,rep:64 (75 / 190), cycle: 0
+    lines......: 43.1% (1568 of 3635 lines)
+    functions..: 60.3% (155 of 257 functions)
+    branches...: 33.4% (541 of 1621 branches)
+[+] AFL test case: id:000076,src:000033+000005,time:659769,op:splice,rep:2 (76 / 190), cycle: 0
+    lines......: 43.1% (1568 of 3635 lines)
+    functions..: 60.3% (155 of 257 functions)
+    branches...: 33.4% (541 of 1621 branches)
+[+] AFL test case: id:000077,src:000037+000076,time:666816,op:splice,rep:64 (77 / 190), cycle: 0
+    lines......: 43.6% (1584 of 3635 lines)
+    functions..: 60.7% (156 of 257 functions)
+    branches...: 34.1% (552 of 1621 branches)
+
+    Coverage diff id:000076,src:000033+000005,time:659769,op:splice,rep:2 id:000077,src:000037+000076,time:666816,op:splice,rep:64
+diff id:000076,src:000033+000005,time:659769,op:splice,rep:2 -> id:000077,src:000037+000076,time:666816,op:splice,rep:64
+Src file: /home/rahbar/tinydtls-fuzz-cov/dtls.c
+  New 'function' coverage: hs_attempt_with_existing_peer()
+  New 'line' coverage: 3090
+  New 'line' coverage: 3775
+  New 'line' coverage: 3776
+  New 'line' coverage: 3822
+  New 'line' coverage: 3828
+  New 'line' coverage: 3829
+  New 'line' coverage: 3830
+  New 'line' coverage: 3831
+  New 'line' coverage: 3832
+  New 'line' coverage: 3833
+  New 'line' coverage: 3834
+  New 'line' coverage: 3836
+  New 'line' coverage: 545
+  New 'line' coverage: 548
+  New 'line' coverage: 560
+Src file: /home/rahbar/tinydtls-fuzz-cov/dtls-ccm.c
+  New 'line' coverage: 287
+
+[+] AFL test case: id:000078,src:000042,time:677825,op:havoc,rep:64 (78 / 190), cycle: 0
+    lines......: 43.6% (1584 of 3635 lines)
+    functions..: 60.7% (156 of 257 functions)
+    branches...: 34.1% (552 of 1621 branches)
+[+] AFL test case: id:000079,src:000042,time:679384,op:havoc-smart,rep:2 (79 / 190), cycle: 0
+    lines......: 43.6% (1584 of 3635 lines)
+    functions..: 60.7% (156 of 257 functions)
+    branches...: 34.1% (552 of 1621 branches)
+[+] AFL test case: id:000080,src:000043+000029,time:691855,op:splice,rep:4 (80 / 190), cycle: 0
+    lines......: 43.6% (1584 of 3635 lines)
+    functions..: 60.7% (156 of 257 functions)
+    branches...: 34.1% (552 of 1621 branches)
+[+] AFL test case: id:000081,src:000069,time:739514,op:havoc,rep:4 (81 / 190), cycle: 0
+    lines......: 43.6% (1584 of 3635 lines)
+    functions..: 60.7% (156 of 257 functions)
+    branches...: 34.1% (552 of 1621 branches)
+[+] AFL test case: id:000082,src:000078,time:762697,op:havoc-smart,rep:16 (82 / 190), cycle: 0
+    lines......: 43.6% (1584 of 3635 lines)
+    functions..: 60.7% (156 of 257 functions)
+    branches...: 34.1% (552 of 1621 branches)
+[+] AFL test case: id:000083,src:000019+000081,time:807180,op:splice,rep:2 (83 / 190), cycle: 0
+    lines......: 43.6% (1584 of 3635 lines)
+    functions..: 60.7% (156 of 257 functions)
+    branches...: 34.1% (552 of 1621 branches)
+[+] AFL test case: id:000084,src:000029,time:826217,op:havoc,rep:2 (84 / 190), cycle: 0
+    lines......: 43.6% (1584 of 3635 lines)
+    functions..: 60.7% (156 of 257 functions)
+    branches...: 34.1% (552 of 1621 branches)
+[+] AFL test case: id:000085,src:000046+000083,time:883154,op:splice,rep:64 (85 / 190), cycle: 0
+    lines......: 43.6% (1584 of 3635 lines)
+    functions..: 60.7% (156 of 257 functions)
+    branches...: 34.1% (552 of 1621 branches)
+[+] AFL test case: id:000086,src:000064,time:919347,op:havoc-smart,rep:8 (86 / 190), cycle: 0
+    lines......: 43.6% (1584 of 3635 lines)
+    functions..: 60.7% (156 of 257 functions)
+    branches...: 34.1% (552 of 1621 branches)
+[+] AFL test case: id:000087,src:000064,time:919722,op:havoc,rep:2 (87 / 190), cycle: 0
+    lines......: 43.6% (1584 of 3635 lines)
+    functions..: 60.7% (156 of 257 functions)
+    branches...: 34.1% (552 of 1621 branches)
+[+] AFL test case: id:000088,src:000081+000074,time:956425,op:splice,rep:8 (88 / 190), cycle: 0
+    lines......: 43.6% (1584 of 3635 lines)
+    functions..: 60.7% (156 of 257 functions)
+    branches...: 34.1% (552 of 1621 branches)
+[+] AFL test case: id:000089,src:000081+000073,time:957290,op:splice,rep:2 (89 / 190), cycle: 0
+    lines......: 43.6% (1584 of 3635 lines)
+    functions..: 60.7% (156 of 257 functions)
+    branches...: 34.1% (552 of 1621 branches)
+[+] AFL test case: id:000090,src:000084+000052,time:969469,op:splice,rep:4 (90 / 190), cycle: 0
+    lines......: 43.6% (1584 of 3635 lines)
+    functions..: 60.7% (156 of 257 functions)
+    branches...: 34.1% (552 of 1621 branches)
+[+] AFL test case: id:000091,src:000087,time:976700,op:havoc,rep:4 (91 / 190), cycle: 0
+    lines......: 43.6% (1584 of 3635 lines)
+    functions..: 60.7% (156 of 257 functions)
+    branches...: 34.1% (552 of 1621 branches)
+[+] AFL test case: id:000092,src:000087,time:985416,op:havoc,rep:2 (92 / 190), cycle: 0
+    lines......: 43.6% (1584 of 3635 lines)
+    functions..: 60.7% (156 of 257 functions)
+    branches...: 34.1% (552 of 1621 branches)
+[+] AFL test case: id:000093,src:000087+000092,time:993105,op:splice,rep:2 (93 / 190), cycle: 0
+    lines......: 43.6% (1584 of 3635 lines)
+    functions..: 60.7% (156 of 257 functions)
+    branches...: 34.1% (552 of 1621 branches)
+[+] AFL test case: id:000094,src:000093,time:1002739,op:havoc-smart,rep:4 (94 / 190), cycle: 0
+    lines......: 43.6% (1584 of 3635 lines)
+    functions..: 60.7% (156 of 257 functions)
+    branches...: 34.1% (552 of 1621 branches)
+[+] AFL test case: id:000095,src:000031+000069,time:1089890,op:splice,rep:8 (95 / 190), cycle: 0
+    lines......: 43.6% (1584 of 3635 lines)
+    functions..: 60.7% (156 of 257 functions)
+    branches...: 34.1% (552 of 1621 branches)
+[+] AFL test case: id:000096,src:000070+000010,time:1180586,op:splice,rep:2 (96 / 190), cycle: 0
+    lines......: 43.6% (1584 of 3635 lines)
+    functions..: 60.7% (156 of 257 functions)
+    branches...: 34.1% (552 of 1621 branches)
+[+] AFL test case: id:000097,src:000095+000060,time:1201972,op:splice,rep:2 (97 / 190), cycle: 0
+    lines......: 43.6% (1584 of 3635 lines)
+    functions..: 60.7% (156 of 257 functions)
+    branches...: 34.1% (552 of 1621 branches)
+[+] AFL test case: id:000098,src:000040+000015,time:1290124,op:splice,rep:4 (98 / 190), cycle: 0
+    lines......: 43.6% (1584 of 3635 lines)
+    functions..: 60.7% (156 of 257 functions)
+    branches...: 34.1% (552 of 1621 branches)
+[+] AFL test case: id:000099,src:000051+000094,time:1319862,op:splice,rep:4 (99 / 190), cycle: 0
+    lines......: 43.6% (1584 of 3635 lines)
+    functions..: 60.7% (156 of 257 functions)
+    branches...: 34.1% (552 of 1621 branches)
+[+] AFL test case: id:000100,src:000000,time:1407838,op:havoc-smart,rep:2,+cov (100 / 190), cycle: 0
+    lines......: 43.6% (1584 of 3635 lines)
+    functions..: 60.7% (156 of 257 functions)
+    branches...: 34.1% (552 of 1621 branches)
+[+] AFL test case: id:000101,src:000053+000014,time:1552648,op:splice,rep:16 (101 / 190), cycle: 0
+    lines......: 43.6% (1584 of 3635 lines)
+    functions..: 60.7% (156 of 257 functions)
+    branches...: 34.1% (552 of 1621 branches)
+[+] AFL test case: id:000102,src:000090,time:1605599,op:havoc,rep:16 (102 / 190), cycle: 0
+    lines......: 43.6% (1584 of 3635 lines)
+    functions..: 60.7% (156 of 257 functions)
+    branches...: 34.1% (552 of 1621 branches)
+[+] AFL test case: id:000103,src:000090,time:1609998,op:havoc,rep:2 (103 / 190), cycle: 0
+    lines......: 43.6% (1584 of 3635 lines)
+    functions..: 60.7% (156 of 257 functions)
+    branches...: 34.1% (552 of 1621 branches)
+[+] AFL test case: id:000104,src:000090+000098,time:1621215,op:splice,rep:8 (104 / 190), cycle: 0
+    lines......: 43.6% (1584 of 3635 lines)
+    functions..: 60.7% (156 of 257 functions)
+    branches...: 34.1% (552 of 1621 branches)
+[+] AFL test case: id:000105,src:000096,time:1689499,op:havoc,rep:2 (105 / 190), cycle: 0
+    lines......: 43.6% (1584 of 3635 lines)
+    functions..: 60.7% (156 of 257 functions)
+    branches...: 34.1% (552 of 1621 branches)
+[+] AFL test case: id:000106,src:000099,time:2051109,op:havoc,rep:4 (106 / 190), cycle: 0
+    lines......: 43.6% (1584 of 3635 lines)
+    functions..: 60.7% (156 of 257 functions)
+    branches...: 34.1% (552 of 1621 branches)
+[+] AFL test case: id:000107,src:000099,time:2057574,op:havoc,rep:4 (107 / 190), cycle: 0
+    lines......: 43.6% (1584 of 3635 lines)
+    functions..: 60.7% (156 of 257 functions)
+    branches...: 34.1% (552 of 1621 branches)
+[+] AFL test case: id:000108,src:000099,time:2061183,op:havoc,rep:2 (108 / 190), cycle: 0
+    lines......: 43.6% (1584 of 3635 lines)
+    functions..: 60.7% (156 of 257 functions)
+    branches...: 34.1% (552 of 1621 branches)
+[+] AFL test case: id:000109,src:000099,time:2063130,op:havoc,rep:16 (109 / 190), cycle: 0
+    lines......: 43.6% (1584 of 3635 lines)
+    functions..: 60.7% (156 of 257 functions)
+    branches...: 34.1% (552 of 1621 branches)
+[+] AFL test case: id:000110,src:000060+000027,time:2236723,op:splice,rep:2 (110 / 190), cycle: 0
+    lines......: 43.6% (1584 of 3635 lines)
+    functions..: 60.7% (156 of 257 functions)
+    branches...: 34.1% (552 of 1621 branches)
+[+] AFL test case: id:000111,src:000076+000072,time:2819137,op:splice,rep:128 (111 / 190), cycle: 0
+    lines......: 43.6% (1584 of 3635 lines)
+    functions..: 60.7% (156 of 257 functions)
+    branches...: 34.1% (552 of 1621 branches)
+[+] AFL test case: id:000112,src:000076+000064,time:2819762,op:splice,rep:64 (112 / 190), cycle: 0
+    lines......: 43.6% (1584 of 3635 lines)
+    functions..: 60.7% (156 of 257 functions)
+    branches...: 34.1% (552 of 1621 branches)
+[+] AFL test case: id:000113,src:000110,time:2829684,op:havoc,rep:2 (113 / 190), cycle: 0
+    lines......: 43.6% (1584 of 3635 lines)
+    functions..: 60.7% (156 of 257 functions)
+    branches...: 34.1% (552 of 1621 branches)
+[+] AFL test case: id:000114,src:000046,time:2946212,op:havoc,rep:4 (114 / 190), cycle: 0
+    lines......: 43.6% (1584 of 3635 lines)
+    functions..: 60.7% (156 of 257 functions)
+    branches...: 34.1% (552 of 1621 branches)
+[+] AFL test case: id:000115,src:000112,time:3001004,op:havoc-smart,rep:32 (115 / 190), cycle: 0
+    lines......: 43.6% (1584 of 3635 lines)
+    functions..: 60.7% (156 of 257 functions)
+    branches...: 34.1% (552 of 1621 branches)
+[+] AFL test case: id:000116,src:000112,time:3004378,op:havoc-smart,rep:16 (116 / 190), cycle: 0
+    lines......: 43.6% (1584 of 3635 lines)
+    functions..: 60.7% (156 of 257 functions)
+    branches...: 34.1% (552 of 1621 branches)
+[+] AFL test case: id:000117,src:000114+000023,time:3043919,op:splice,rep:8 (117 / 190), cycle: 0
+    lines......: 43.6% (1584 of 3635 lines)
+    functions..: 60.7% (156 of 257 functions)
+    branches...: 34.1% (552 of 1621 branches)
+[+] AFL test case: id:000118,src:000016+000097,time:3102791,op:splice,rep:2 (118 / 190), cycle: 0
+    lines......: 43.6% (1584 of 3635 lines)
+    functions..: 60.7% (156 of 257 functions)
+    branches...: 34.1% (552 of 1621 branches)
+[+] AFL test case: id:000119,src:000018+000106,time:3107117,op:splice,rep:4 (119 / 190), cycle: 0
+    lines......: 43.6% (1584 of 3635 lines)
+    functions..: 60.7% (156 of 257 functions)
+    branches...: 34.1% (552 of 1621 branches)
+[+] AFL test case: id:000120,src:000044+000079,time:3544521,op:splice,rep:8 (120 / 190), cycle: 0
+    lines......: 43.6% (1584 of 3635 lines)
+    functions..: 60.7% (156 of 257 functions)
+    branches...: 34.1% (552 of 1621 branches)
+[+] AFL test case: id:000121,src:000120,time:3953498,op:havoc,rep:4 (121 / 190), cycle: 0
+    lines......: 43.6% (1584 of 3635 lines)
+    functions..: 60.7% (156 of 257 functions)
+    branches...: 34.1% (552 of 1621 branches)
+[+] AFL test case: id:000122,src:000046+000040,time:4421825,op:splice,rep:8 (122 / 190), cycle: 0
+    lines......: 43.6% (1584 of 3635 lines)
+    functions..: 60.7% (156 of 257 functions)
+    branches...: 34.1% (552 of 1621 branches)
+[+] AFL test case: id:000123,src:000062+000110,time:4457803,op:splice,rep:4 (123 / 190), cycle: 0
+    lines......: 43.6% (1584 of 3635 lines)
+    functions..: 60.7% (156 of 257 functions)
+    branches...: 34.1% (552 of 1621 branches)
+[+] AFL test case: id:000124,src:000123,time:4788707,op:havoc,rep:8 (124 / 190), cycle: 0
+    lines......: 43.6% (1584 of 3635 lines)
+    functions..: 60.7% (156 of 257 functions)
+    branches...: 34.1% (552 of 1621 branches)
+[+] AFL test case: id:000125,src:000045+000110,time:5718887,op:splice,rep:8 (125 / 190), cycle: 0
+    lines......: 43.6% (1584 of 3635 lines)
+    functions..: 60.7% (156 of 257 functions)
+    branches...: 34.1% (552 of 1621 branches)
+[+] AFL test case: id:000126,src:000125,time:5776260,op:havoc,rep:2 (126 / 190), cycle: 0
+    lines......: 43.6% (1584 of 3635 lines)
+    functions..: 60.7% (156 of 257 functions)
+    branches...: 34.1% (552 of 1621 branches)
+[+] AFL test case: id:000127,src:000122+000125,time:6307505,op:splice,rep:16 (127 / 190), cycle: 0
+    lines......: 43.6% (1584 of 3635 lines)
+    functions..: 60.7% (156 of 257 functions)
+    branches...: 34.1% (552 of 1621 branches)
+[+] AFL test case: id:000128,src:000126,time:6312712,op:havoc,rep:8 (128 / 190), cycle: 0
+    lines......: 43.6% (1584 of 3635 lines)
+    functions..: 60.7% (156 of 257 functions)
+    branches...: 34.1% (552 of 1621 branches)
+[+] AFL test case: id:000129,src:000037+000122,time:6412311,op:splice,rep:2 (129 / 190), cycle: 0
+    lines......: 43.6% (1584 of 3635 lines)
+    functions..: 60.7% (156 of 257 functions)
+    branches...: 34.1% (552 of 1621 branches)
+[+] AFL test case: id:000130,src:000046+000129,time:7801950,op:splice,rep:8 (130 / 190), cycle: 0
+    lines......: 43.6% (1584 of 3635 lines)
+    functions..: 60.7% (156 of 257 functions)
+    branches...: 34.1% (552 of 1621 branches)
+[+] AFL test case: id:000131,src:000037+000119,time:8742301,op:splice,rep:2 (131 / 190), cycle: 0
+    lines......: 43.6% (1584 of 3635 lines)
+    functions..: 60.7% (156 of 257 functions)
+    branches...: 34.1% (552 of 1621 branches)
+[+] AFL test case: id:000132,src:000103,time:9141131,op:havoc,rep:2 (132 / 190), cycle: 0
+    lines......: 43.6% (1584 of 3635 lines)
+    functions..: 60.7% (156 of 257 functions)
+    branches...: 34.1% (552 of 1621 branches)
+[+] AFL test case: id:000133,src:000132,time:9161051,op:havoc,rep:4 (133 / 190), cycle: 0
+    lines......: 43.6% (1584 of 3635 lines)
+    functions..: 60.7% (156 of 257 functions)
+    branches...: 34.1% (552 of 1621 branches)
+[+] AFL test case: id:000134,src:000133,time:9666272,op:havoc,rep:8 (134 / 190), cycle: 0
+    lines......: 43.6% (1584 of 3635 lines)
+    functions..: 60.7% (156 of 257 functions)
+    branches...: 34.1% (552 of 1621 branches)
+[+] AFL test case: id:000135,src:000127+000119,time:10464832,op:splice,rep:16 (135 / 190), cycle: 0
+    lines......: 43.6% (1584 of 3635 lines)
+    functions..: 60.7% (156 of 257 functions)
+    branches...: 34.1% (552 of 1621 branches)
+[+] AFL test case: id:000136,src:000132+000131,time:13120374,op:splice,rep:4 (136 / 190), cycle: 0
+    lines......: 43.6% (1584 of 3635 lines)
+    functions..: 60.7% (156 of 257 functions)
+    branches...: 34.1% (552 of 1621 branches)
+[+] AFL test case: id:000137,src:000100,time:16717886,op:havoc-smart,rep:4,+cov (137 / 190), cycle: 0
+    lines......: 43.6% (1584 of 3635 lines)
+    functions..: 60.7% (156 of 257 functions)
+    branches...: 34.1% (552 of 1621 branches)
+[+] AFL test case: id:000138,src:000095+000137,time:16875359,op:splice,rep:16 (138 / 190), cycle: 0
+    lines......: 43.6% (1584 of 3635 lines)
+    functions..: 60.7% (156 of 257 functions)
+    branches...: 34.1% (552 of 1621 branches)
+[+] AFL test case: id:000139,src:000045+000102,time:17014309,op:splice,rep:2 (139 / 190), cycle: 0
+    lines......: 43.6% (1584 of 3635 lines)
+    functions..: 60.7% (156 of 257 functions)
+    branches...: 34.1% (552 of 1621 branches)
+[+] AFL test case: id:000140,src:000138+000032,time:17085645,op:splice,rep:16 (140 / 190), cycle: 0
+    lines......: 43.6% (1584 of 3635 lines)
+    functions..: 60.7% (156 of 257 functions)
+    branches...: 34.1% (552 of 1621 branches)
+[+] AFL test case: id:000141,src:000140,time:17300413,op:havoc,rep:2 (141 / 190), cycle: 0
+    lines......: 43.6% (1584 of 3635 lines)
+    functions..: 60.7% (156 of 257 functions)
+    branches...: 34.1% (552 of 1621 branches)
+[+] AFL test case: id:000142,src:000140,time:17303875,op:havoc,rep:2 (142 / 190), cycle: 0
+    lines......: 43.6% (1584 of 3635 lines)
+    functions..: 60.7% (156 of 257 functions)
+    branches...: 34.1% (552 of 1621 branches)
+[+] AFL test case: id:000143,src:000142,time:17642024,op:havoc,rep:4 (143 / 190), cycle: 0
+    lines......: 43.6% (1584 of 3635 lines)
+    functions..: 60.7% (156 of 257 functions)
+    branches...: 34.1% (552 of 1621 branches)
+[+] AFL test case: id:000144,src:000137+000014,time:18028693,op:splice,rep:2,+cov (144 / 190), cycle: 0
+    lines......: 43.6% (1584 of 3635 lines)
+    functions..: 60.7% (156 of 257 functions)
+    branches...: 34.1% (552 of 1621 branches)
+[+] AFL test case: id:000145,src:000144,time:18622466,op:havoc,rep:2,+cov (145 / 190), cycle: 0
+    lines......: 43.6% (1584 of 3635 lines)
+    functions..: 60.7% (156 of 257 functions)
+    branches...: 34.1% (552 of 1621 branches)
+[+] AFL test case: id:000146,src:000144,time:18626852,op:havoc,rep:4,+cov (146 / 190), cycle: 0
+    lines......: 43.6% (1584 of 3635 lines)
+    functions..: 60.7% (156 of 257 functions)
+    branches...: 34.1% (552 of 1621 branches)
+[+] AFL test case: id:000147,src:000146,time:18659741,op:havoc,rep:8,+cov (147 / 190), cycle: 0
+    lines......: 43.6% (1584 of 3635 lines)
+    functions..: 60.7% (156 of 257 functions)
+    branches...: 34.1% (552 of 1621 branches)
+[+] AFL test case: id:000148,src:000146,time:18661533,op:havoc,rep:2,+cov (148 / 190), cycle: 0
+    lines......: 43.6% (1584 of 3635 lines)
+    functions..: 60.7% (156 of 257 functions)
+    branches...: 34.1% (552 of 1621 branches)
+[+] AFL test case: id:000149,src:000148,time:18926112,op:havoc,rep:2,+cov (149 / 190), cycle: 0
+    lines......: 43.6% (1584 of 3635 lines)
+    functions..: 60.7% (156 of 257 functions)
+    branches...: 34.1% (552 of 1621 branches)
+[+] AFL test case: id:000150,src:000149,time:18942921,op:havoc,rep:8 (150 / 190), cycle: 0
+    lines......: 43.6% (1584 of 3635 lines)
+    functions..: 60.7% (156 of 257 functions)
+    branches...: 34.1% (552 of 1621 branches)
+[+] AFL test case: id:000151,src:000149,time:18948975,op:havoc-smart,rep:8,+cov (151 / 190), cycle: 0
+    lines......: 43.6% (1584 of 3635 lines)
+    functions..: 60.7% (156 of 257 functions)
+    branches...: 34.1% (552 of 1621 branches)
+[+] AFL test case: id:000152,src:000149,time:18952658,op:havoc,rep:2 (152 / 190), cycle: 0
+    lines......: 43.6% (1584 of 3635 lines)
+    functions..: 60.7% (156 of 257 functions)
+    branches...: 34.1% (552 of 1621 branches)
+[+] AFL test case: id:000153,src:000152,time:18969659,op:havoc,rep:2 (153 / 190), cycle: 0
+    lines......: 43.6% (1584 of 3635 lines)
+    functions..: 60.7% (156 of 257 functions)
+    branches...: 34.1% (552 of 1621 branches)
+[+] AFL test case: id:000154,src:000152,time:18970643,op:havoc,rep:4 (154 / 190), cycle: 0
+    lines......: 43.6% (1584 of 3635 lines)
+    functions..: 60.7% (156 of 257 functions)
+    branches...: 34.1% (552 of 1621 branches)
+[+] AFL test case: id:000155,src:000154+000078,time:19000140,op:splice,rep:4 (155 / 190), cycle: 0
+    lines......: 43.6% (1584 of 3635 lines)
+    functions..: 60.7% (156 of 257 functions)
+    branches...: 34.1% (552 of 1621 branches)
+[+] AFL test case: id:000156,src:000154,time:19526571,op:havoc,rep:2 (156 / 190), cycle: 0
+    lines......: 43.6% (1584 of 3635 lines)
+    functions..: 60.7% (156 of 257 functions)
+    branches...: 34.1% (552 of 1621 branches)
+[+] AFL test case: id:000157,src:000154,time:19531791,op:havoc,rep:8 (157 / 190), cycle: 0
+    lines......: 43.6% (1584 of 3635 lines)
+    functions..: 60.7% (156 of 257 functions)
+    branches...: 34.1% (552 of 1621 branches)
+[+] AFL test case: id:000158,src:000156,time:19553294,op:havoc,rep:2 (158 / 190), cycle: 0
+    lines......: 43.6% (1584 of 3635 lines)
+    functions..: 60.7% (156 of 257 functions)
+    branches...: 34.1% (552 of 1621 branches)
+[+] AFL test case: id:000159,src:000043+000080,time:19953635,op:splice,rep:4 (159 / 190), cycle: 0
+    lines......: 43.6% (1584 of 3635 lines)
+    functions..: 60.7% (156 of 257 functions)
+    branches...: 34.1% (552 of 1621 branches)
+[+] AFL test case: id:000160,src:000159,time:20108859,op:havoc,rep:16 (160 / 190), cycle: 0
+    lines......: 43.6% (1584 of 3635 lines)
+    functions..: 60.7% (156 of 257 functions)
+    branches...: 34.1% (552 of 1621 branches)
+[+] AFL test case: id:000161,src:000157+000138,time:20607460,op:splice,rep:4 (161 / 190), cycle: 0
+    lines......: 43.6% (1584 of 3635 lines)
+    functions..: 60.7% (156 of 257 functions)
+    branches...: 34.1% (552 of 1621 branches)
+[+] AFL test case: id:000162,src:000161,time:21075617,op:havoc,rep:2 (162 / 190), cycle: 0
+    lines......: 43.6% (1584 of 3635 lines)
+    functions..: 60.7% (156 of 257 functions)
+    branches...: 34.1% (552 of 1621 branches)
+[+] AFL test case: id:000163,src:000139,time:23599910,op:havoc-smart,rep:8 (163 / 190), cycle: 0
+    lines......: 43.6% (1584 of 3635 lines)
+    functions..: 60.7% (156 of 257 functions)
+    branches...: 34.1% (552 of 1621 branches)
+[+] AFL test case: id:000164,src:000129,time:25413443,op:havoc,rep:2 (164 / 190), cycle: 0
+    lines......: 43.6% (1584 of 3635 lines)
+    functions..: 60.7% (156 of 257 functions)
+    branches...: 34.1% (552 of 1621 branches)
+[+] AFL test case: id:000165,src:000134,time:30355829,op:havoc,rep:2 (165 / 190), cycle: 0
+    lines......: 43.6% (1584 of 3635 lines)
+    functions..: 60.7% (156 of 257 functions)
+    branches...: 34.1% (552 of 1621 branches)
+[+] AFL test case: id:000166,src:000165,time:30415498,op:havoc,rep:4 (166 / 190), cycle: 0
+    lines......: 43.6% (1584 of 3635 lines)
+    functions..: 60.7% (156 of 257 functions)
+    branches...: 34.1% (552 of 1621 branches)
+[+] AFL test case: id:000167,src:000146+000118,time:39166160,op:splice,rep:2,+cov (167 / 190), cycle: 0
+    lines......: 43.6% (1584 of 3635 lines)
+    functions..: 60.7% (156 of 257 functions)
+    branches...: 34.1% (552 of 1621 branches)
+[+] AFL test case: id:000168,src:000167+000166,time:40111355,op:splice,rep:2 (168 / 190), cycle: 0
+    lines......: 43.6% (1584 of 3635 lines)
+    functions..: 60.7% (156 of 257 functions)
+    branches...: 34.1% (552 of 1621 branches)
+[+] AFL test case: id:000169,src:000168,time:40484534,op:havoc,rep:2 (169 / 190), cycle: 0
+    lines......: 43.6% (1584 of 3635 lines)
+    functions..: 60.7% (156 of 257 functions)
+    branches...: 34.1% (552 of 1621 branches)
+[+] AFL test case: id:000170,src:000168,time:40484927,op:havoc,rep:8,+cov (170 / 190), cycle: 0
+    lines......: 43.6% (1584 of 3635 lines)
+    functions..: 60.7% (156 of 257 functions)
+    branches...: 34.1% (552 of 1621 branches)
+[+] AFL test case: id:000171,src:000046+000105,time:41261771,op:splice,rep:4 (171 / 190), cycle: 0
+    lines......: 43.6% (1584 of 3635 lines)
+    functions..: 60.7% (156 of 257 functions)
+    branches...: 34.1% (552 of 1621 branches)
+[+] AFL test case: id:000172,src:000168+000138,time:42459185,op:splice,rep:2 (172 / 190), cycle: 0
+    lines......: 43.6% (1584 of 3635 lines)
+    functions..: 60.7% (156 of 257 functions)
+    branches...: 34.1% (552 of 1621 branches)
+[+] AFL test case: id:000173,src:000172,time:44930340,op:havoc,rep:4 (173 / 190), cycle: 0
+    lines......: 43.6% (1584 of 3635 lines)
+    functions..: 60.7% (156 of 257 functions)
+    branches...: 34.1% (552 of 1621 branches)
+[+] AFL test case: id:000174,src:000057+000173,time:45348218,op:splice,rep:8 (174 / 190), cycle: 0
+    lines......: 43.6% (1586 of 3635 lines)
+    functions..: 60.7% (156 of 257 functions)
+    branches...: 34.2% (554 of 1621 branches)
+
+    Coverage diff id:000173,src:000172,time:44930340,op:havoc,rep:4 id:000174,src:000057+000173,time:45348218,op:splice,rep:8
+diff id:000173,src:000172,time:44930340,op:havoc,rep:4 -> id:000174,src:000057+000173,time:45348218,op:splice,rep:8
+Src file: /home/rahbar/tinydtls-fuzz-cov/dtls.c
+  New 'line' coverage: 3578
+  New 'line' coverage: 3579
+
+[+] AFL test case: id:000175,src:000143,time:45829628,op:havoc,rep:8 (175 / 190), cycle: 0
+    lines......: 43.6% (1586 of 3635 lines)
+    functions..: 60.7% (156 of 257 functions)
+    branches...: 34.2% (554 of 1621 branches)
+[+] AFL test case: id:000176,src:000167+000175,time:46347041,op:splice,rep:2 (176 / 190), cycle: 0
+    lines......: 43.6% (1586 of 3635 lines)
+    functions..: 60.7% (156 of 257 functions)
+    branches...: 34.2% (554 of 1621 branches)
+[+] AFL test case: id:000177,src:000175,time:46831434,op:havoc-smart,rep:4 (177 / 190), cycle: 0
+    lines......: 43.6% (1586 of 3635 lines)
+    functions..: 60.7% (156 of 257 functions)
+    branches...: 34.2% (554 of 1621 branches)
+[+] AFL test case: id:000178,src:000176,time:51030670,op:havoc,rep:8 (178 / 190), cycle: 0
+    lines......: 43.6% (1586 of 3635 lines)
+    functions..: 60.7% (156 of 257 functions)
+    branches...: 34.2% (554 of 1621 branches)
+[+] AFL test case: id:000179,src:000178,time:51479234,op:havoc,rep:8 (179 / 190), cycle: 0
+    lines......: 43.6% (1586 of 3635 lines)
+    functions..: 60.7% (156 of 257 functions)
+    branches...: 34.2% (554 of 1621 branches)
+[+] AFL test case: id:000180,src:000051+000178,time:55495464,op:splice,rep:4 (180 / 190), cycle: 0
+    lines......: 43.6% (1586 of 3635 lines)
+    functions..: 60.7% (156 of 257 functions)
+    branches...: 34.2% (554 of 1621 branches)
+[+] AFL test case: id:000181,src:000179,time:57316285,op:havoc,rep:2 (181 / 190), cycle: 0
+    lines......: 43.6% (1586 of 3635 lines)
+    functions..: 60.7% (156 of 257 functions)
+    branches...: 34.2% (554 of 1621 branches)
+[+] AFL test case: id:000182,src:000181+000074,time:58409265,op:splice,rep:4 (182 / 190), cycle: 0
+    lines......: 43.6% (1586 of 3635 lines)
+    functions..: 60.7% (156 of 257 functions)
+    branches...: 34.2% (554 of 1621 branches)
+[+] AFL test case: id:000183,src:000181,time:59831757,op:havoc,rep:2 (183 / 190), cycle: 0
+    lines......: 43.6% (1586 of 3635 lines)
+    functions..: 60.7% (156 of 257 functions)
+    branches...: 34.2% (554 of 1621 branches)
+[+] AFL test case: id:000184,src:000182,time:74469706,op:havoc,rep:4 (184 / 190), cycle: 0
+    lines......: 43.6% (1586 of 3635 lines)
+    functions..: 60.7% (156 of 257 functions)
+    branches...: 34.2% (554 of 1621 branches)
+[+] AFL test case: id:000185,src:000182,time:74476784,op:havoc,rep:4 (185 / 190), cycle: 0
+    lines......: 43.6% (1586 of 3635 lines)
+    functions..: 60.7% (156 of 257 functions)
+    branches...: 34.2% (554 of 1621 branches)
+[+] AFL test case: id:000186,src:000185,time:74516485,op:havoc,rep:2 (186 / 190), cycle: 0
+    lines......: 43.6% (1586 of 3635 lines)
+    functions..: 60.7% (156 of 257 functions)
+    branches...: 34.2% (554 of 1621 branches)
+[+] AFL test case: id:000187,src:000162,time:75738845,op:havoc,rep:8 (187 / 190), cycle: 0
+    lines......: 43.6% (1586 of 3635 lines)
+    functions..: 60.7% (156 of 257 functions)
+    branches...: 34.2% (554 of 1621 branches)
+[+] AFL test case: id:000188,src:000163+000157,time:76382488,op:splice,rep:4 (188 / 190), cycle: 0
+    lines......: 43.6% (1586 of 3635 lines)
+    functions..: 60.7% (156 of 257 functions)
+    branches...: 34.2% (554 of 1621 branches)
+[+] AFL test case: id:000189,src:000062+000185,time:82028305,op:splice,rep:4 (189 / 190), cycle: 0
+    lines......: 43.6% (1586 of 3635 lines)
+    functions..: 60.7% (156 of 257 functions)
+    branches...: 34.2% (554 of 1621 branches)
+[+] Processed 190 / 190 test cases.
+
+[+] Final zero coverage report: //home/rahbar/plot/cov/aflsmart/s9/4//cov/zero-cov
+[+] Final positive coverage report: //home/rahbar/plot/cov/aflsmart/s9/4//cov/pos-cov
+    lines......: 43.6% (1586 of 3635 lines)
+    functions..: 60.7% (156 of 257 functions)
+    branches...: 34.2% (554 of 1621 branches)
+[+] Final lcov web report: //home/rahbar/plot/cov/aflsmart/s9/4//cov/web/index.html

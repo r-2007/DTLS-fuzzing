@@ -1,0 +1,539 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+
+<html lang="en">
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <title>LCOV - trace.lcov_info_final - tinydtls-fuzz-cov/tests/dtls-fuzz.c</title>
+  <link rel="stylesheet" type="text/css" href="../../gcov.css">
+</head>
+
+<body>
+
+  <table width="100%" border=0 cellspacing=0 cellpadding=0>
+    <tr><td class="title">LCOV - code coverage report</td></tr>
+    <tr><td class="ruler"><img src="../../glass.png" width=3 height=3 alt=""></td></tr>
+
+    <tr>
+      <td width="100%">
+        <table cellpadding=1 border=0 width="100%">
+          <tr>
+            <td width="10%" class="headerItem">Current view:</td>
+            <td width="35%" class="headerValue"><a href="../../index.html">top level</a> - <a href="index.html">tinydtls-fuzz-cov/tests</a> - dtls-fuzz.c<span style="font-size: 80%;"> (source / <a href="dtls-fuzz.c.func-sort-c.html">functions</a>)</span></td>
+            <td width="5%"></td>
+            <td width="15%"></td>
+            <td width="10%" class="headerCovTableHead">Hit</td>
+            <td width="10%" class="headerCovTableHead">Total</td>
+            <td width="15%" class="headerCovTableHead">Coverage</td>
+          </tr>
+          <tr>
+            <td class="headerItem">Test:</td>
+            <td class="headerValue">trace.lcov_info_final</td>
+            <td></td>
+            <td class="headerItem">Lines:</td>
+            <td class="headerCovTableEntry">107</td>
+            <td class="headerCovTableEntry">187</td>
+            <td class="headerCovTableEntryLo">57.2 %</td>
+          </tr>
+          <tr>
+            <td class="headerItem">Date:</td>
+            <td class="headerValue">2020-11-25 03:42:11</td>
+            <td></td>
+            <td class="headerItem">Functions:</td>
+            <td class="headerCovTableEntry">9</td>
+            <td class="headerCovTableEntry">14</td>
+            <td class="headerCovTableEntryLo">64.3 %</td>
+          </tr>
+          <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td class="headerItem">Branches:</td>
+            <td class="headerCovTableEntry">36</td>
+            <td class="headerCovTableEntry">77</td>
+            <td class="headerCovTableEntryLo">46.8 %</td>
+          </tr>
+          <tr><td><img src="../../glass.png" width=3 height=3 alt=""></td></tr>
+        </table>
+      </td>
+    </tr>
+
+    <tr><td class="ruler"><img src="../../glass.png" width=3 height=3 alt=""></td></tr>
+  </table>
+
+  <table cellpadding=0 cellspacing=0 border=0>
+    <tr>
+      <td><br></td>
+    </tr>
+    <tr>
+      <td>
+<pre class="sourceHeading">           Branch data     Line data    Source code</pre>
+<pre class="source">
+<a name="1"><span class="lineNum">       1 </span>                :            : /*</a>
+<span class="lineNum">       2 </span>                :            : This is a fuzzing harness for TinyDTLS. It read data from files provided
+<span class="lineNum">       3 </span>                :            : as command line parameters and feeds the data to the DTLS library.
+<span class="lineNum">       4 </span>                :            : In doing so, it basically bypasses (UDP) sockets. 
+<span class="lineNum">       5 </span>                :            : 
+<span class="lineNum">       6 </span>                :            : */
+<span class="lineNum">       7 </span>                :            : 
+<span class="lineNum">       8 </span>                :            : 
+<span class="lineNum">       9 </span>                :            : /* This is needed for apple */
+<span class="lineNum">      10 </span>                :            : #define __APPLE_USE_RFC_3542
+<span class="lineNum">      11 </span>                :            : 
+<span class="lineNum">      12 </span>                :            : #include &lt;assert.h&gt;
+<span class="lineNum">      13 </span>                :            : #include &lt;dirent.h&gt;
+<span class="lineNum">      14 </span>                :            : #include &lt;stdio.h&gt;
+<span class="lineNum">      15 </span>                :            : #include &lt;string.h&gt;
+<span class="lineNum">      16 </span>                :            : #include &lt;errno.h&gt;
+<span class="lineNum">      17 </span>                :            : #include &lt;unistd.h&gt;
+<span class="lineNum">      18 </span>                :            : #include &lt;netinet/in.h&gt;
+<span class="lineNum">      19 </span>                :            : #include &lt;sys/stat.h&gt;
+<span class="lineNum">      20 </span>                :            : #include &lt;sys/types.h&gt;
+<span class="lineNum">      21 </span>                :            : #include &lt;sys/socket.h&gt;
+<span class="lineNum">      22 </span>                :            : #include &lt;sys/time.h&gt;
+<span class="lineNum">      23 </span>                :            : #include &lt;netdb.h&gt;
+<span class="lineNum">      24 </span>                :            : #include &lt;signal.h&gt;
+<span class="lineNum">      25 </span>                :            : 
+<span class="lineNum">      26 </span>                :            : #include &quot;tinydtls.h&quot; 
+<span class="lineNum">      27 </span>                :            : #include &quot;dtls.h&quot; 
+<span class="lineNum">      28 </span>                :            : 
+<span class="lineNum">      29 </span>                :            : #define LOG_MODULE &quot;dtls-fuzz&quot;
+<span class="lineNum">      30 </span>                :            : #define LOG_LEVEL  LOG_LEVEL_DTLS
+<span class="lineNum">      31 </span>                :            : #include &quot;dtls-log.h&quot;
+<span class="lineNum">      32 </span>                :            : 
+<span class="lineNum">      33 </span>                :            : #define DEFAULT_PORT 20220
+<span class="lineNum">      34 </span>                :            : #define MAX_READ_BUFF 2000
+<span class="lineNum">      35 </span>                :            : #define MAX_FILENAME_LEN 100
+<span class="lineNum">      36 </span>                :            : 
+<span class="lineNum">      37 </span>                :            : #define PSK_HANDSHAKE_FOLDER &quot;handshakes/psk&quot;
+<span class="lineNum">      38 </span>                :            : #define ECC_HANDSHAKE_FOLDER &quot;handshakes/ecc&quot;
+<span class="lineNum">      39 </span>                :            : 
+<span class="lineNum">      40 </span>                :            : #define PSK_IDENTITY &quot;Client_identity&quot;
+<span class="lineNum">      41 </span>                :            : #define PSK_IDENTITY_LEN 15
+<span class="lineNum">      42 </span>                :            : #define PSK_KEY      &quot;\x12\x34&quot;
+<span class="lineNum">      43 </span>                :            : #define PSK_KEY_LEN 2
+<span class="lineNum">      44 </span>                :            : 
+<span class="lineNum">      45 </span>                :            : static const unsigned char ecdsa_priv_key[] = {
+<span class="lineNum">      46 </span>                :            :                         0xD9, 0xE2, 0x70, 0x7A, 0x72, 0xDA, 0x6A, 0x05,
+<span class="lineNum">      47 </span>                :            :                         0x04, 0x99, 0x5C, 0x86, 0xED, 0xDB, 0xE3, 0xEF,
+<span class="lineNum">      48 </span>                :            :                         0xC7, 0xF1, 0xCD, 0x74, 0x83, 0x8F, 0x75, 0x70,
+<span class="lineNum">      49 </span>                :            :                         0xC8, 0x07, 0x2D, 0x0A, 0x76, 0x26, 0x1B, 0xD4};
+<span class="lineNum">      50 </span>                :            : 
+<span class="lineNum">      51 </span>                :            : static const unsigned char ecdsa_pub_key_x[] = {
+<span class="lineNum">      52 </span>                :            :                         0xD0, 0x55, 0xEE, 0x14, 0x08, 0x4D, 0x6E, 0x06,
+<span class="lineNum">      53 </span>                :            :                         0x15, 0x59, 0x9D, 0xB5, 0x83, 0x91, 0x3E, 0x4A,
+<span class="lineNum">      54 </span>                :            :                         0x3E, 0x45, 0x26, 0xA2, 0x70, 0x4D, 0x61, 0xF2,
+<span class="lineNum">      55 </span>                :            :                         0x7A, 0x4C, 0xCF, 0xBA, 0x97, 0x58, 0xEF, 0x9A};
+<span class="lineNum">      56 </span>                :            : 
+<span class="lineNum">      57 </span>                :            : static const unsigned char ecdsa_pub_key_y[] = {
+<span class="lineNum">      58 </span>                :            :                         0xB4, 0x18, 0xB6, 0x4A, 0xFE, 0x80, 0x30, 0xDA,
+<span class="lineNum">      59 </span>                :            :                         0x1D, 0xDC, 0xF4, 0xF4, 0x2E, 0x2F, 0x26, 0x31,
+<span class="lineNum">      60 </span>                :            :                         0xD0, 0x43, 0xB1, 0xFB, 0x03, 0xE2, 0x2F, 0x4D,
+<span class="lineNum">      61 </span>                :            :                         0x17, 0xDE, 0x43, 0xF9, 0xF9, 0xAD, 0xEE, 0x70};
+<span class="lineNum">      62 </span>                :            : 
+<span class="lineNum">      63 </span>                :            : 
+<span class="lineNum">      64 </span>                :            : /* This function is the &quot;key store&quot; for tinyDTLS. It is called to
+<span class="lineNum">      65 </span>                :            :  * retrieve a key for the given identity within this particular
+<a name="66"><span class="lineNum">      66 </span>                :            :  * session. */</a>
+<span class="lineNum">      67 </span>                :            : static int
+<span class="lineNum">      68 </span>                :<span class="lineCov">        544 : get_psk_info(struct dtls_context_t *ctx, const session_t *session,</span>
+<span class="lineNum">      69 </span>                :            :              dtls_credentials_type_t type,
+<span class="lineNum">      70 </span>                :            :              const unsigned char *id, size_t id_len,
+<span class="lineNum">      71 </span>                :            :              unsigned char *result, size_t result_length) {
+<span class="lineNum">      72 </span>     [<span class="branchCov" title="Branch 0 was taken 272 times"> + </span><span class="branchCov" title="Branch 1 was taken 3 times"> + </span><span class="branchCov" title="Branch 2 was taken 269 times"> + </span>]:<span class="lineCov">        544 :   switch(type) {</span>
+<span class="lineNum">      73 </span>                :<span class="lineCov">        272 :     case DTLS_PSK_KEY:</span>
+<span class="lineNum">      74 </span>                :            : 
+<span class="lineNum">      75 </span>                :<span class="lineCov">        272 :     memcpy(result, (unsigned char *) PSK_KEY, PSK_KEY_LEN);</span>
+<span class="lineNum">      76 </span>                :<span class="lineCov">        272 :     return 2;</span>
+<span class="lineNum">      77 </span>                :            : 
+<span class="lineNum">      78 </span>                :<span class="lineCov">          3 :     case DTLS_PSK_IDENTITY:</span>
+<span class="lineNum">      79 </span>                :<span class="lineCov">          3 :       memcpy(result,(unsigned char *) PSK_IDENTITY, PSK_IDENTITY_LEN);</span>
+<span class="lineNum">      80 </span>                :<span class="lineCov">          3 :       return 15;</span>
+<span class="lineNum">      81 </span>                :<span class="lineCov">        269 :     default: </span>
+<span class="lineNum">      82 </span>                :<span class="lineCov">        269 :       return 0; </span>
+<span class="lineNum">      83 </span>                :            :   }
+<span class="lineNum">      84 </span>                :            : }
+<a name="85"><span class="lineNum">      85 </span>                :            : </a>
+<span class="lineNum">      86 </span>                :            : static int
+<span class="lineNum">      87 </span>                :<span class="lineNoCov">          0 : get_ecdsa_key(struct dtls_context_t *ctx,</span>
+<span class="lineNum">      88 </span>                :            :               const session_t *session,
+<span class="lineNum">      89 </span>                :            :               const dtls_ecdsa_key_t **result) {
+<span class="lineNum">      90 </span>                :            :   static const dtls_ecdsa_key_t ecdsa_key = {
+<span class="lineNum">      91 </span>                :            :     .curve = DTLS_ECDH_CURVE_SECP256R1,
+<span class="lineNum">      92 </span>                :            :     .priv_key = ecdsa_priv_key,
+<span class="lineNum">      93 </span>                :            :     .pub_key_x = ecdsa_pub_key_x,
+<span class="lineNum">      94 </span>                :            :     .pub_key_y = ecdsa_pub_key_y
+<span class="lineNum">      95 </span>                :            :   };
+<span class="lineNum">      96 </span>                :            : 
+<span class="lineNum">      97 </span>                :<span class="lineNoCov">          0 :   *result = &amp;ecdsa_key;</span>
+<span class="lineNum">      98 </span>                :<span class="lineNoCov">          0 :   return 0;</span>
+<span class="lineNum">      99 </span>                :            : }
+<a name="100"><span class="lineNum">     100 </span>                :            : </a>
+<span class="lineNum">     101 </span>                :            : static int
+<span class="lineNum">     102 </span>                :<span class="lineNoCov">          0 : verify_ecdsa_key(struct dtls_context_t *ctx,</span>
+<span class="lineNum">     103 </span>                :            :                  const session_t *session,
+<span class="lineNum">     104 </span>                :            :                  const unsigned char *other_pub_x,
+<span class="lineNum">     105 </span>                :            :                  const unsigned char *other_pub_y,
+<span class="lineNum">     106 </span>                :            :                  size_t key_size) {
+<span class="lineNum">     107 </span>                :<span class="lineNoCov">          0 :   return 0;</span>
+<span class="lineNum">     108 </span>                :            : }
+<span class="lineNum">     109 </span>                :            : 
+<span class="lineNum">     110 </span>                :            : #define DTLS_SERVER_CMD_CLOSE &quot;server:close&quot;
+<span class="lineNum">     111 </span>                :            : #define DTLS_SERVER_CMD_RENEGOTIATE &quot;server:renegotiate&quot;
+<a name="112"><span class="lineNum">     112 </span>                :            : </a>
+<span class="lineNum">     113 </span>                :            : static void
+<span class="lineNum">     114 </span>                :<span class="lineNoCov">          0 : add_peer(dtls_peer_t **peers, dtls_peer_t *peer)</span>
+<span class="lineNum">     115 </span>                :            : {
+<span class="lineNum">     116 </span>                :<span class="lineNoCov">          0 :   peer-&gt;next = *peers;</span>
+<span class="lineNum">     117 </span>                :<span class="lineNoCov">          0 :   *peers = peer;</span>
+<span class="lineNum">     118 </span>                :<span class="lineNoCov">          0 : }</span>
+<a name="119"><span class="lineNum">     119 </span>                :            : </a>
+<span class="lineNum">     120 </span>                :            : static int
+<span class="lineNum">     121 </span>                :<span class="lineNoCov">          0 : dtls_add_peer(dtls_context_t *ctx, dtls_peer_t *peer) {</span>
+<span class="lineNum">     122 </span>                :            :   if(peer) {
+<span class="lineNum">     123 </span>                :            :     // add_peer(&amp;ctx-&gt;peers, peer);
+<span class="lineNum">     124 </span>                :            :   }
+<span class="lineNum">     125 </span>                :<span class="lineNoCov">          0 :   return 0;</span>
+<span class="lineNum">     126 </span>                :            : }
+<a name="127"><span class="lineNum">     127 </span>                :            : </a>
+<span class="lineNum">     128 </span>                :            : static int
+<span class="lineNum">     129 </span>                :<span class="lineCov">       1150 : read_from_peer(struct dtls_context_t *ctx, </span>
+<span class="lineNum">     130 </span>                :            :                session_t *session, uint8_t *data, size_t len) {
+<span class="lineNum">     131 </span>                :            :   size_t i;
+<span class="lineNum">     132 </span>        [<span class="branchCov" title="Branch 0 was taken 10821 times"> + </span><span class="branchCov" title="Branch 1 was taken 1150 times"> + </span>]:<span class="lineCov">      11971 :   for (i = 0; i &lt; len; i++)</span>
+<span class="lineNum">     133 </span>                :<span class="lineCov">      10821 :     printf(&quot;%c&quot;, data[i]);</span>
+<span class="lineNum">     134 </span>[<span class="branchCov" title="Branch 0 was taken 234 times"> + </span><span class="branchCov" title="Branch 1 was taken 916 times"> + </span>][<span class="branchNoCov" title="Branch 2 was not taken"> - </span><span class="branchCov" title="Branch 3 was taken 234 times"> + </span>]:<span class="lineCov">       1150 :   if (len &gt;= strlen(DTLS_SERVER_CMD_CLOSE) &amp;&amp;</span>
+<span class="lineNum">     135 </span>                :<span class="lineCov">        234 :       !memcmp(data, DTLS_SERVER_CMD_CLOSE, strlen(DTLS_SERVER_CMD_CLOSE))) {</span>
+<span class="lineNum">     136 </span>                :<span class="lineNoCov">          0 :     printf(&quot;server: closing connection\n&quot;);</span>
+<span class="lineNum">     137 </span>                :<span class="lineNoCov">          0 :     dtls_close(ctx, session);</span>
+<span class="lineNum">     138 </span>                :<span class="lineNoCov">          0 :     return len;</span>
+<span class="lineNum">     139 </span>[<span class="branchCov" title="Branch 0 was taken 56 times"> + </span><span class="branchCov" title="Branch 1 was taken 1094 times"> + </span>][<span class="branchNoCov" title="Branch 2 was not taken"> - </span><span class="branchCov" title="Branch 3 was taken 56 times"> + </span>]:<span class="lineCov">       1150 :   } else if (len &gt;= strlen(DTLS_SERVER_CMD_RENEGOTIATE) &amp;&amp;</span>
+<span class="lineNum">     140 </span>                :<span class="lineCov">         56 :       !memcmp(data, DTLS_SERVER_CMD_RENEGOTIATE, strlen(DTLS_SERVER_CMD_RENEGOTIATE))) {</span>
+<span class="lineNum">     141 </span>                :<span class="lineNoCov">          0 :     printf(&quot;server: renegotiate connection\n&quot;);</span>
+<span class="lineNum">     142 </span>                :<span class="lineNoCov">          0 :     dtls_renegotiate(ctx, session);</span>
+<span class="lineNum">     143 </span>                :<span class="lineNoCov">          0 :     return len;</span>
+<span class="lineNum">     144 </span>                :            :   }
+<span class="lineNum">     145 </span>                :            : 
+<span class="lineNum">     146 </span>                :<span class="lineCov">       1150 :   return dtls_write(ctx, session, data, len);</span>
+<span class="lineNum">     147 </span>                :            : }
+<span class="lineNum">     148 </span>                :            : 
+<span class="lineNum">     149 </span>                :            : // variables for handling dump output mode 
+<span class="lineNum">     150 </span>                :            : static int dump_output_mode = 0;
+<span class="lineNum">     151 </span>                :            : static int dump_index = 0;
+<span class="lineNum">     152 </span>                :            : 
+<a name="153"><span class="lineNum">     153 </span>                :            : // sending is always successful </a>
+<span class="lineNum">     154 </span>                :            : static int
+<span class="lineNum">     155 </span>                :<span class="lineCov">       2495 : send_to_peer(struct dtls_context_t *ctx, </span>
+<span class="lineNum">     156 </span>                :            :              session_t *session, uint8_t *data, size_t len) {
+<span class="lineNum">     157 </span>                :            :   char base_name[MAX_FILENAME_LEN], *handshake_folder;
+<span class="lineNum">     158 </span>        [<span class="branchNoCov" title="Branch 0 was not taken"> - </span><span class="branchCov" title="Branch 1 was taken 2495 times"> + </span>]:<span class="lineCov">       2495 :   if (dump_output_mode) {</span>
+<span class="lineNum">     159 </span>        [<span class="branchNoExec" title="Branch 0 was not executed"> # </span><span class="branchNoExec" title="Branch 1 was not executed"> # </span>]:<span class="lineNoCov">          0 :     if (ctx-&gt;h-&gt;get_psk_info != NULL) {</span>
+<span class="lineNum">     160 </span>                :<span class="lineNoCov">          0 :       handshake_folder = PSK_HANDSHAKE_FOLDER;</span>
+<span class="lineNum">     161 </span>        [<span class="branchNoExec" title="Branch 0 was not executed"> # </span><span class="branchNoExec" title="Branch 1 was not executed"> # </span>]:<span class="lineNoCov">          0 :     } else if (ctx-&gt;h-&gt;get_ecdsa_key != NULL) {</span>
+<span class="lineNum">     162 </span>                :<span class="lineNoCov">          0 :       handshake_folder = ECC_HANDSHAKE_FOLDER;</span>
+<span class="lineNum">     163 </span>                :            :     } else {
+<span class="lineNum">     164 </span>                :<span class="lineNoCov">          0 :       dtls_alert(&quot;One of PSK or ECDSA must be supported&quot;);</span>
+<span class="lineNum">     165 </span>                :<span class="lineNoCov">          0 :       exit(0);</span>
+<span class="lineNum">     166 </span>                :            :     }
+<span class="lineNum">     167 </span>                :<span class="lineNoCov">          0 :     sprintf(base_name, &quot;%s/%d&quot;, handshake_folder, dump_index++);</span>
+<span class="lineNum">     168 </span>                :<span class="lineNoCov">          0 :     FILE *f = fopen(base_name, &quot;wb&quot;);</span>
+<span class="lineNum">     169 </span>                :<span class="lineNoCov">          0 :     fwrite(data, sizeof(uint8_t), len, f);</span>
+<span class="lineNum">     170 </span>                :<span class="lineNoCov">          0 :     fclose(f);</span>
+<span class="lineNum">     171 </span>                :            :   }
+<span class="lineNum">     172 </span>                :<span class="lineCov">       2495 :   dtls_debug_hexdump(&quot;sending&quot;, data, len);</span>
+<span class="lineNum">     173 </span>                :<span class="lineCov">       2495 :   return len;</span>
+<span class="lineNum">     174 </span>                :            : }
+<a name="175"><span class="lineNum">     175 </span>                :            : </a>
+<span class="lineNum">     176 </span>                :            : // we populate the address with valid data so that it passes checks
+<span class="lineNum">     177 </span>                :<span class="lineCov">       2959 : void populate_sockaddr(struct sockaddr_in *sa) {</span>
+<span class="lineNum">     178 </span>                :<span class="lineCov">       2959 :   sa-&gt;sin_family = AF_INET;</span>
+<span class="lineNum">     179 </span>                :<span class="lineCov">       2959 :   sa-&gt;sin_port = htons(DEFAULT_PORT);</span>
+<span class="lineNum">     180 </span>                :<span class="lineCov">       2959 :   sa-&gt;sin_addr.s_addr = inet_addr(&quot;127.0.0.1&quot;);</span>
+<a name="181"><span class="lineNum">     181 </span>                :<span class="lineCov">       2959 : }</span></a>
+<span class="lineNum">     182 </span>                :            : 
+<span class="lineNum">     183 </span>                :<span class="lineNoCov">          0 : void make_dirs(char *path) {</span>
+<span class="lineNum">     184 </span>                :<span class="lineNoCov">          0 :   char *sep = strchr(path, '/');</span>
+<span class="lineNum">     185 </span>                :            :   char aux[MAX_FILENAME_LEN];
+<span class="lineNum">     186 </span>                :            :   // create subfolders
+<span class="lineNum">     187 </span>        [<span class="branchNoExec" title="Branch 0 was not executed"> # </span><span class="branchNoExec" title="Branch 1 was not executed"> # </span>]:<span class="lineNoCov">          0 :   while (sep != NULL) {</span>
+<span class="lineNum">     188 </span>                :<span class="lineNoCov">          0 :     strncpy(aux, path, sep-path);</span>
+<span class="lineNum">     189 </span>[<span class="branchNoExec" title="Branch 1 was not executed"> # </span><span class="branchNoExec" title="Branch 2 was not executed"> # </span>][<span class="branchNoExec" title="Branch 3 was not executed"> # </span><span class="branchNoExec" title="Branch 4 was not executed"> # </span>]:<span class="lineNoCov">          0 :     if(mkdir(aux, 0777) &amp;&amp; errno != EEXIST) {</span>
+<span class="lineNum">     190 </span>                :<span class="lineNoCov">          0 :       printf(&quot;error while trying to create '%s'\n%m\n&quot;, aux);</span>
+<span class="lineNum">     191 </span>                :<span class="lineNoCov">          0 :       exit(-1);</span>
+<span class="lineNum">     192 </span>                :            :     }
+<span class="lineNum">     193 </span>                :<span class="lineNoCov">          0 :     sep = strchr(sep+1, '/');</span>
+<span class="lineNum">     194 </span>                :            :   }
+<span class="lineNum">     195 </span>                :            :   // then create the target folder
+<span class="lineNum">     196 </span>[<span class="branchNoExec" title="Branch 1 was not executed"> # </span><span class="branchNoExec" title="Branch 2 was not executed"> # </span>][<span class="branchNoExec" title="Branch 3 was not executed"> # </span><span class="branchNoExec" title="Branch 4 was not executed"> # </span>]:<span class="lineNoCov">          0 :   if(mkdir(path, 0777) &amp;&amp; errno != EEXIST) {</span>
+<span class="lineNum">     197 </span>                :<span class="lineNoCov">          0 :     printf(&quot;error while trying to create '%s'\n%m\n&quot;, path);</span>
+<span class="lineNum">     198 </span>                :<span class="lineNoCov">          0 :     exit(-1);</span>
+<span class="lineNum">     199 </span>                :            :   }
+<span class="lineNum">     200 </span>                :<span class="lineNoCov">          0 : }</span>
+<span class="lineNum">     201 </span>                :            : 
+<span class="lineNum">     202 </span>                :            : static uint8_t start_rec [] = {0x16, 0xfe, 0xfd};
+<span class="lineNum">     203 </span>                :            : static size_t start_rec_len = 3;
+<a name="204"><span class="lineNum">     204 </span>                :            : </a>
+<span class="lineNum">     205 </span>                :            : static int
+<span class="lineNum">     206 </span>                :<span class="lineCov">       2690 : dtls_handle_read(struct dtls_context_t *ctx, uint8_t *buf, int len, int IS_SERVER) {</span>
+<span class="lineNum">     207 </span>                :            :   int *fd;
+<span class="lineNum">     208 </span>                :            :   session_t session;
+<span class="lineNum">     209 </span>                :            :   dtls_peer_t *peer;
+<span class="lineNum">     210 </span>                :            : 
+<span class="lineNum">     211 </span>                :<span class="lineCov">       2690 :   fd = dtls_get_app_data(ctx);</span>
+<span class="lineNum">     212 </span>                :            : 
+<span class="lineNum">     213 </span>        [<span class="branchNoCov" title="Branch 0 was not taken"> - </span><span class="branchCov" title="Branch 1 was taken 2690 times"> + </span>]:<span class="lineCov">       2690 :   assert(fd);</span>
+<span class="lineNum">     214 </span>                :            : 
+<span class="lineNum">     215 </span>                :<span class="lineCov">       2690 :   memset(&amp;session, 0, sizeof(session_t));</span>
+<span class="lineNum">     216 </span>                :<span class="lineCov">       2690 :   session.size = sizeof(session.addr);</span>
+<span class="lineNum">     217 </span>                :<span class="lineCov">       2690 :   populate_sockaddr((struct sockaddr_in *)&amp;session.addr.sa);</span>
+<span class="lineNum">     218 </span>                :            : 
+<span class="lineNum">     219 </span>        [<span class="branchNoCov" title="Branch 0 was not taken"> - </span><span class="branchCov" title="Branch 1 was taken 2690 times"> + </span>]:<span class="lineCov">       2690 :   if (len &lt; 0) {</span>
+<span class="lineNum">     220 </span>                :<span class="lineNoCov">          0 :     perror(&quot;fread&quot;);</span>
+<span class="lineNum">     221 </span>                :<span class="lineNoCov">          0 :     return -1;</span>
+<span class="lineNum">     222 </span>                :            :   } else {
+<span class="lineNum">     223 </span>                :            :     dtls_debug(&quot;got %d bytes from fake port %d\n&quot;, len, 
+<span class="lineNum">     224 </span>                :            :              ntohs(session.addr.sin6.sin6_port));
+<span class="lineNum">     225 </span>                :            :   }
+<span class="lineNum">     226 </span>                :            : 
+<span class="lineNum">     227 </span>                :<span class="lineCov">       2690 :   return dtls_handle_message(ctx, &amp;session, buf, len);</span>
+<span class="lineNum">     228 </span>                :            : }    
+<span class="lineNum">     229 </span>                :            : 
+<span class="lineNum">     230 </span>                :            : static dtls_handler_t cb = {
+<span class="lineNum">     231 </span>                :            :   .write = send_to_peer,
+<span class="lineNum">     232 </span>                :            :   .read  = read_from_peer,
+<span class="lineNum">     233 </span>                :            :   .event = NULL,
+<span class="lineNum">     234 </span>                :            :   .get_psk_info = get_psk_info,
+<span class="lineNum">     235 </span>                :            :   .get_ecdsa_key = get_ecdsa_key,
+<span class="lineNum">     236 </span>                :            :   .verify_ecdsa_key = verify_ecdsa_key
+<span class="lineNum">     237 </span>                :            : };
+<span class="lineNum">     238 </span>                :            : 
+<span class="lineNum">     239 </span>                :            : static dtls_handler_t sb = {
+<span class="lineNum">     240 </span>                :            :   .write = send_to_peer,
+<span class="lineNum">     241 </span>                :            :   .read  = read_from_peer,
+<span class="lineNum">     242 </span>                :            :   .event = NULL,
+<span class="lineNum">     243 </span>                :            :   .get_psk_info = get_psk_info,
+<span class="lineNum">     244 </span>                :            :   .get_ecdsa_key = get_ecdsa_key,
+<span class="lineNum">     245 </span>                :            :   .verify_ecdsa_key = verify_ecdsa_key
+<a name="246"><span class="lineNum">     246 </span>                :            : };</a>
+<span class="lineNum">     247 </span>                :            : 
+<span class="lineNum">     248 </span>                :<span class="lineCov">        269 : void check_handshake_dir(char *dname, char *crypt) {</span>
+<span class="lineNum">     249 </span>                :            :   struct stat st;
+<span class="lineNum">     250 </span>[<span class="branchCov" title="Branch 1 was taken 269 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>][<span class="branchNoCov" title="Branch 3 was not taken"> - </span><span class="branchCov" title="Branch 4 was taken 269 times"> + </span>]:<span class="lineCov">        269 :   if ( stat(dname, &amp;st) == -1 || !S_ISDIR(st.st_mode)) {</span>
+<span class="lineNum">     251 </span>                :<span class="lineNoCov">          0 :     dtls_alert(&quot;Expected handshake folder \&quot;%s\&quot; doesn't exist or is invalid.\n\</span>
+<span class="lineNum">     252 </span>                :            :     Generate it using dump output mode (i.e. running 'dtls_fuzz %s') and try again.\n&quot;,\
+<span class="lineNum">     253 </span>                :            :     dname, crypt);
+<span class="lineNum">     254 </span>                :<span class="lineNoCov">          0 :     exit(EXIT_FAILURE);</span>
+<span class="lineNum">     255 </span>                :            :   }
+<a name="256"><span class="lineNum">     256 </span>                :<span class="lineCov">        269 : }</span></a>
+<span class="lineNum">     257 </span>                :            : 
+<span class="lineNum">     258 </span>                :<span class="lineCov">        269 : void check_packet_file(char *pname) {</span>
+<span class="lineNum">     259 </span>                :            :   struct stat st;
+<span class="lineNum">     260 </span>[<span class="branchCov" title="Branch 1 was taken 269 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>][<span class="branchNoCov" title="Branch 3 was not taken"> - </span><span class="branchCov" title="Branch 4 was taken 269 times"> + </span>]:<span class="lineCov">        269 :   if (stat(pname, &amp;st) || !S_ISREG(st.st_mode)) {</span>
+<span class="lineNum">     261 </span>                :<span class="lineNoCov">          0 :     dtls_alert(&quot;Packet file \&quot;%s\&quot; doesn't exist or is invalid.\n&quot;, pname);</span>
+<span class="lineNum">     262 </span>                :<span class="lineNoCov">          0 :     exit(EXIT_FAILURE);</span>
+<span class="lineNum">     263 </span>                :            :   }
+<span class="lineNum">     264 </span>                :<span class="lineCov">        269 : }</span>
+<a name="265"><span class="lineNum">     265 </span>                :            : </a>
+<span class="lineNum">     266 </span>                :            : 
+<span class="lineNum">     267 </span>                :<span class="lineCov">        269 : int fuzz_file(const uint8_t *record, size_t size, char* crypt, int packet_order){</span>
+<span class="lineNum">     268 </span>                :<span class="lineCov">        269 :   dtls_context_t *the_server_context = NULL;</span>
+<span class="lineNum">     269 </span>                :<span class="lineCov">        269 :   dtls_context_t *the_client_context = NULL;</span>
+<span class="lineNum">     270 </span>                :            :   fd_set rfds, wfds;
+<span class="lineNum">     271 </span>                :            :   struct timeval timeout;
+<span class="lineNum">     272 </span>                :<span class="lineCov">        269 :   int fd=100, opt, result;</span>
+<span class="lineNum">     273 </span>                :<span class="lineCov">        269 :   FILE *f = NULL;</span>
+<span class="lineNum">     274 </span>                :            :   static uint8_t buf[MAX_READ_BUFF];
+<span class="lineNum">     275 </span>                :            :   char file_name[MAX_FILENAME_LEN], base_name[MAX_FILENAME_LEN];
+<span class="lineNum">     276 </span>                :<span class="lineCov">        269 :   int on = 1, no_of_msg = 0, len = 0;</span>
+<span class="lineNum">     277 </span>                :            :   // 0 - message for the server, 1 - message for the client
+<span class="lineNum">     278 </span>                :<span class="lineCov">        269 :   int psk_roles[] = {0 /*CH*/, 1 /*HVR*/, 0 /*CH*/, 1 /*SH*/, 1 /*SHD*/,\</span>
+<span class="lineNum">     279 </span>                :            :                      0 /*CKE*/, 0 /*CCS*/, 0 /*FIN*/, 1 /*CCS*/, 1 /*FIN*/};
+<span class="lineNum">     280 </span>                :<span class="lineCov">        269 :   int ecc_roles[] = {0 /*CH*/, 1 /*HVR*/, 0 /*CH*/,\</span>
+<span class="lineNum">     281 </span>                :            :                      1 /*SH*/, 1 /*Cert*/, 1 /*SKE*/, 1 /*CertReq*/, 1 /*SHD*/,\
+<span class="lineNum">     282 </span>                :            :                      0 /*Cert*/, 0 /*CKE*/,0 /*CertVer*/, 0 /*CCS*/, 0 /*FIN*/,\
+<span class="lineNum">     283 </span>                :            :                      1 /*CCS*/, 1 /*FIN*/};
+<span class="lineNum">     284 </span>                :            :   int * roles; // array 
+<span class="lineNum">     285 </span>                :            :   
+<span class="lineNum">     286 </span>                :            : 
+<span class="lineNum">     287 </span>        [<span class="branchCov" title="Branch 0 was taken 269 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">        269 :   if(strcmp(crypt, &quot;psk&quot;) == 0){</span>
+<span class="lineNum">     288 </span>                :<span class="lineCov">        269 :     sprintf(base_name, &quot;%s/&quot;, PSK_HANDSHAKE_FOLDER);</span>
+<span class="lineNum">     289 </span>        [<span class="branchNoCov" title="Branch 0 was not taken"> - </span><span class="branchCov" title="Branch 1 was taken 269 times"> + </span>]:<span class="lineCov">        269 :     if (dump_output_mode) {</span>
+<span class="lineNum">     290 </span>                :<span class="lineNoCov">          0 :       make_dirs(PSK_HANDSHAKE_FOLDER);</span>
+<span class="lineNum">     291 </span>                :            :     } else {
+<span class="lineNum">     292 </span>                :<span class="lineCov">        269 :       check_handshake_dir(PSK_HANDSHAKE_FOLDER, crypt);</span>
+<span class="lineNum">     293 </span>                :            :     }
+<span class="lineNum">     294 </span>                :<span class="lineCov">        269 :     roles = psk_roles;</span>
+<span class="lineNum">     295 </span>                :<span class="lineCov">        269 :     no_of_msg = sizeof(psk_roles) / sizeof(int);</span>
+<span class="lineNum">     296 </span>                :            :     // disable ECDH
+<span class="lineNum">     297 </span>                :<span class="lineCov">        269 :     cb.get_ecdsa_key = NULL;</span>
+<span class="lineNum">     298 </span>                :<span class="lineCov">        269 :     cb.verify_ecdsa_key = NULL;</span>
+<span class="lineNum">     299 </span>                :<span class="lineCov">        269 :     sb.get_ecdsa_key = NULL;</span>
+<span class="lineNum">     300 </span>                :<span class="lineCov">        269 :     sb.verify_ecdsa_key = NULL;</span>
+<span class="lineNum">     301 </span>                :            :   }
+<span class="lineNum">     302 </span>        [<span class="branchNoExec" title="Branch 0 was not executed"> # </span><span class="branchNoExec" title="Branch 1 was not executed"> # </span>]:<span class="lineNoCov">          0 :   else if(strcmp(crypt, &quot;ecc&quot;) == 0){</span>
+<span class="lineNum">     303 </span>                :<span class="lineNoCov">          0 :     sprintf(base_name, &quot;%s/&quot;, ECC_HANDSHAKE_FOLDER);</span>
+<span class="lineNum">     304 </span>        [<span class="branchNoExec" title="Branch 0 was not executed"> # </span><span class="branchNoExec" title="Branch 1 was not executed"> # </span>]:<span class="lineNoCov">          0 :     if (dump_output_mode) {</span>
+<span class="lineNum">     305 </span>                :<span class="lineNoCov">          0 :       make_dirs(ECC_HANDSHAKE_FOLDER);</span>
+<span class="lineNum">     306 </span>                :            :     } else {
+<span class="lineNum">     307 </span>                :<span class="lineNoCov">          0 :       check_handshake_dir(ECC_HANDSHAKE_FOLDER, crypt);</span>
+<span class="lineNum">     308 </span>                :            :     }
+<span class="lineNum">     309 </span>                :<span class="lineNoCov">          0 :     roles = ecc_roles;</span>
+<span class="lineNum">     310 </span>                :<span class="lineNoCov">          0 :     no_of_msg = sizeof(ecc_roles) / sizeof(int);</span>
+<span class="lineNum">     311 </span>                :            :     // disable PSK 
+<span class="lineNum">     312 </span>                :<span class="lineNoCov">          0 :     cb.get_psk_info = NULL;</span>
+<span class="lineNum">     313 </span>                :<span class="lineNoCov">          0 :     sb.get_psk_info = NULL;</span>
+<span class="lineNum">     314 </span>                :            :   }
+<span class="lineNum">     315 </span>                :            :   else {
+<span class="lineNum">     316 </span>                :<span class="lineNoCov">          0 :     dtls_alert(&quot;Invalid crypt value: Use \&quot;psk\&quot; or \&quot;ecc\&quot;\n&quot;);</span>
+<span class="lineNum">     317 </span>                :<span class="lineNoCov">          0 :     return 0;</span>
+<span class="lineNum">     318 </span>                :            :   }
+<span class="lineNum">     319 </span>                :            : 
+<span class="lineNum">     320 </span>                :<span class="lineCov">        269 :   dtls_init();</span>
+<span class="lineNum">     321 </span>                :<span class="lineCov">        269 :   the_server_context = dtls_new_context(&amp;fd);</span>
+<span class="lineNum">     322 </span>                :<span class="lineCov">        269 :   dtls_set_handler(the_server_context, &amp;sb);</span>
+<span class="lineNum">     323 </span>                :            : 
+<span class="lineNum">     324 </span>                :<span class="lineCov">        269 :   the_client_context = dtls_new_context(&amp;fd);</span>
+<span class="lineNum">     325 </span>                :<span class="lineCov">        269 :   dtls_set_handler(the_client_context, &amp;cb);</span>
+<span class="lineNum">     326 </span>                :            :   // FILE* writeFile = fopen(&quot;RESULT.txt&quot;, &quot;a&quot;);
+<span class="lineNum">     327 </span>                :            :   
+<span class="lineNum">     328 </span>                :            :   // initializing socket address
+<span class="lineNum">     329 </span>                :            :   session_t session;
+<span class="lineNum">     330 </span>                :<span class="lineCov">        269 :   memset(&amp;session, 0, sizeof(session_t));</span>
+<span class="lineNum">     331 </span>                :<span class="lineCov">        269 :   session.size = sizeof(session.addr);</span>
+<span class="lineNum">     332 </span>                :<span class="lineCov">        269 :   populate_sockaddr((struct sockaddr_in *)&amp;session.addr.sa);</span>
+<span class="lineNum">     333 </span>                :            :   // this should kick-start the client
+<span class="lineNum">     334 </span>                :<span class="lineCov">        269 :   dtls_connect(the_client_context, &amp;session);</span>
+<span class="lineNum">     335 </span>                :            : 
+<span class="lineNum">     336 </span>        [<span class="branchCov" title="Branch 0 was taken 2690 times"> + </span><span class="branchCov" title="Branch 1 was taken 269 times"> + </span>]:<span class="lineCov">       2959 :   for (int i=0; i&lt;no_of_msg; i++) {</span>
+<span class="lineNum">     337 </span>                :<span class="lineCov">       2690 :     sprintf(file_name, &quot;%s%d&quot;, base_name, i);</span>
+<span class="lineNum">     338 </span>                :            :     
+<span class="lineNum">     339 </span>        [<span class="branchCov" title="Branch 0 was taken 2421 times"> + </span><span class="branchCov" title="Branch 1 was taken 269 times"> + </span>]:<span class="lineCov">       2690 :     if(i != packet_order){</span>
+<span class="lineNum">     340 </span>                :<span class="lineCov">       2421 :       f = fopen(file_name, &quot;rb&quot;);</span>
+<span class="lineNum">     341 </span>                :<span class="lineCov">       2421 :       len = fread(buf, sizeof *buf, MAX_READ_BUFF, f);</span>
+<span class="lineNum">     342 </span>                :<span class="lineCov">       2421 :       fclose(f);</span>
+<span class="lineNum">     343 </span>                :            :       
+<span class="lineNum">     344 </span>        [<span class="branchNoCov" title="Branch 0 was not taken"> - </span><span class="branchCov" title="Branch 1 was taken 2421 times"> + </span>]:<span class="lineCov">       2421 :       if (f == NULL) {</span>
+<span class="lineNum">     345 </span>                :<span class="lineNoCov">          0 :           dtls_alert(&quot;Couldn't open %s\n&quot;, file_name);</span>
+<span class="lineNum">     346 </span>                :<span class="lineNoCov">          0 :           break;</span>
+<span class="lineNum">     347 </span>                :            :       }
+<span class="lineNum">     348 </span>                :<span class="lineCov">       2421 :       f = NULL;</span>
+<span class="lineNum">     349 </span>                :            :     } else {
+<span class="lineNum">     350 </span>                :<span class="lineCov">        269 :         memcpy(buf, record, size);</span>
+<span class="lineNum">     351 </span>                :<span class="lineCov">        269 :         len = size;</span>
+<span class="lineNum">     352 </span>                :            :     }
+<span class="lineNum">     353 </span>                :            : 
+<span class="lineNum">     354 </span>                :            :     // fprintf(writeFile, &quot;/////////////////// %s ///////////////\n&quot;, argv[i+1]);
+<span class="lineNum">     355 </span>                :            :     // printf(&quot;/////////////////// %s ///////////////\n&quot;, argv[i+1]);
+<span class="lineNum">     356 </span>                :            :     // if(strncmp(argv[i+1]+strlen(argv[i+1])-1, &quot;s&quot;, 1) == 0){
+<span class="lineNum">     357 </span>                :            :     //   result = dtls_handle_read(the_client_context, f, 0);
+<span class="lineNum">     358 </span>                :            :     // } else {
+<span class="lineNum">     359 </span>                :            :     //   result = dtls_handle_read(the_server_context, f, 1);
+<span class="lineNum">     360 </span>                :            :     // }
+<span class="lineNum">     361 </span>                :            :     // printf(&quot;Iteration %d\n&quot;,i);
+<span class="lineNum">     362 </span>                :            :     
+<span class="lineNum">     363 </span>        [<span class="branchCov" title="Branch 0 was taken 1345 times"> + </span><span class="branchCov" title="Branch 1 was taken 1345 times"> + </span>]:<span class="lineCov">       2690 :     if (!roles[i]) {</span>
+<span class="lineNum">     364 </span>                :            :       // server role (server should process it)
+<span class="lineNum">     365 </span>                :<span class="lineCov">       1345 :       result = dtls_handle_read(the_server_context, buf, len, 1);</span>
+<span class="lineNum">     366 </span>                :            :     } else {
+<span class="lineNum">     367 </span>                :            :       // client role (client should process it)
+<span class="lineNum">     368 </span>                :<span class="lineCov">       1345 :       result = dtls_handle_read(the_client_context, buf, len, 0);</span>
+<span class="lineNum">     369 </span>                :            :     }
+<span class="lineNum">     370 </span>                :            : 
+<span class="lineNum">     371 </span>        [<span class="branchCov" title="Branch 0 was taken 372 times"> + </span><span class="branchCov" title="Branch 1 was taken 2318 times"> + </span>]:<span class="lineCov">       2690 :     if(result){</span>
+<span class="lineNum">     372 </span>                :<span class="lineCov">        372 :       char *response = &quot;Couldn't handle message\n&quot;;</span>
+<span class="lineNum">     373 </span>                :            :       // strcat( response, argv[i+1]);
+<span class="lineNum">     374 </span>                :            :       // strcat( response, &quot;\n&quot;);
+<span class="lineNum">     375 </span>                :            :       
+<span class="lineNum">     376 </span>                :<span class="lineCov">        372 :       dtls_alert(response);</span>
+<span class="lineNum">     377 </span>                :            :       //break;
+<span class="lineNum">     378 </span>                :            :     } 
+<span class="lineNum">     379 </span>                :            :   }
+<span class="lineNum">     380 </span>                :            : 
+<span class="lineNum">     381 </span>                :<span class="lineCov">        269 :  error:</span>
+<span class="lineNum">     382 </span>        [<span class="branchNoCov" title="Branch 0 was not taken"> - </span><span class="branchCov" title="Branch 1 was taken 269 times"> + </span>]:<span class="lineCov">        269 :   if (f != NULL) {</span>
+<span class="lineNum">     383 </span>                :<span class="lineNoCov">          0 :     fclose(f);</span>
+<span class="lineNum">     384 </span>                :            :   }
+<span class="lineNum">     385 </span>                :            : 
+<span class="lineNum">     386 </span>                :<span class="lineCov">        269 :   dtls_free_context(the_server_context);</span>
+<span class="lineNum">     387 </span>                :<span class="lineCov">        269 :   dtls_free_context(the_client_context);</span>
+<span class="lineNum">     388 </span>                :<span class="lineCov">        269 :   return 0;</span>
+<span class="lineNum">     389 </span>                :            : }
+<a name="390"><span class="lineNum">     390 </span>                :            : </a>
+<span class="lineNum">     391 </span>                :            : 
+<span class="lineNum">     392 </span>                :<span class="lineCov">        269 : int main(int argc, char **argv) {</span>
+<span class="lineNum">     393 </span>                :<span class="lineCov">        269 :   FILE *f = NULL;</span>
+<span class="lineNum">     394 </span>                :            :   static uint8_t buf[MAX_READ_BUFF];
+<span class="lineNum">     395 </span>                :            :   char *crypt;
+<span class="lineNum">     396 </span>                :<span class="lineCov">        269 :   int packet_order = -1, len = 0;</span>
+<span class="lineNum">     397 </span>                :            : 
+<span class="lineNum">     398 </span>[<span class="branchCov" title="Branch 0 was taken 269 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>][<span class="branchNoCov" title="Branch 2 was not taken"> - </span><span class="branchCov" title="Branch 3 was taken 269 times"> + </span>]:<span class="lineCov">        269 :   if (argc != 2 &amp;&amp; argc != 4) {</span>
+<span class="lineNum">     399 </span>                :            :     char usage[10000];
+<span class="lineNum">     400 </span>                :<span class="lineNoCov">          0 :     strcpy(usage, &quot;Usage: \n&quot;);</span>
+<span class="lineNum">     401 </span>                :<span class="lineNoCov">          0 :     strcat(usage, &quot;(regular mode) dtls_fuzz packet_file psk/ecc packet_order \n&quot;);</span>
+<span class="lineNum">     402 </span>                :<span class="lineNoCov">          0 :     strcat(usage, &quot;(compact mode) dtls_fuzz packet_file,psk/ecc,packet_order \n&quot;);</span>
+<span class="lineNum">     403 </span>                :<span class="lineNoCov">          0 :     strcat(usage, &quot;(dump output mode) dtls_fuzz psk/ecc&quot;);</span>
+<span class="lineNum">     404 </span>                :<span class="lineNoCov">          0 :     puts(usage);</span>
+<span class="lineNum">     405 </span>                :<span class="lineNoCov">          0 :     return 0;</span>
+<span class="lineNum">     406 </span>                :            :   }
+<span class="lineNum">     407 </span>                :            :   
+<span class="lineNum">     408 </span>        [<span class="branchNoCov" title="Branch 0 was not taken"> - </span><span class="branchCov" title="Branch 1 was taken 269 times"> + </span>]:<span class="lineCov">        269 :   if (argc == 2) {</span>
+<span class="lineNum">     409 </span>        [<span class="branchNoExec" title="Branch 0 was not executed"> # </span><span class="branchNoExec" title="Branch 1 was not executed"> # </span>]:<span class="lineNoCov">          0 :     if (strchr(argv[1], ',') == NULL) {</span>
+<span class="lineNum">     410 </span>                :<span class="lineNoCov">          0 :       dump_output_mode = 1;</span>
+<span class="lineNum">     411 </span>                :<span class="lineNoCov">          0 :       crypt = argv[1];</span>
+<span class="lineNum">     412 </span>                :            :     } else {
+<span class="lineNum">     413 </span>                :<span class="lineNoCov">          0 :       const char s[] = &quot;,&quot;;</span>
+<span class="lineNum">     414 </span>                :            :       char *token, *file_order, *file_name;
+<span class="lineNum">     415 </span>                :<span class="lineNoCov">          0 :       file_name = argv[1];</span>
+<span class="lineNum">     416 </span>                :            :       
+<span class="lineNum">     417 </span>                :            :       /* get the first token, note that the supplied string will be broken into chunks
+<span class="lineNum">     418 </span>                :            :         consequently, argv[1] will point to the first chunk of the string it initially pointed to
+<span class="lineNum">     419 </span>                :            :        */
+<span class="lineNum">     420 </span>                :<span class="lineNoCov">          0 :       token = strtok(file_name, s);</span>
+<span class="lineNum">     421 </span>                :            :       
+<span class="lineNum">     422 </span>                :            :       /* walk through other tokens */
+<span class="lineNum">     423 </span>        [<span class="branchNoExec" title="Branch 0 was not executed"> # </span><span class="branchNoExec" title="Branch 1 was not executed"> # </span>]:<span class="lineNoCov">          0 :       while( token != NULL ) {</span>
+<span class="lineNum">     424 </span>                :<span class="lineNoCov">          0 :         crypt = file_order;</span>
+<span class="lineNum">     425 </span>                :<span class="lineNoCov">          0 :         file_order = token;</span>
+<span class="lineNum">     426 </span>                :<span class="lineNoCov">          0 :         token = strtok(NULL, s);</span>
+<span class="lineNum">     427 </span>                :            :       }
+<span class="lineNum">     428 </span>                :<span class="lineNoCov">          0 :       packet_order = atoi(file_order);</span>
+<span class="lineNum">     429 </span>                :            :     }
+<span class="lineNum">     430 </span>        [<span class="branchCov" title="Branch 0 was taken 269 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">        269 :   } else if(argc == 4) {</span>
+<span class="lineNum">     431 </span>                :<span class="lineCov">        269 :     crypt = argv[2];</span>
+<span class="lineNum">     432 </span>                :<span class="lineCov">        269 :     packet_order = atoi(argv[3]);</span>
+<span class="lineNum">     433 </span>                :            :   }
+<span class="lineNum">     434 </span>                :            : 
+<span class="lineNum">     435 </span>        [<span class="branchCov" title="Branch 0 was taken 269 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">        269 :   if (!dump_output_mode) {</span>
+<span class="lineNum">     436 </span>                :<span class="lineCov">        269 :     check_packet_file(argv[1]);</span>
+<span class="lineNum">     437 </span>                :<span class="lineCov">        269 :     f = fopen(argv[1], &quot;rb&quot;);</span>
+<span class="lineNum">     438 </span>                :<span class="lineCov">        269 :     len = fread(buf, sizeof *buf, MAX_READ_BUFF, f);</span>
+<span class="lineNum">     439 </span>                :<span class="lineCov">        269 :     fclose(f);</span>
+<span class="lineNum">     440 </span>                :<span class="lineCov">        269 :     f = NULL;</span>
+<span class="lineNum">     441 </span>                :            :   } else {
+<span class="lineNum">     442 </span>                :<span class="lineNoCov">          0 :     len = -1;</span>
+<span class="lineNum">     443 </span>                :<span class="lineNoCov">          0 :     memset(buf, 0, MAX_READ_BUFF);</span>
+<span class="lineNum">     444 </span>                :            :   }
+<span class="lineNum">     445 </span>                :            : 
+<span class="lineNum">     446 </span>                :<span class="lineCov">        269 :   fuzz_file(buf, len, crypt, packet_order);</span>
+<span class="lineNum">     447 </span>                :            : 
+<span class="lineNum">     448 </span>                :<span class="lineCov">        269 :   error:</span>
+<span class="lineNum">     449 </span>        [<span class="branchNoCov" title="Branch 0 was not taken"> - </span><span class="branchCov" title="Branch 1 was taken 269 times"> + </span>]:<span class="lineCov">        269 :   if (f != NULL) {</span>
+<span class="lineNum">     450 </span>                :<span class="lineNoCov">          0 :     fclose(f);</span>
+<span class="lineNum">     451 </span>                :            :   }
+<span class="lineNum">     452 </span>                :            : 
+<span class="lineNum">     453 </span>                :<span class="lineCov">        269 :   exit(0);</span>
+<span class="lineNum">     454 </span>                :            : }
+</pre>
+      </td>
+    </tr>
+  </table>
+  <br>
+
+  <table width="100%" border=0 cellspacing=0 cellpadding=0>
+    <tr><td class="ruler"><img src="../../glass.png" width=3 height=3 alt=""></td></tr>
+    <tr><td class="versionInfo">Generated by: <a href="http://ltp.sourceforge.net/coverage/lcov.php" target="_parent">LCOV version 1.13</a></td></tr>
+  </table>
+  <br>
+
+</body>
+</html>

@@ -1,0 +1,4 @@
+diff id:000274,src:000273,time:71716230,op:havoc-smart,rep:4 -> id:000275,src:000076,time:76529119,op:havoc-smart,rep:16,+cov
+Src file: /home/rahbar/tinydtls-fuzz-cov/sha2/sha2.c
+  New 'line' coverage: 634
+  New 'line' coverage: 637

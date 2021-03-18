@@ -1,0 +1,4 @@
+diff id:000046,src:000000,op:arith8,pos:60,val:-6,+cov -> id:000047,src:000000,op:arith8,pos:60,val:-7,+cov
+Src file: /home/rahbar/tinydtls-fuzz-cov/sha2/sha2.c
+  New 'line' coverage: 634
+  New 'line' coverage: 637

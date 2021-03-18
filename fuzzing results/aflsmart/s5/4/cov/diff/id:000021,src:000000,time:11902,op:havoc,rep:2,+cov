@@ -1,0 +1,24 @@
+diff id:000020,src:000000,time:10629,op:havoc,rep:2 -> id:000021,src:000000,time:11902,op:havoc,rep:2,+cov
+Src file: /home/rahbar/tinydtls-fuzz-cov/dtls.c
+  New 'function' coverage: dtls_write()
+  New 'line' coverage: 230
+  New 'line' coverage: 233
+  New 'line' coverage: 236
+  New 'line' coverage: 246
+  New 'line' coverage: 247
+  New 'line' coverage: 3935
+  New 'line' coverage: 3936
+  New 'line' coverage: 3937
+  New 'line' coverage: 3942
+  New 'line' coverage: 3943
+  New 'line' coverage: 3944
+Src file: /home/rahbar/tinydtls-fuzz-cov/tests/dtls-fuzz.c
+  New 'function' coverage: read_from_peer()
+  New 'line' coverage: 129
+  New 'line' coverage: 132
+  New 'line' coverage: 133
+  New 'line' coverage: 134
+  New 'line' coverage: 135
+  New 'line' coverage: 139
+  New 'line' coverage: 140
+  New 'line' coverage: 146

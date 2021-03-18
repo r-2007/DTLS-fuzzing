@@ -1,0 +1,616 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+
+<html lang="en">
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <title>LCOV - trace.lcov_info_final - tinydtls-fuzz-cov/tests/dtls-client.c</title>
+  <link rel="stylesheet" type="text/css" href="../../gcov.css">
+</head>
+
+<body>
+
+  <table width="100%" border=0 cellspacing=0 cellpadding=0>
+    <tr><td class="title">LCOV - code coverage report</td></tr>
+    <tr><td class="ruler"><img src="../../glass.png" width=3 height=3 alt=""></td></tr>
+
+    <tr>
+      <td width="100%">
+        <table cellpadding=1 border=0 width="100%">
+          <tr>
+            <td width="10%" class="headerItem">Current view:</td>
+            <td width="35%" class="headerValue"><a href="../../index.html">top level</a> - <a href="index.html">tinydtls-fuzz-cov/tests</a> - dtls-client.c<span style="font-size: 80%;"> (source / <a href="dtls-client.c.func-sort-c.html">functions</a>)</span></td>
+            <td width="5%"></td>
+            <td width="15%"></td>
+            <td width="10%" class="headerCovTableHead">Hit</td>
+            <td width="10%" class="headerCovTableHead">Total</td>
+            <td width="15%" class="headerCovTableHead">Coverage</td>
+          </tr>
+          <tr>
+            <td class="headerItem">Test:</td>
+            <td class="headerValue">trace.lcov_info_final</td>
+            <td></td>
+            <td class="headerItem">Lines:</td>
+            <td class="headerCovTableEntry">0</td>
+            <td class="headerCovTableEntry">210</td>
+            <td class="headerCovTableEntryLo">0.0 %</td>
+          </tr>
+          <tr>
+            <td class="headerItem">Date:</td>
+            <td class="headerValue">2020-11-25 02:42:25</td>
+            <td></td>
+            <td class="headerItem">Functions:</td>
+            <td class="headerCovTableEntry">0</td>
+            <td class="headerCovTableEntry">13</td>
+            <td class="headerCovTableEntryLo">0.0 %</td>
+          </tr>
+          <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td class="headerItem">Branches:</td>
+            <td class="headerCovTableEntry">0</td>
+            <td class="headerCovTableEntry">0</td>
+            <td class="headerCovTableEntryHi">-</td>
+          </tr>
+          <tr><td><img src="../../glass.png" width=3 height=3 alt=""></td></tr>
+        </table>
+      </td>
+    </tr>
+
+    <tr><td class="ruler"><img src="../../glass.png" width=3 height=3 alt=""></td></tr>
+  </table>
+
+  <table cellpadding=0 cellspacing=0 border=0>
+    <tr>
+      <td><br></td>
+    </tr>
+    <tr>
+      <td>
+<pre class="sourceHeading">           Branch data     Line data    Source code</pre>
+<pre class="source">
+<a name="1"><span class="lineNum">       1 </span>                :            : #include &quot;tinydtls.h&quot; </a>
+<span class="lineNum">       2 </span>                :            : 
+<span class="lineNum">       3 </span>                :            : /* This is needed for apple */
+<span class="lineNum">       4 </span>                :            : #define __APPLE_USE_RFC_3542
+<span class="lineNum">       5 </span>                :            : 
+<span class="lineNum">       6 </span>                :            : #include &lt;stdio.h&gt;
+<span class="lineNum">       7 </span>                :            : #include &lt;string.h&gt;
+<span class="lineNum">       8 </span>                :            : #include &lt;errno.h&gt;
+<span class="lineNum">       9 </span>                :            : #include &lt;unistd.h&gt;
+<span class="lineNum">      10 </span>                :            : #include &lt;ctype.h&gt;
+<span class="lineNum">      11 </span>                :            : #include &lt;netinet/in.h&gt;
+<span class="lineNum">      12 </span>                :            : #include &lt;sys/types.h&gt;
+<span class="lineNum">      13 </span>                :            : #include &lt;sys/socket.h&gt;
+<span class="lineNum">      14 </span>                :            : #include &lt;sys/time.h&gt;
+<span class="lineNum">      15 </span>                :            : #include &lt;arpa/inet.h&gt;
+<span class="lineNum">      16 </span>                :            : #include &lt;netdb.h&gt;
+<span class="lineNum">      17 </span>                :            : #include &lt;signal.h&gt;
+<span class="lineNum">      18 </span>                :            : 
+<span class="lineNum">      19 </span>                :            : #include &quot;dtls.h&quot;
+<span class="lineNum">      20 </span>                :            : 
+<span class="lineNum">      21 </span>                :            : /* Log configuration */
+<span class="lineNum">      22 </span>                :            : #define LOG_MODULE &quot;dtls-client&quot;
+<span class="lineNum">      23 </span>                :            : #define LOG_LEVEL  LOG_LEVEL_DTLS
+<span class="lineNum">      24 </span>                :            : #include &quot;dtls-log.h&quot;
+<span class="lineNum">      25 </span>                :            : 
+<span class="lineNum">      26 </span>                :            : #define DEFAULT_PORT 20220
+<span class="lineNum">      27 </span>                :            : 
+<span class="lineNum">      28 </span>                :            : #define PSK_DEFAULT_IDENTITY &quot;Client_identity&quot;
+<span class="lineNum">      29 </span>                :            : #define PSK_DEFAULT_KEY      &quot;\x12\x34&quot;
+<span class="lineNum">      30 </span>                :            : #define PSK_OPTIONS          &quot;i:k:&quot;
+<span class="lineNum">      31 </span>                :            : 
+<span class="lineNum">      32 </span>                :            : #ifdef __GNUC__
+<span class="lineNum">      33 </span>                :            : #define UNUSED_PARAM __attribute__((unused))
+<span class="lineNum">      34 </span>                :            : #else
+<span class="lineNum">      35 </span>                :            : #define UNUSED_PARAM
+<span class="lineNum">      36 </span>                :            : #endif /* __GNUC__ */
+<span class="lineNum">      37 </span>                :            : 
+<span class="lineNum">      38 </span>                :            : static char buf[200];
+<span class="lineNum">      39 </span>                :            : static size_t len = 0;
+<span class="lineNum">      40 </span>                :            : 
+<span class="lineNum">      41 </span>                :            : typedef struct {
+<span class="lineNum">      42 </span>                :            :   size_t length;               /* length of string */
+<span class="lineNum">      43 </span>                :            :   unsigned char *s;            /* string data */
+<span class="lineNum">      44 </span>                :            : } dtls_str;
+<span class="lineNum">      45 </span>                :            : 
+<span class="lineNum">      46 </span>                :            : static dtls_str output_file = { 0, NULL }; /* output file name */
+<span class="lineNum">      47 </span>                :            : 
+<span class="lineNum">      48 </span>                :            : static dtls_context_t *dtls_context = NULL;
+<span class="lineNum">      49 </span>                :            : static dtls_context_t *orig_dtls_context = NULL;
+<span class="lineNum">      50 </span>                :            : 
+<span class="lineNum">      51 </span>                :            : 
+<span class="lineNum">      52 </span>                :            : static const unsigned char ecdsa_priv_key[] = {
+<span class="lineNum">      53 </span>                :            :                         0x41, 0xC1, 0xCB, 0x6B, 0x51, 0x24, 0x7A, 0x14,
+<span class="lineNum">      54 </span>                :            :                         0x43, 0x21, 0x43, 0x5B, 0x7A, 0x80, 0xE7, 0x14,
+<span class="lineNum">      55 </span>                :            :                         0x89, 0x6A, 0x33, 0xBB, 0xAD, 0x72, 0x94, 0xCA,
+<span class="lineNum">      56 </span>                :            :                         0x40, 0x14, 0x55, 0xA1, 0x94, 0xA9, 0x49, 0xFA};
+<span class="lineNum">      57 </span>                :            : 
+<span class="lineNum">      58 </span>                :            : static const unsigned char ecdsa_pub_key_x[] = {
+<span class="lineNum">      59 </span>                :            :                         0x36, 0xDF, 0xE2, 0xC6, 0xF9, 0xF2, 0xED, 0x29,
+<span class="lineNum">      60 </span>                :            :                         0xDA, 0x0A, 0x9A, 0x8F, 0x62, 0x68, 0x4E, 0x91,
+<span class="lineNum">      61 </span>                :            :                         0x63, 0x75, 0xBA, 0x10, 0x30, 0x0C, 0x28, 0xC5,
+<span class="lineNum">      62 </span>                :            :                         0xE4, 0x7C, 0xFB, 0xF2, 0x5F, 0xA5, 0x8F, 0x52};
+<span class="lineNum">      63 </span>                :            : 
+<span class="lineNum">      64 </span>                :            : static const unsigned char ecdsa_pub_key_y[] = {
+<span class="lineNum">      65 </span>                :            :                         0x71, 0xA0, 0xD4, 0xFC, 0xDE, 0x1A, 0xB8, 0x78,
+<span class="lineNum">      66 </span>                :            :                         0x5A, 0x3C, 0x78, 0x69, 0x35, 0xA7, 0xCF, 0xAB,
+<span class="lineNum">      67 </span>                :            :                         0xE9, 0x3F, 0x98, 0x72, 0x09, 0xDA, 0xED, 0x0B,
+<span class="lineNum">      68 </span>                :            :                         0x4F, 0xAB, 0xC3, 0x6F, 0xC7, 0x72, 0xF8, 0x29};
+<span class="lineNum">      69 </span>                :            : 
+<a name="70"><span class="lineNum">      70 </span>                :            : #ifdef DTLS_PSK</a>
+<span class="lineNum">      71 </span>                :            : ssize_t
+<span class="lineNum">      72 </span>                :<span class="lineNoCov">          0 : read_from_file(char *arg, unsigned char *buf, size_t max_buf_len) {</span>
+<span class="lineNum">      73 </span>                :            :   FILE *f;
+<span class="lineNum">      74 </span>                :<span class="lineNoCov">          0 :   ssize_t result = 0;</span>
+<span class="lineNum">      75 </span>                :            : 
+<span class="lineNum">      76 </span>                :<span class="lineNoCov">          0 :   f = fopen(arg, &quot;r&quot;);</span>
+<span class="lineNum">      77 </span>                :<span class="lineNoCov">          0 :   if (f == NULL)</span>
+<span class="lineNum">      78 </span>                :<span class="lineNoCov">          0 :     return -1;</span>
+<span class="lineNum">      79 </span>                :            : 
+<span class="lineNum">      80 </span>                :<span class="lineNoCov">          0 :   while (!feof(f)) {</span>
+<span class="lineNum">      81 </span>                :            :     size_t bytes_read;
+<span class="lineNum">      82 </span>                :<span class="lineNoCov">          0 :     bytes_read = fread(buf, 1, max_buf_len, f);</span>
+<span class="lineNum">      83 </span>                :<span class="lineNoCov">          0 :     if (ferror(f)) {</span>
+<span class="lineNum">      84 </span>                :<span class="lineNoCov">          0 :       result = -1;</span>
+<span class="lineNum">      85 </span>                :<span class="lineNoCov">          0 :       break;</span>
+<span class="lineNum">      86 </span>                :            :     }
+<span class="lineNum">      87 </span>                :            : 
+<span class="lineNum">      88 </span>                :<span class="lineNoCov">          0 :     buf += bytes_read;</span>
+<span class="lineNum">      89 </span>                :<span class="lineNoCov">          0 :     result += bytes_read;</span>
+<span class="lineNum">      90 </span>                :<span class="lineNoCov">          0 :     max_buf_len -= bytes_read;</span>
+<span class="lineNum">      91 </span>                :            :   }
+<span class="lineNum">      92 </span>                :            : 
+<span class="lineNum">      93 </span>                :<span class="lineNoCov">          0 :   fclose(f);</span>
+<span class="lineNum">      94 </span>                :<span class="lineNoCov">          0 :   return result;</span>
+<span class="lineNum">      95 </span>                :            : }
+<span class="lineNum">      96 </span>                :            : 
+<span class="lineNum">      97 </span>                :            : /* The PSK information for DTLS */
+<span class="lineNum">      98 </span>                :            : #define PSK_ID_MAXLEN 256
+<span class="lineNum">      99 </span>                :            : #define PSK_MAXLEN 256
+<span class="lineNum">     100 </span>                :            : static unsigned char psk_id[PSK_ID_MAXLEN];
+<span class="lineNum">     101 </span>                :            : static size_t psk_id_length = 0;
+<span class="lineNum">     102 </span>                :            : static unsigned char psk_key[PSK_MAXLEN];
+<span class="lineNum">     103 </span>                :            : static size_t psk_key_length = 0;
+<span class="lineNum">     104 </span>                :            : 
+<span class="lineNum">     105 </span>                :            : /* This function is the &quot;key store&quot; for tinyDTLS. It is called to
+<span class="lineNum">     106 </span>                :            :  * retrieve a key for the given identity within this particular
+<a name="107"><span class="lineNum">     107 </span>                :            :  * session. */</a>
+<span class="lineNum">     108 </span>                :            : static int
+<span class="lineNum">     109 </span>                :<span class="lineNoCov">          0 : get_psk_info(struct dtls_context_t *ctx UNUSED_PARAM,</span>
+<span class="lineNum">     110 </span>                :            :             const session_t *session UNUSED_PARAM,
+<span class="lineNum">     111 </span>                :            :             dtls_credentials_type_t type,
+<span class="lineNum">     112 </span>                :            :             const unsigned char *id, size_t id_len,
+<span class="lineNum">     113 </span>                :            :             unsigned char *result, size_t result_length) {
+<span class="lineNum">     114 </span>                :            : 
+<span class="lineNum">     115 </span>                :<span class="lineNoCov">          0 :   switch (type) {</span>
+<span class="lineNum">     116 </span>                :<span class="lineNoCov">          0 :   case DTLS_PSK_IDENTITY:</span>
+<span class="lineNum">     117 </span>                :            :     if (id_len) {
+<span class="lineNum">     118 </span>                :            :       dtls_debug(&quot;got psk_identity_hint: '%.*s'\n&quot;, (int)id_len, id);
+<span class="lineNum">     119 </span>                :            :     }
+<span class="lineNum">     120 </span>                :            : 
+<span class="lineNum">     121 </span>                :<span class="lineNoCov">          0 :     if (result_length &lt; psk_id_length) {</span>
+<span class="lineNum">     122 </span>                :<span class="lineNoCov">          0 :       dtls_warn(&quot;cannot set psk_identity -- buffer too small\n&quot;);</span>
+<span class="lineNum">     123 </span>                :<span class="lineNoCov">          0 :       return dtls_alert_fatal_create(DTLS_ALERT_INTERNAL_ERROR);</span>
+<span class="lineNum">     124 </span>                :            :     }
+<span class="lineNum">     125 </span>                :            : 
+<span class="lineNum">     126 </span>                :<span class="lineNoCov">          0 :     memcpy(result, psk_id, psk_id_length);</span>
+<span class="lineNum">     127 </span>                :<span class="lineNoCov">          0 :     return psk_id_length;</span>
+<span class="lineNum">     128 </span>                :<span class="lineNoCov">          0 :   case DTLS_PSK_KEY:</span>
+<span class="lineNum">     129 </span>                :<span class="lineNoCov">          0 :     if (id_len != psk_id_length || memcmp(psk_id, id, id_len) != 0) {</span>
+<span class="lineNum">     130 </span>                :<span class="lineNoCov">          0 :       dtls_warn(&quot;PSK for unknown id requested, exiting\n&quot;);</span>
+<span class="lineNum">     131 </span>                :<span class="lineNoCov">          0 :       return dtls_alert_fatal_create(DTLS_ALERT_ILLEGAL_PARAMETER);</span>
+<span class="lineNum">     132 </span>                :<span class="lineNoCov">          0 :     } else if (result_length &lt; psk_key_length) {</span>
+<span class="lineNum">     133 </span>                :<span class="lineNoCov">          0 :       dtls_warn(&quot;cannot set psk -- buffer too small\n&quot;);</span>
+<span class="lineNum">     134 </span>                :<span class="lineNoCov">          0 :       return dtls_alert_fatal_create(DTLS_ALERT_INTERNAL_ERROR);</span>
+<span class="lineNum">     135 </span>                :            :     }
+<span class="lineNum">     136 </span>                :            : 
+<span class="lineNum">     137 </span>                :            :     //memcpy(result, psk_key, psk_key_length);
+<span class="lineNum">     138 </span>                :<span class="lineNoCov">          0 :     memcpy(result, (unsigned char *)&quot;\x12\x34&quot;, 2);</span>
+<span class="lineNum">     139 </span>                :<span class="lineNoCov">          0 :     return psk_key_length;</span>
+<span class="lineNum">     140 </span>                :<span class="lineNoCov">          0 :   default:</span>
+<span class="lineNum">     141 </span>                :<span class="lineNoCov">          0 :     dtls_warn(&quot;unsupported request type: %d\n&quot;, type);</span>
+<span class="lineNum">     142 </span>                :            :   }
+<span class="lineNum">     143 </span>                :            : 
+<span class="lineNum">     144 </span>                :<span class="lineNoCov">          0 :   return dtls_alert_fatal_create(DTLS_ALERT_INTERNAL_ERROR);</span>
+<span class="lineNum">     145 </span>                :            : }
+<span class="lineNum">     146 </span>                :            : #endif /* DTLS_PSK */
+<span class="lineNum">     147 </span>                :            : 
+<a name="148"><span class="lineNum">     148 </span>                :            : #ifdef DTLS_ECC</a>
+<span class="lineNum">     149 </span>                :            : static int
+<span class="lineNum">     150 </span>                :<span class="lineNoCov">          0 : get_ecdsa_key(struct dtls_context_t *ctx,</span>
+<span class="lineNum">     151 </span>                :            :               const session_t *session,
+<span class="lineNum">     152 </span>                :            :               const dtls_ecdsa_key_t **result) {
+<span class="lineNum">     153 </span>                :            :   static const dtls_ecdsa_key_t ecdsa_key = {
+<span class="lineNum">     154 </span>                :            :     .curve = DTLS_ECDH_CURVE_SECP256R1,
+<span class="lineNum">     155 </span>                :            :     .priv_key = ecdsa_priv_key,
+<span class="lineNum">     156 </span>                :            :     .pub_key_x = ecdsa_pub_key_x,
+<span class="lineNum">     157 </span>                :            :     .pub_key_y = ecdsa_pub_key_y
+<span class="lineNum">     158 </span>                :            :   };
+<span class="lineNum">     159 </span>                :            : 
+<span class="lineNum">     160 </span>                :<span class="lineNoCov">          0 :   *result = &amp;ecdsa_key;</span>
+<span class="lineNum">     161 </span>                :<span class="lineNoCov">          0 :   return 0;</span>
+<span class="lineNum">     162 </span>                :            : }
+<a name="163"><span class="lineNum">     163 </span>                :            : </a>
+<span class="lineNum">     164 </span>                :            : static int
+<span class="lineNum">     165 </span>                :<span class="lineNoCov">          0 : verify_ecdsa_key(struct dtls_context_t *ctx,</span>
+<span class="lineNum">     166 </span>                :            :                  const session_t *session,
+<span class="lineNum">     167 </span>                :            :                  const unsigned char *other_pub_x,
+<span class="lineNum">     168 </span>                :            :                  const unsigned char *other_pub_y,
+<span class="lineNum">     169 </span>                :            :                  size_t key_size) {
+<span class="lineNum">     170 </span>                :<span class="lineNoCov">          0 :   return 0;</span>
+<span class="lineNum">     171 </span>                :            : }
+<span class="lineNum">     172 </span>                :            : #endif /* DTLS_ECC */
+<a name="173"><span class="lineNum">     173 </span>                :            : </a>
+<span class="lineNum">     174 </span>                :            : static void
+<span class="lineNum">     175 </span>                :<span class="lineNoCov">          0 : try_send(struct dtls_context_t *ctx, session_t *dst) {</span>
+<span class="lineNum">     176 </span>                :            :   int res;
+<span class="lineNum">     177 </span>                :<span class="lineNoCov">          0 :   res = dtls_write(ctx, dst, (uint8_t *)buf, len);</span>
+<span class="lineNum">     178 </span>                :<span class="lineNoCov">          0 :   if (res &gt;= 0) {</span>
+<span class="lineNum">     179 </span>                :<span class="lineNoCov">          0 :     memmove(buf, buf + res, len - res);</span>
+<span class="lineNum">     180 </span>                :<span class="lineNoCov">          0 :     len -= res;</span>
+<span class="lineNum">     181 </span>                :            :   }
+<span class="lineNum">     182 </span>                :<span class="lineNoCov">          0 : }</span>
+<a name="183"><span class="lineNum">     183 </span>                :            : </a>
+<span class="lineNum">     184 </span>                :            : static void
+<span class="lineNum">     185 </span>                :<span class="lineNoCov">          0 : handle_stdin() {</span>
+<span class="lineNum">     186 </span>                :<span class="lineNoCov">          0 :   if (fgets(buf + len, sizeof(buf) - len, stdin))</span>
+<span class="lineNum">     187 </span>                :<span class="lineNoCov">          0 :     len += strlen(buf + len);</span>
+<span class="lineNum">     188 </span>                :<span class="lineNoCov">          0 : }</span>
+<a name="189"><span class="lineNum">     189 </span>                :            : </a>
+<span class="lineNum">     190 </span>                :            : static int
+<span class="lineNum">     191 </span>                :<span class="lineNoCov">          0 : read_from_peer(struct dtls_context_t *ctx, </span>
+<span class="lineNum">     192 </span>                :            :                session_t *session, uint8_t *data, size_t len) {
+<span class="lineNum">     193 </span>                :            :   size_t i;
+<span class="lineNum">     194 </span>                :<span class="lineNoCov">          0 :   for (i = 0; i &lt; len; i++)</span>
+<span class="lineNum">     195 </span>                :<span class="lineNoCov">          0 :     printf(&quot;%c&quot;, data[i]);</span>
+<span class="lineNum">     196 </span>                :<span class="lineNoCov">          0 :   return 0;</span>
+<span class="lineNum">     197 </span>                :            : }
+<a name="198"><span class="lineNum">     198 </span>                :            : </a>
+<span class="lineNum">     199 </span>                :            : static int
+<span class="lineNum">     200 </span>                :<span class="lineNoCov">          0 : send_to_peer(struct dtls_context_t *ctx, </span>
+<span class="lineNum">     201 </span>                :            :              session_t *session, uint8_t *data, size_t len) {
+<span class="lineNum">     202 </span>                :            : 
+<span class="lineNum">     203 </span>                :<span class="lineNoCov">          0 :   int fd = *(int *)dtls_get_app_data(ctx);</span>
+<span class="lineNum">     204 </span>                :<span class="lineNoCov">          0 :   return sendto(fd, data, len, MSG_DONTWAIT,</span>
+<span class="lineNum">     205 </span>                :<span class="lineNoCov">          0 :                 &amp;session-&gt;addr.sa, session-&gt;size);</span>
+<span class="lineNum">     206 </span>                :            : }
+<a name="207"><span class="lineNum">     207 </span>                :            : </a>
+<span class="lineNum">     208 </span>                :            : static int
+<span class="lineNum">     209 </span>                :<span class="lineNoCov">          0 : dtls_handle_read(struct dtls_context_t *ctx) {</span>
+<span class="lineNum">     210 </span>                :            :   int fd;
+<span class="lineNum">     211 </span>                :            :   session_t session;
+<span class="lineNum">     212 </span>                :            : #define MAX_READ_BUF 2000
+<span class="lineNum">     213 </span>                :            :   static uint8_t buf[MAX_READ_BUF];
+<span class="lineNum">     214 </span>                :            :   int len;
+<span class="lineNum">     215 </span>                :            : 
+<span class="lineNum">     216 </span>                :<span class="lineNoCov">          0 :   fd = *(int *)dtls_get_app_data(ctx);</span>
+<span class="lineNum">     217 </span>                :            :   
+<span class="lineNum">     218 </span>                :<span class="lineNoCov">          0 :   if (!fd)</span>
+<span class="lineNum">     219 </span>                :<span class="lineNoCov">          0 :     return -1;</span>
+<span class="lineNum">     220 </span>                :            : 
+<span class="lineNum">     221 </span>                :<span class="lineNoCov">          0 :   memset(&amp;session, 0, sizeof(session_t));</span>
+<span class="lineNum">     222 </span>                :<span class="lineNoCov">          0 :   session.size = sizeof(session.addr);</span>
+<span class="lineNum">     223 </span>                :<span class="lineNoCov">          0 :   len = recvfrom(fd, buf, MAX_READ_BUF, 0, </span>
+<span class="lineNum">     224 </span>                :            :                  &amp;session.addr.sa, &amp;session.size);
+<span class="lineNum">     225 </span>                :            :   
+<span class="lineNum">     226 </span>                :<span class="lineNoCov">          0 :   if (len &lt; 0) {</span>
+<span class="lineNum">     227 </span>                :<span class="lineNoCov">          0 :     perror(&quot;recvfrom&quot;);</span>
+<span class="lineNum">     228 </span>                :<span class="lineNoCov">          0 :     return -1;</span>
+<span class="lineNum">     229 </span>                :            :   } else {
+<span class="lineNum">     230 </span>                :<span class="lineNoCov">          0 :     dtls_debug_session(&quot;peer&quot;, &amp;session);</span>
+<span class="lineNum">     231 </span>                :<span class="lineNoCov">          0 :     dtls_debug_dump(&quot;bytes from peer&quot;, buf, len);</span>
+<span class="lineNum">     232 </span>                :            :   }
+<span class="lineNum">     233 </span>                :            : 
+<span class="lineNum">     234 </span>                :<span class="lineNoCov">          0 :   return dtls_handle_message(ctx, &amp;session, buf, len);</span>
+<a name="235"><span class="lineNum">     235 </span>                :            : }    </a>
+<span class="lineNum">     236 </span>                :            : 
+<span class="lineNum">     237 </span>                :<span class="lineNoCov">          0 : static void dtls_handle_signal(int sig)</span>
+<span class="lineNum">     238 </span>                :            : {
+<span class="lineNum">     239 </span>                :<span class="lineNoCov">          0 :   dtls_free_context(dtls_context);</span>
+<span class="lineNum">     240 </span>                :<span class="lineNoCov">          0 :   dtls_free_context(orig_dtls_context);</span>
+<span class="lineNum">     241 </span>                :<span class="lineNoCov">          0 :   signal(sig, SIG_DFL);</span>
+<span class="lineNum">     242 </span>                :<span class="lineNoCov">          0 :   kill(getpid(), sig);</span>
+<span class="lineNum">     243 </span>                :<span class="lineNoCov">          0 : }</span>
+<span class="lineNum">     244 </span>                :            : 
+<a name="245"><span class="lineNum">     245 </span>                :            : /* stolen from libcoap: */</a>
+<span class="lineNum">     246 </span>                :            : static int
+<span class="lineNum">     247 </span>                :<span class="lineNoCov">          0 : resolve_address(const char *server, struct sockaddr *dst) {</span>
+<span class="lineNum">     248 </span>                :            :   
+<span class="lineNum">     249 </span>                :            :   struct addrinfo *res, *ainfo;
+<span class="lineNum">     250 </span>                :            :   struct addrinfo hints;
+<span class="lineNum">     251 </span>                :            :   static char addrstr[256];
+<span class="lineNum">     252 </span>                :            :   int error;
+<span class="lineNum">     253 </span>                :            : 
+<span class="lineNum">     254 </span>                :<span class="lineNoCov">          0 :   memset(addrstr, 0, sizeof(addrstr));</span>
+<span class="lineNum">     255 </span>                :<span class="lineNoCov">          0 :   if (server &amp;&amp; strlen(server) &gt; 0)</span>
+<span class="lineNum">     256 </span>                :<span class="lineNoCov">          0 :     memcpy(addrstr, server, strlen(server));</span>
+<span class="lineNum">     257 </span>                :            :   else
+<span class="lineNum">     258 </span>                :<span class="lineNoCov">          0 :     memcpy(addrstr, &quot;localhost&quot;, 9);</span>
+<span class="lineNum">     259 </span>                :            : 
+<span class="lineNum">     260 </span>                :<span class="lineNoCov">          0 :   memset ((char *)&amp;hints, 0, sizeof(hints));</span>
+<span class="lineNum">     261 </span>                :<span class="lineNoCov">          0 :   hints.ai_socktype = SOCK_DGRAM;</span>
+<span class="lineNum">     262 </span>                :<span class="lineNoCov">          0 :   hints.ai_family = AF_UNSPEC;</span>
+<span class="lineNum">     263 </span>                :            : 
+<span class="lineNum">     264 </span>                :<span class="lineNoCov">          0 :   error = getaddrinfo(addrstr, &quot;&quot;, &amp;hints, &amp;res);</span>
+<span class="lineNum">     265 </span>                :            : 
+<span class="lineNum">     266 </span>                :<span class="lineNoCov">          0 :   if (error != 0) {</span>
+<span class="lineNum">     267 </span>                :<span class="lineNoCov">          0 :     fprintf(stderr, &quot;getaddrinfo: %s\n&quot;, gai_strerror(error));</span>
+<span class="lineNum">     268 </span>                :<span class="lineNoCov">          0 :     return error;</span>
+<span class="lineNum">     269 </span>                :            :   }
+<span class="lineNum">     270 </span>                :            : 
+<span class="lineNum">     271 </span>                :<span class="lineNoCov">          0 :   for (ainfo = res; ainfo != NULL; ainfo = ainfo-&gt;ai_next) {</span>
+<span class="lineNum">     272 </span>                :            : 
+<span class="lineNum">     273 </span>                :<span class="lineNoCov">          0 :     switch (ainfo-&gt;ai_family) {</span>
+<span class="lineNum">     274 </span>                :<span class="lineNoCov">          0 :     case AF_INET6:</span>
+<span class="lineNum">     275 </span>                :            :     case AF_INET:
+<span class="lineNum">     276 </span>                :            : 
+<span class="lineNum">     277 </span>                :<span class="lineNoCov">          0 :       memcpy(dst, ainfo-&gt;ai_addr, ainfo-&gt;ai_addrlen);</span>
+<span class="lineNum">     278 </span>                :<span class="lineNoCov">          0 :       return ainfo-&gt;ai_addrlen;</span>
+<span class="lineNum">     279 </span>                :<span class="lineNoCov">          0 :     default:</span>
+<span class="lineNum">     280 </span>                :            :       ;
+<span class="lineNum">     281 </span>                :            :     }
+<span class="lineNum">     282 </span>                :            :   }
+<span class="lineNum">     283 </span>                :            : 
+<span class="lineNum">     284 </span>                :<span class="lineNoCov">          0 :   freeaddrinfo(res);</span>
+<span class="lineNum">     285 </span>                :<span class="lineNoCov">          0 :   return -1;</span>
+<span class="lineNum">     286 </span>                :            : }
+<span class="lineNum">     287 </span>                :            : 
+<a name="288"><span class="lineNum">     288 </span>                :            : /*---------------------------------------------------------------------------*/</a>
+<span class="lineNum">     289 </span>                :            : static void
+<span class="lineNum">     290 </span>                :<span class="lineNoCov">          0 : usage( const char *program, const char *version) {</span>
+<span class="lineNum">     291 </span>                :            :   const char *p;
+<span class="lineNum">     292 </span>                :            : 
+<span class="lineNum">     293 </span>                :<span class="lineNoCov">          0 :   p = strrchr( program, '/' );</span>
+<span class="lineNum">     294 </span>                :<span class="lineNoCov">          0 :   if ( p )</span>
+<span class="lineNum">     295 </span>                :<span class="lineNoCov">          0 :     program = ++p;</span>
+<span class="lineNum">     296 </span>                :            : 
+<span class="lineNum">     297 </span>                :<span class="lineNoCov">          0 :   fprintf(stderr, &quot;%s v%s -- DTLS client implementation\n&quot;</span>
+<span class="lineNum">     298 </span>                :            :           &quot;(c) 2011-2014 Olaf Bergmann &lt;bergmann@tzi.org&gt;\n\n&quot;
+<span class="lineNum">     299 </span>                :            : #ifdef DTLS_PSK
+<span class="lineNum">     300 </span>                :            :           &quot;usage: %s [-i file] [-k file] [-o file] [-p port] [-v num] addr [port]\n&quot;
+<span class="lineNum">     301 </span>                :            : #else /*  DTLS_PSK */
+<span class="lineNum">     302 </span>                :            :           &quot;usage: %s [-o file] [-p port] [-v num] addr [port]\n&quot;
+<span class="lineNum">     303 </span>                :            : #endif /* DTLS_PSK */
+<span class="lineNum">     304 </span>                :            : #ifdef DTLS_PSK
+<span class="lineNum">     305 </span>                :            :           &quot;\t-i file\t\tread PSK identity from file\n&quot;
+<span class="lineNum">     306 </span>                :            :           &quot;\t-k file\t\tread pre-shared key from file\n&quot;
+<span class="lineNum">     307 </span>                :            : #endif /* DTLS_PSK */
+<span class="lineNum">     308 </span>                :            :           &quot;\t-o file\t\toutput received data to this file (use '-' for STDOUT)\n&quot;
+<span class="lineNum">     309 </span>                :            :           &quot;\t-p port\t\tlisten on specified port (default is %d)\n&quot;,
+<span class="lineNum">     310 </span>                :            :            program, version, program, DEFAULT_PORT);
+<span class="lineNum">     311 </span>                :<span class="lineNoCov">          0 : }</span>
+<span class="lineNum">     312 </span>                :            : 
+<span class="lineNum">     313 </span>                :            : static dtls_handler_t cb = {
+<span class="lineNum">     314 </span>                :            :   .write = send_to_peer,
+<span class="lineNum">     315 </span>                :            :   .read  = read_from_peer,
+<span class="lineNum">     316 </span>                :            :   .event = NULL,
+<span class="lineNum">     317 </span>                :            : #ifdef DTLS_PSK
+<span class="lineNum">     318 </span>                :            :   .get_psk_info = get_psk_info,
+<span class="lineNum">     319 </span>                :            : #endif /* DTLS_PSK */
+<span class="lineNum">     320 </span>                :            : #ifdef DTLS_ECC
+<span class="lineNum">     321 </span>                :            :   .get_ecdsa_key = get_ecdsa_key,
+<span class="lineNum">     322 </span>                :            :   .verify_ecdsa_key = verify_ecdsa_key
+<span class="lineNum">     323 </span>                :            : #endif /* DTLS_ECC */
+<span class="lineNum">     324 </span>                :            : };
+<span class="lineNum">     325 </span>                :            : 
+<span class="lineNum">     326 </span>                :            : #define DTLS_CLIENT_CMD_CLOSE &quot;client:close&quot;
+<span class="lineNum">     327 </span>                :            : #define DTLS_CLIENT_CMD_RENEGOTIATE &quot;client:renegotiate&quot;
+<span class="lineNum">     328 </span>                :            : 
+<span class="lineNum">     329 </span>                :            : /* As per RFC 6347 section 4.2.8, DTLS Server should support requests
+<span class="lineNum">     330 </span>                :            :  * from clients who have silently abandoned the existing association
+<span class="lineNum">     331 </span>                :            :  * and initiated a new handshake request by sending a ClientHello.
+<span class="lineNum">     332 </span>                :            :  * Below command tests this feature.
+<span class="lineNum">     333 </span>                :            :  */
+<span class="lineNum">     334 </span>                :            : #define DTLS_CLIENT_CMD_REHANDSHAKE &quot;client:rehandshake&quot;
+<a name="335"><span class="lineNum">     335 </span>                :            : </a>
+<span class="lineNum">     336 </span>                :            : int 
+<span class="lineNum">     337 </span>                :<span class="lineNoCov">          0 : main(int argc, char **argv) {</span>
+<span class="lineNum">     338 </span>                :            :   fd_set rfds, wfds;
+<span class="lineNum">     339 </span>                :            :   struct timeval timeout;
+<span class="lineNum">     340 </span>                :<span class="lineNoCov">          0 :   unsigned short port = DEFAULT_PORT;</span>
+<span class="lineNum">     341 </span>                :<span class="lineNoCov">          0 :   char port_str[NI_MAXSERV] = &quot;0&quot;;</span>
+<span class="lineNum">     342 </span>                :            :   int fd, result;
+<span class="lineNum">     343 </span>                :<span class="lineNoCov">          0 :   int on = 1;</span>
+<span class="lineNum">     344 </span>                :            :   int opt, res;
+<span class="lineNum">     345 </span>                :            :   session_t dst;
+<span class="lineNum">     346 </span>                :            : 
+<span class="lineNum">     347 </span>                :<span class="lineNoCov">          0 :   dtls_init();</span>
+<span class="lineNum">     348 </span>                :<span class="lineNoCov">          0 :   snprintf(port_str, sizeof(port_str), &quot;%d&quot;, port);</span>
+<span class="lineNum">     349 </span>                :            : 
+<span class="lineNum">     350 </span>                :            : #ifdef DTLS_PSK
+<span class="lineNum">     351 </span>                :<span class="lineNoCov">          0 :   psk_id_length = strlen(PSK_DEFAULT_IDENTITY);</span>
+<span class="lineNum">     352 </span>                :<span class="lineNoCov">          0 :   psk_key_length = strlen(PSK_DEFAULT_KEY);</span>
+<span class="lineNum">     353 </span>                :<span class="lineNoCov">          0 :   memcpy(psk_id, PSK_DEFAULT_IDENTITY, psk_id_length);</span>
+<span class="lineNum">     354 </span>                :<span class="lineNoCov">          0 :   memcpy(psk_key, PSK_DEFAULT_KEY, psk_key_length);</span>
+<span class="lineNum">     355 </span>                :            : #endif /* DTLS_PSK */
+<span class="lineNum">     356 </span>                :            : 
+<span class="lineNum">     357 </span>                :<span class="lineNoCov">          0 :   while ((opt = getopt(argc, argv, &quot;p:o:&quot; PSK_OPTIONS)) != -1) {</span>
+<span class="lineNum">     358 </span>                :<span class="lineNoCov">          0 :     switch (opt) {</span>
+<span class="lineNum">     359 </span>                :            : #ifdef DTLS_PSK
+<span class="lineNum">     360 </span>                :<span class="lineNoCov">          0 :     case 'i' : {</span>
+<span class="lineNum">     361 </span>                :<span class="lineNoCov">          0 :       ssize_t result = read_from_file(optarg, psk_id, PSK_ID_MAXLEN);</span>
+<span class="lineNum">     362 </span>                :<span class="lineNoCov">          0 :       if (result &lt; 0) {</span>
+<span class="lineNum">     363 </span>                :<span class="lineNoCov">          0 :         dtls_warn(&quot;cannot read PSK identity\n&quot;);</span>
+<span class="lineNum">     364 </span>                :            :       } else {
+<span class="lineNum">     365 </span>                :<span class="lineNoCov">          0 :         psk_id_length = result;</span>
+<span class="lineNum">     366 </span>                :            :       }
+<span class="lineNum">     367 </span>                :<span class="lineNoCov">          0 :       break;</span>
+<span class="lineNum">     368 </span>                :            :     }
+<span class="lineNum">     369 </span>                :<span class="lineNoCov">          0 :     case 'k' : {</span>
+<span class="lineNum">     370 </span>                :<span class="lineNoCov">          0 :       ssize_t result = read_from_file(optarg, psk_key, PSK_MAXLEN);</span>
+<span class="lineNum">     371 </span>                :<span class="lineNoCov">          0 :       if (result &lt; 0) {</span>
+<span class="lineNum">     372 </span>                :<span class="lineNoCov">          0 :         dtls_warn(&quot;cannot read PSK\n&quot;);</span>
+<span class="lineNum">     373 </span>                :            :       } else {
+<span class="lineNum">     374 </span>                :<span class="lineNoCov">          0 :         psk_key_length = result;</span>
+<span class="lineNum">     375 </span>                :            :       }
+<span class="lineNum">     376 </span>                :<span class="lineNoCov">          0 :       break;</span>
+<span class="lineNum">     377 </span>                :            :     }
+<span class="lineNum">     378 </span>                :            : #endif /* DTLS_PSK */
+<span class="lineNum">     379 </span>                :<span class="lineNoCov">          0 :     case 'p' :</span>
+<span class="lineNum">     380 </span>                :<span class="lineNoCov">          0 :       strncpy(port_str, optarg, NI_MAXSERV-1);</span>
+<span class="lineNum">     381 </span>                :<span class="lineNoCov">          0 :       port_str[NI_MAXSERV - 1] = '\0';</span>
+<span class="lineNum">     382 </span>                :<span class="lineNoCov">          0 :       break;</span>
+<span class="lineNum">     383 </span>                :<span class="lineNoCov">          0 :     case 'o' :</span>
+<span class="lineNum">     384 </span>                :<span class="lineNoCov">          0 :       output_file.length = strlen(optarg);</span>
+<span class="lineNum">     385 </span>                :<span class="lineNoCov">          0 :       output_file.s = (unsigned char *)malloc(output_file.length + 1);</span>
+<span class="lineNum">     386 </span>                :            :       
+<span class="lineNum">     387 </span>                :<span class="lineNoCov">          0 :       if (!output_file.s) {</span>
+<span class="lineNum">     388 </span>                :<span class="lineNoCov">          0 :         dtls_crit(&quot;cannot set output file: insufficient memory\n&quot;);</span>
+<span class="lineNum">     389 </span>                :<span class="lineNoCov">          0 :         exit(-1);</span>
+<span class="lineNum">     390 </span>                :            :       } else {
+<span class="lineNum">     391 </span>                :            :         /* copy filename including trailing zero */
+<span class="lineNum">     392 </span>                :<span class="lineNoCov">          0 :         memcpy(output_file.s, optarg, output_file.length + 1);</span>
+<span class="lineNum">     393 </span>                :            :       }
+<span class="lineNum">     394 </span>                :<span class="lineNoCov">          0 :       break;</span>
+<span class="lineNum">     395 </span>                :<span class="lineNoCov">          0 :     default:</span>
+<span class="lineNum">     396 </span>                :<span class="lineNoCov">          0 :       usage(argv[0], dtls_package_version());</span>
+<span class="lineNum">     397 </span>                :<span class="lineNoCov">          0 :       exit(1);</span>
+<span class="lineNum">     398 </span>                :            :     }
+<span class="lineNum">     399 </span>                :            :   }
+<span class="lineNum">     400 </span>                :            : 
+<span class="lineNum">     401 </span>                :<span class="lineNoCov">          0 :   if (argc &lt;= optind) {</span>
+<span class="lineNum">     402 </span>                :<span class="lineNoCov">          0 :     usage(argv[0], dtls_package_version());</span>
+<span class="lineNum">     403 </span>                :<span class="lineNoCov">          0 :     exit(1);</span>
+<span class="lineNum">     404 </span>                :            :   }
+<span class="lineNum">     405 </span>                :            :   
+<span class="lineNum">     406 </span>                :<span class="lineNoCov">          0 :   memset(&amp;dst, 0, sizeof(session_t));</span>
+<span class="lineNum">     407 </span>                :            :   /* resolve destination address where server should be sent */
+<span class="lineNum">     408 </span>                :<span class="lineNoCov">          0 :   res = resolve_address(argv[optind++], &amp;dst.addr.sa);</span>
+<span class="lineNum">     409 </span>                :<span class="lineNoCov">          0 :   if (res &lt; 0) {</span>
+<span class="lineNum">     410 </span>                :<span class="lineNoCov">          0 :     dtls_emerg(&quot;failed to resolve address\n&quot;);</span>
+<span class="lineNum">     411 </span>                :<span class="lineNoCov">          0 :     exit(-1);</span>
+<span class="lineNum">     412 </span>                :            :   }
+<span class="lineNum">     413 </span>                :<span class="lineNoCov">          0 :   dst.size = res;</span>
+<span class="lineNum">     414 </span>                :            : 
+<span class="lineNum">     415 </span>                :            :   /* use port number from command line when specified or the listen
+<span class="lineNum">     416 </span>                :            :      port, otherwise */
+<span class="lineNum">     417 </span>                :<span class="lineNoCov">          0 :   dst.addr.sin.sin_port = htons(atoi(optind &lt; argc ? argv[optind++] : port_str));</span>
+<span class="lineNum">     418 </span>                :            : 
+<span class="lineNum">     419 </span>                :            :   
+<span class="lineNum">     420 </span>                :            :   /* init socket and set it to non-blocking */
+<span class="lineNum">     421 </span>                :<span class="lineNoCov">          0 :   fd = socket(dst.addr.sa.sa_family, SOCK_DGRAM, 0);</span>
+<span class="lineNum">     422 </span>                :            : 
+<span class="lineNum">     423 </span>                :<span class="lineNoCov">          0 :   if (fd &lt; 0) {</span>
+<span class="lineNum">     424 </span>                :<span class="lineNoCov">          0 :     dtls_alert(&quot;socket: %s\n&quot;, strerror(errno));</span>
+<span class="lineNum">     425 </span>                :<span class="lineNoCov">          0 :     return 0;</span>
+<span class="lineNum">     426 </span>                :            :   }
+<span class="lineNum">     427 </span>                :            : 
+<span class="lineNum">     428 </span>                :<span class="lineNoCov">          0 :   if (setsockopt(fd, SOL_SOCKET, SO_REUSEADDR, &amp;on, sizeof(on) ) &lt; 0) {</span>
+<span class="lineNum">     429 </span>                :<span class="lineNoCov">          0 :     dtls_alert(&quot;setsockopt SO_REUSEADDR: %s\n&quot;, strerror(errno));</span>
+<span class="lineNum">     430 </span>                :            :   }
+<span class="lineNum">     431 </span>                :            : #if 0
+<span class="lineNum">     432 </span>                :            :   flags = fcntl(fd, F_GETFL, 0);
+<span class="lineNum">     433 </span>                :            :   if (flags &lt; 0 || fcntl(fd, F_SETFL, flags | O_NONBLOCK) &lt; 0) {
+<span class="lineNum">     434 </span>                :            :     dtls_alert(&quot;fcntl: %s\n&quot;, strerror(errno));
+<span class="lineNum">     435 </span>                :            :     goto error;
+<span class="lineNum">     436 </span>                :            :   }
+<span class="lineNum">     437 </span>                :            : #endif
+<span class="lineNum">     438 </span>                :<span class="lineNoCov">          0 :   on = 1;</span>
+<span class="lineNum">     439 </span>                :            : #ifdef IPV6_RECVPKTINFO
+<span class="lineNum">     440 </span>                :<span class="lineNoCov">          0 :   if (setsockopt(fd, IPPROTO_IPV6, IPV6_RECVPKTINFO, &amp;on, sizeof(on) ) &lt; 0) {</span>
+<span class="lineNum">     441 </span>                :<span class="lineNoCov">          0 :     dtls_alert(&quot;setsockopt IPV6_PKTINFO: %s\n&quot;, strerror(errno));</span>
+<span class="lineNum">     442 </span>                :            :   }
+<span class="lineNum">     443 </span>                :            : #elif defined IPV6_PKTINFO
+<span class="lineNum">     444 </span>                :            :   if (setsockopt(fd, IPPROTO_IPV6, IPV6_PKTINFO, &amp;on, sizeof(on) ) &lt; 0) {
+<span class="lineNum">     445 </span>                :            :     dtls_alert(&quot;setsockopt IPV6_PKTINFO: %s\n&quot;, strerror(errno));
+<span class="lineNum">     446 </span>                :            :   }
+<span class="lineNum">     447 </span>                :            : #else
+<span class="lineNum">     448 </span>                :            :   dtls_alert(&quot;setsockopt IPV6_PKTINFO not supported\n&quot;);
+<span class="lineNum">     449 </span>                :            : #endif /* IPV6_RECVPKTINFO */
+<span class="lineNum">     450 </span>                :            : 
+<span class="lineNum">     451 </span>                :<span class="lineNoCov">          0 :   if (signal(SIGINT, dtls_handle_signal) == SIG_ERR) {</span>
+<span class="lineNum">     452 </span>                :<span class="lineNoCov">          0 :     dtls_alert(&quot;An error occurred while setting a signal handler.\n&quot;);</span>
+<span class="lineNum">     453 </span>                :<span class="lineNoCov">          0 :     return EXIT_FAILURE;</span>
+<span class="lineNum">     454 </span>                :            :   }
+<span class="lineNum">     455 </span>                :            : 
+<span class="lineNum">     456 </span>                :<span class="lineNoCov">          0 :   dtls_context = dtls_new_context(&amp;fd);</span>
+<span class="lineNum">     457 </span>                :<span class="lineNoCov">          0 :   if (!dtls_context) {</span>
+<span class="lineNum">     458 </span>                :<span class="lineNoCov">          0 :     dtls_emerg(&quot;cannot create context\n&quot;);</span>
+<span class="lineNum">     459 </span>                :<span class="lineNoCov">          0 :     exit(-1);</span>
+<span class="lineNum">     460 </span>                :            :   }
+<span class="lineNum">     461 </span>                :            : 
+<span class="lineNum">     462 </span>                :<span class="lineNoCov">          0 :   dtls_set_handler(dtls_context, &amp;cb);</span>
+<span class="lineNum">     463 </span>                :            : 
+<span class="lineNum">     464 </span>                :<span class="lineNoCov">          0 :   dtls_connect(dtls_context, &amp;dst);</span>
+<span class="lineNum">     465 </span>                :            : 
+<span class="lineNum">     466 </span>                :            :   while (1) {
+<span class="lineNum">     467 </span>                :<span class="lineNoCov">          0 :     FD_ZERO(&amp;rfds);</span>
+<span class="lineNum">     468 </span>                :<span class="lineNoCov">          0 :     FD_ZERO(&amp;wfds);</span>
+<span class="lineNum">     469 </span>                :            : 
+<span class="lineNum">     470 </span>                :<span class="lineNoCov">          0 :     FD_SET(fileno(stdin), &amp;rfds);</span>
+<span class="lineNum">     471 </span>                :<span class="lineNoCov">          0 :     FD_SET(fd, &amp;rfds);</span>
+<span class="lineNum">     472 </span>                :            :     /* FD_SET(fd, &amp;wfds); */
+<span class="lineNum">     473 </span>                :            :     
+<span class="lineNum">     474 </span>                :            :     /* Fuzzing edit: set DTLS retransmission timeout to big value) */
+<span class="lineNum">     475 </span>                :<span class="lineNoCov">          0 :     timeout.tv_sec = 50000;</span>
+<span class="lineNum">     476 </span>                :<span class="lineNoCov">          0 :     timeout.tv_usec = 0;</span>
+<span class="lineNum">     477 </span>                :            :     
+<span class="lineNum">     478 </span>                :<span class="lineNoCov">          0 :     result = select(fd+1, &amp;rfds, &amp;wfds, 0, &amp;timeout);</span>
+<span class="lineNum">     479 </span>                :            :     
+<span class="lineNum">     480 </span>                :<span class="lineNoCov">          0 :     if (result &lt; 0) {                /* error */</span>
+<span class="lineNum">     481 </span>                :<span class="lineNoCov">          0 :       if (errno != EINTR)</span>
+<span class="lineNum">     482 </span>                :<span class="lineNoCov">          0 :         perror(&quot;select&quot;);</span>
+<span class="lineNum">     483 </span>                :<span class="lineNoCov">          0 :     } else if (result == 0) {   /* timeout */</span>
+<span class="lineNum">     484 </span>                :            :     } else {                    /* ok */
+<span class="lineNum">     485 </span>                :<span class="lineNoCov">          0 :       if (FD_ISSET(fd, &amp;wfds))</span>
+<span class="lineNum">     486 </span>                :            :         /* FIXME */;
+<span class="lineNum">     487 </span>                :<span class="lineNoCov">          0 :       else if (FD_ISSET(fd, &amp;rfds))</span>
+<span class="lineNum">     488 </span>                :<span class="lineNoCov">          0 :         dtls_handle_read(dtls_context);</span>
+<span class="lineNum">     489 </span>                :<span class="lineNoCov">          0 :       else if (FD_ISSET(fileno(stdin), &amp;rfds))</span>
+<span class="lineNum">     490 </span>                :<span class="lineNoCov">          0 :         handle_stdin();</span>
+<span class="lineNum">     491 </span>                :            :     }
+<span class="lineNum">     492 </span>                :            : 
+<span class="lineNum">     493 </span>                :<span class="lineNoCov">          0 :     if (len) {</span>
+<span class="lineNum">     494 </span>                :<span class="lineNoCov">          0 :       if (len &gt;= strlen(DTLS_CLIENT_CMD_CLOSE) &amp;&amp;</span>
+<span class="lineNum">     495 </span>                :<span class="lineNoCov">          0 :           !memcmp(buf, DTLS_CLIENT_CMD_CLOSE, strlen(DTLS_CLIENT_CMD_CLOSE))) {</span>
+<span class="lineNum">     496 </span>                :<span class="lineNoCov">          0 :         printf(&quot;client: closing connection\n&quot;);</span>
+<span class="lineNum">     497 </span>                :<span class="lineNoCov">          0 :         dtls_close(dtls_context, &amp;dst);</span>
+<span class="lineNum">     498 </span>                :<span class="lineNoCov">          0 :         len = 0;</span>
+<span class="lineNum">     499 </span>                :<span class="lineNoCov">          0 :       } else if (len &gt;= strlen(DTLS_CLIENT_CMD_RENEGOTIATE) &amp;&amp;</span>
+<span class="lineNum">     500 </span>                :<span class="lineNoCov">          0 :                  !memcmp(buf, DTLS_CLIENT_CMD_RENEGOTIATE, strlen(DTLS_CLIENT_CMD_RENEGOTIATE))) {</span>
+<span class="lineNum">     501 </span>                :<span class="lineNoCov">          0 :         printf(&quot;client: renegotiate connection\n&quot;);</span>
+<span class="lineNum">     502 </span>                :<span class="lineNoCov">          0 :         dtls_renegotiate(dtls_context, &amp;dst);</span>
+<span class="lineNum">     503 </span>                :<span class="lineNoCov">          0 :         len = 0;</span>
+<span class="lineNum">     504 </span>                :<span class="lineNoCov">          0 :       } else if (len &gt;= strlen(DTLS_CLIENT_CMD_REHANDSHAKE) &amp;&amp;</span>
+<span class="lineNum">     505 </span>                :<span class="lineNoCov">          0 :                  !memcmp(buf, DTLS_CLIENT_CMD_REHANDSHAKE, strlen(DTLS_CLIENT_CMD_REHANDSHAKE))) {</span>
+<span class="lineNum">     506 </span>                :<span class="lineNoCov">          0 :         printf(&quot;client: rehandshake connection\n&quot;);</span>
+<span class="lineNum">     507 </span>                :<span class="lineNoCov">          0 :         if (orig_dtls_context == NULL) {</span>
+<span class="lineNum">     508 </span>                :            :           /* Cache the current context. We cannot free the current context as it will notify 
+<span class="lineNum">     509 </span>                :            :            * the Server to close the connection (which we do not want).
+<span class="lineNum">     510 </span>                :            :            */
+<span class="lineNum">     511 </span>                :<span class="lineNoCov">          0 :           orig_dtls_context = dtls_context;</span>
+<span class="lineNum">     512 </span>                :            :           /* Now, Create a new context and attempt to initiate a handshake. */
+<span class="lineNum">     513 </span>                :<span class="lineNoCov">          0 :           dtls_context = dtls_new_context(&amp;fd);</span>
+<span class="lineNum">     514 </span>                :<span class="lineNoCov">          0 :           if (!dtls_context) {</span>
+<span class="lineNum">     515 </span>                :<span class="lineNoCov">          0 :             dtls_emerg(&quot;cannot create context\n&quot;);</span>
+<span class="lineNum">     516 </span>                :<span class="lineNoCov">          0 :             exit(-1);</span>
+<span class="lineNum">     517 </span>                :            :           }
+<span class="lineNum">     518 </span>                :<span class="lineNoCov">          0 :           dtls_set_handler(dtls_context, &amp;cb);</span>
+<span class="lineNum">     519 </span>                :<span class="lineNoCov">          0 :           dtls_connect(dtls_context, &amp;dst);</span>
+<span class="lineNum">     520 </span>                :            :         }
+<span class="lineNum">     521 </span>                :<span class="lineNoCov">          0 :         len = 0;</span>
+<span class="lineNum">     522 </span>                :            :       } else {
+<span class="lineNum">     523 </span>                :<span class="lineNoCov">          0 :         try_send(dtls_context, &amp;dst);</span>
+<span class="lineNum">     524 </span>                :            :       }
+<span class="lineNum">     525 </span>                :            :     }
+<span class="lineNum">     526 </span>                :            :   }
+<span class="lineNum">     527 </span>                :            :   
+<span class="lineNum">     528 </span>                :            :   dtls_free_context(dtls_context);
+<span class="lineNum">     529 </span>                :            :   dtls_free_context(orig_dtls_context);
+<span class="lineNum">     530 </span>                :            :   exit(0);
+<span class="lineNum">     531 </span>                :            : }
+</pre>
+      </td>
+    </tr>
+  </table>
+  <br>
+
+  <table width="100%" border=0 cellspacing=0 cellpadding=0>
+    <tr><td class="ruler"><img src="../../glass.png" width=3 height=3 alt=""></td></tr>
+    <tr><td class="versionInfo">Generated by: <a href="http://ltp.sourceforge.net/coverage/lcov.php" target="_parent">LCOV version 1.13</a></td></tr>
+  </table>
+  <br>
+
+</body>
+</html>

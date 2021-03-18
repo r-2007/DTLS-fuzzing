@@ -1,0 +1,34 @@
+diff id:000029,src:000014,time:63604,op:havoc,rep:16,+cov -> id:000030,src:000014+000019,time:65173,op:splice,rep:4,+cov
+Src file: /home/rahbar/tinydtls-fuzz-cov/dtls.c
+  New 'function' coverage: handle_alert()
+  New 'line' coverage: 3707
+  New 'line' coverage: 3709
+  New 'line' coverage: 3711
+  New 'line' coverage: 3714
+  New 'line' coverage: 3716
+  New 'line' coverage: 3727
+  New 'line' coverage: 3728
+  New 'line' coverage: 3730
+  New 'line' coverage: 3732
+  New 'line' coverage: 3734
+  New 'line' coverage: 3738
+  New 'line' coverage: 3740
+  New 'line' coverage: 3741
+  New 'line' coverage: 3744
+  New 'line' coverage: 3745
+  New 'line' coverage: 3746
+  New 'line' coverage: 3749
+  New 'line' coverage: 3750
+  New 'line' coverage: 3754
+  New 'line' coverage: 3755
+  New 'line' coverage: 3756
+  New 'line' coverage: 3759
+  New 'line' coverage: 3879
+  New 'line' coverage: 3880
+  New 'line' coverage: 3881
+  New 'line' coverage: 3883
+  New 'line' coverage: 3884
+  New 'line' coverage: 3885
+  New 'line' coverage: 3887
+  New 'line' coverage: 3888
+  New 'line' coverage: 60

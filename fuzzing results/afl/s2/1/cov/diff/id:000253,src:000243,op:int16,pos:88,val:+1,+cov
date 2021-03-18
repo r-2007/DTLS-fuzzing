@@ -1,0 +1,4 @@
+diff id:000252,src:000243,op:flip1,pos:88,+cov -> id:000253,src:000243,op:int16,pos:88,val:+1,+cov
+Src file: /home/rahbar/tinydtls-fuzz-cov/dtls.c
+  New 'line' coverage: 808
+  New 'line' coverage: 809

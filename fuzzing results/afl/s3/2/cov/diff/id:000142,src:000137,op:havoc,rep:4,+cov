@@ -1,0 +1,4 @@
+diff id:000141,src:000137,op:flip2,pos:13 -> id:000142,src:000137,op:havoc,rep:4,+cov
+Src file: /home/rahbar/tinydtls-fuzz-cov/netq.c
+  New 'line' coverage: 111
+  New 'line' coverage: 116

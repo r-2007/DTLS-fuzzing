@@ -1,0 +1,527 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+
+<html lang="en">
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <title>LCOV - trace.lcov_info_final - tinydtls-fuzz-cov/dtls.h</title>
+  <link rel="stylesheet" type="text/css" href="../gcov.css">
+</head>
+
+<body>
+
+  <table width="100%" border=0 cellspacing=0 cellpadding=0>
+    <tr><td class="title">LCOV - code coverage report</td></tr>
+    <tr><td class="ruler"><img src="../glass.png" width=3 height=3 alt=""></td></tr>
+
+    <tr>
+      <td width="100%">
+        <table cellpadding=1 border=0 width="100%">
+          <tr>
+            <td width="10%" class="headerItem">Current view:</td>
+            <td width="35%" class="headerValue"><a href="../index.html">top level</a> - <a href="index.html">tinydtls-fuzz-cov</a> - dtls.h<span style="font-size: 80%;"> (source / <a href="dtls.h.func-sort-c.html">functions</a>)</span></td>
+            <td width="5%"></td>
+            <td width="15%"></td>
+            <td width="10%" class="headerCovTableHead">Hit</td>
+            <td width="10%" class="headerCovTableHead">Total</td>
+            <td width="15%" class="headerCovTableHead">Coverage</td>
+          </tr>
+          <tr>
+            <td class="headerItem">Test:</td>
+            <td class="headerValue">trace.lcov_info_final</td>
+            <td></td>
+            <td class="headerItem">Lines:</td>
+            <td class="headerCovTableEntry">3</td>
+            <td class="headerCovTableEntry">3</td>
+            <td class="headerCovTableEntryHi">100.0 %</td>
+          </tr>
+          <tr>
+            <td class="headerItem">Date:</td>
+            <td class="headerValue">2020-11-18 01:21:19</td>
+            <td></td>
+            <td class="headerItem">Functions:</td>
+            <td class="headerCovTableEntry">1</td>
+            <td class="headerCovTableEntry">1</td>
+            <td class="headerCovTableEntryHi">100.0 %</td>
+          </tr>
+          <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td class="headerItem">Branches:</td>
+            <td class="headerCovTableEntry">0</td>
+            <td class="headerCovTableEntry">0</td>
+            <td class="headerCovTableEntryHi">-</td>
+          </tr>
+          <tr><td><img src="../glass.png" width=3 height=3 alt=""></td></tr>
+        </table>
+      </td>
+    </tr>
+
+    <tr><td class="ruler"><img src="../glass.png" width=3 height=3 alt=""></td></tr>
+  </table>
+
+  <table cellpadding=0 cellspacing=0 border=0>
+    <tr>
+      <td><br></td>
+    </tr>
+    <tr>
+      <td>
+<pre class="sourceHeading">           Branch data     Line data    Source code</pre>
+<pre class="source">
+<a name="1"><span class="lineNum">       1 </span>                :            : /*******************************************************************************</a>
+<span class="lineNum">       2 </span>                :            :  *
+<span class="lineNum">       3 </span>                :            :  * Copyright (c) 2011, 2012, 2013, 2014, 2015 Olaf Bergmann (TZI) and others.
+<span class="lineNum">       4 </span>                :            :  * All rights reserved. This program and the accompanying materials
+<span class="lineNum">       5 </span>                :            :  * are made available under the terms of the Eclipse Public License v1.0
+<span class="lineNum">       6 </span>                :            :  * and Eclipse Distribution License v. 1.0 which accompanies this distribution.
+<span class="lineNum">       7 </span>                :            :  *
+<span class="lineNum">       8 </span>                :            :  * The Eclipse Public License is available at http://www.eclipse.org/legal/epl-v10.html
+<span class="lineNum">       9 </span>                :            :  * and the Eclipse Distribution License is available at
+<span class="lineNum">      10 </span>                :            :  * http://www.eclipse.org/org/documents/edl-v10.php.
+<span class="lineNum">      11 </span>                :            :  *
+<span class="lineNum">      12 </span>                :            :  * Contributors:
+<span class="lineNum">      13 </span>                :            :  *    Olaf Bergmann  - initial API and implementation
+<span class="lineNum">      14 </span>                :            :  *    Hauke Mehrtens - memory optimization, ECC integration
+<span class="lineNum">      15 </span>                :            :  *    Achim Kraus    - session recovery
+<span class="lineNum">      16 </span>                :            :  *
+<span class="lineNum">      17 </span>                :            :  *******************************************************************************/
+<span class="lineNum">      18 </span>                :            : 
+<span class="lineNum">      19 </span>                :            : /**
+<span class="lineNum">      20 </span>                :            :  * @file dtls.h
+<span class="lineNum">      21 </span>                :            :  * @brief High level DTLS API and visible structures.
+<span class="lineNum">      22 </span>                :            :  */
+<span class="lineNum">      23 </span>                :            : 
+<span class="lineNum">      24 </span>                :            : #ifndef _DTLS_DTLS_H_
+<span class="lineNum">      25 </span>                :            : #define _DTLS_DTLS_H_
+<span class="lineNum">      26 </span>                :            : 
+<span class="lineNum">      27 </span>                :            : #include &lt;stdint.h&gt;
+<span class="lineNum">      28 </span>                :            : 
+<span class="lineNum">      29 </span>                :            : #include &quot;dtls-state.h&quot;
+<span class="lineNum">      30 </span>                :            : #include &quot;dtls-peer.h&quot;
+<span class="lineNum">      31 </span>                :            : 
+<span class="lineNum">      32 </span>                :            : #include &quot;dtls-alert.h&quot;
+<span class="lineNum">      33 </span>                :            : #include &quot;dtls-crypto.h&quot;
+<span class="lineNum">      34 </span>                :            : #include &quot;dtls-hmac.h&quot;
+<span class="lineNum">      35 </span>                :            : 
+<span class="lineNum">      36 </span>                :            : #include &quot;tinydtls.h&quot;
+<span class="lineNum">      37 </span>                :            : 
+<span class="lineNum">      38 </span>                :            : #ifndef DTLSv12
+<span class="lineNum">      39 </span>                :            : #define DTLS_VERSION 0xfeff     /* DTLS v1.1 */
+<span class="lineNum">      40 </span>                :            : #else
+<span class="lineNum">      41 </span>                :            : #define DTLS_VERSION 0xfefd     /* DTLS v1.2 */
+<span class="lineNum">      42 </span>                :            : #endif
+<span class="lineNum">      43 </span>                :            : 
+<span class="lineNum">      44 </span>                :            : typedef enum dtls_credentials_type_t {
+<span class="lineNum">      45 </span>                :            :   DTLS_PSK_HINT, DTLS_PSK_IDENTITY, DTLS_PSK_KEY
+<span class="lineNum">      46 </span>                :            : } dtls_credentials_type_t;
+<span class="lineNum">      47 </span>                :            : 
+<span class="lineNum">      48 </span>                :            : typedef struct dtls_ecdsa_key_t {
+<span class="lineNum">      49 </span>                :            :   dtls_ecdh_curve curve;
+<span class="lineNum">      50 </span>                :            :   const unsigned char *priv_key;        /** &lt; private key as bytes &gt; */
+<span class="lineNum">      51 </span>                :            :   const unsigned char *pub_key_x;       /** &lt; x part of the public key for the given private key &gt; */
+<span class="lineNum">      52 </span>                :            :   const unsigned char *pub_key_y;       /** &lt; y part of the public key for the given private key &gt; */
+<span class="lineNum">      53 </span>                :            : } dtls_ecdsa_key_t;
+<span class="lineNum">      54 </span>                :            : 
+<span class="lineNum">      55 </span>                :            : /** Length of the secret that is used for generating Hello Verify cookies. */
+<span class="lineNum">      56 </span>                :            : #define DTLS_COOKIE_SECRET_LENGTH 12
+<span class="lineNum">      57 </span>                :            : 
+<span class="lineNum">      58 </span>                :            : struct dtls_context_t;
+<span class="lineNum">      59 </span>                :            : 
+<span class="lineNum">      60 </span>                :            : /**
+<span class="lineNum">      61 </span>                :            :  * This structure contains callback functions used by tinydtls to
+<span class="lineNum">      62 </span>                :            :  * communicate with the application. At least the write function must
+<span class="lineNum">      63 </span>                :            :  * be provided. It is called by the DTLS state machine to send packets
+<span class="lineNum">      64 </span>                :            :  * over the network. The read function is invoked to deliver decrypted
+<span class="lineNum">      65 </span>                :            :  * and verfified application data. The third callback is an event
+<span class="lineNum">      66 </span>                :            :  * handler function that is called when alert messages are encountered
+<span class="lineNum">      67 </span>                :            :  * or events generated by the library have occured.
+<span class="lineNum">      68 </span>                :            :  */ 
+<span class="lineNum">      69 </span>                :            : typedef struct {
+<span class="lineNum">      70 </span>                :            :   /** 
+<span class="lineNum">      71 </span>                :            :    * Called from dtls_handle_message() to send DTLS packets over the
+<span class="lineNum">      72 </span>                :            :    * network. The callback function must use the network interface
+<span class="lineNum">      73 </span>                :            :    * denoted by session-&gt;ifindex to send the data.
+<span class="lineNum">      74 </span>                :            :    *
+<span class="lineNum">      75 </span>                :            :    * @param ctx  The current DTLS context.
+<span class="lineNum">      76 </span>                :            :    * @param session The session object, including the address of the
+<span class="lineNum">      77 </span>                :            :    *              remote peer where the data shall be sent.
+<span class="lineNum">      78 </span>                :            :    * @param buf  The data to send.
+<span class="lineNum">      79 </span>                :            :    * @param len  The actual length of @p buf.
+<span class="lineNum">      80 </span>                :            :    * @return The callback function must return the number of bytes 
+<span class="lineNum">      81 </span>                :            :    *         that were sent, or a value less than zero to indicate an 
+<span class="lineNum">      82 </span>                :            :    *         error.
+<span class="lineNum">      83 </span>                :            :    */
+<span class="lineNum">      84 </span>                :            :   int (*write)(struct dtls_context_t *ctx,
+<span class="lineNum">      85 </span>                :            :                session_t *session, uint8_t *buf, size_t len);
+<span class="lineNum">      86 </span>                :            : 
+<span class="lineNum">      87 </span>                :            :   /**
+<span class="lineNum">      88 </span>                :            :    * Called from dtls_handle_message() deliver application data that was 
+<span class="lineNum">      89 </span>                :            :    * received on the given session. The data is delivered only after
+<span class="lineNum">      90 </span>                :            :    * decryption and verification have succeeded. 
+<span class="lineNum">      91 </span>                :            :    *
+<span class="lineNum">      92 </span>                :            :    * @param ctx  The current DTLS context.
+<span class="lineNum">      93 </span>                :            :    * @param session The session object, including the address of the
+<span class="lineNum">      94 </span>                :            :    *              data's origin. 
+<span class="lineNum">      95 </span>                :            :    * @param buf  The received data packet.
+<span class="lineNum">      96 </span>                :            :    * @param len  The actual length of @p buf.
+<span class="lineNum">      97 </span>                :            :    * @return ignored
+<span class="lineNum">      98 </span>                :            :    */
+<span class="lineNum">      99 </span>                :            :   int (*read)(struct dtls_context_t *ctx, 
+<span class="lineNum">     100 </span>                :            :                session_t *session, uint8_t *buf, size_t len);
+<span class="lineNum">     101 </span>                :            : 
+<span class="lineNum">     102 </span>                :            :   /**
+<span class="lineNum">     103 </span>                :            :    * The event handler is called when a message from the alert
+<span class="lineNum">     104 </span>                :            :    * protocol is received or the state of the DTLS session changes.
+<span class="lineNum">     105 </span>                :            :    *
+<span class="lineNum">     106 </span>                :            :    * @param ctx     The current dtls context.
+<span class="lineNum">     107 </span>                :            :    * @param session The session object that was affected.
+<span class="lineNum">     108 </span>                :            :    * @param level   The alert level or @c 0 when an event ocurred that 
+<span class="lineNum">     109 </span>                :            :    *                is not an alert. 
+<span class="lineNum">     110 </span>                :            :    * @param code    Values less than @c 256 indicate alerts, while
+<span class="lineNum">     111 </span>                :            :    *                @c 256 or greater indicate internal DTLS session changes.
+<span class="lineNum">     112 </span>                :            :    * @return ignored
+<span class="lineNum">     113 </span>                :            :    */
+<span class="lineNum">     114 </span>                :            :   int (*event)(struct dtls_context_t *ctx, session_t *session, 
+<span class="lineNum">     115 </span>                :            :                 dtls_alert_level_t level, unsigned short code);
+<span class="lineNum">     116 </span>                :            : 
+<span class="lineNum">     117 </span>                :            : #ifdef DTLS_PSK
+<span class="lineNum">     118 </span>                :            :   /**
+<span class="lineNum">     119 </span>                :            :    * Called during handshake to get information related to the
+<span class="lineNum">     120 </span>                :            :    * psk key exchange. The type of information requested is
+<span class="lineNum">     121 </span>                :            :    * indicated by @p type which will be one of DTLS_PSK_HINT,
+<span class="lineNum">     122 </span>                :            :    * DTLS_PSK_IDENTITY, or DTLS_PSK_KEY. The called function
+<span class="lineNum">     123 </span>                :            :    * must store the requested item in the buffer @p result of
+<span class="lineNum">     124 </span>                :            :    * size @p result_length. On success, the function must return
+<span class="lineNum">     125 </span>                :            :    * the actual number of bytes written to @p result, of a
+<span class="lineNum">     126 </span>                :            :    * value less than zero on error. The parameter @p desc may
+<span class="lineNum">     127 </span>                :            :    * contain additional request information (e.g. the psk_identity
+<span class="lineNum">     128 </span>                :            :    * for which a key is requested when @p type == @c DTLS_PSK_KEY.
+<span class="lineNum">     129 </span>                :            :    *
+<span class="lineNum">     130 </span>                :            :    * @param ctx     The current dtls context.
+<span class="lineNum">     131 </span>                :            :    * @param session The session where the key will be used.
+<span class="lineNum">     132 </span>                :            :    * @param type    The type of the requested information.
+<span class="lineNum">     133 </span>                :            :    * @param desc    Additional request information
+<span class="lineNum">     134 </span>                :            :    * @param desc_len The actual length of desc.
+<span class="lineNum">     135 </span>                :            :    * @param result  Must be filled with the requested information.
+<span class="lineNum">     136 </span>                :            :    * @param result_length  Maximum size of @p result.
+<span class="lineNum">     137 </span>                :            :    * @return The number of bytes written to @p result or a value
+<span class="lineNum">     138 </span>                :            :    *         less than zero on error.
+<span class="lineNum">     139 </span>                :            :    */
+<span class="lineNum">     140 </span>                :            :   int (*get_psk_info)(struct dtls_context_t *ctx,
+<span class="lineNum">     141 </span>                :            :                       const session_t *session,
+<span class="lineNum">     142 </span>                :            :                       dtls_credentials_type_t type,
+<span class="lineNum">     143 </span>                :            :                       const unsigned char *desc, size_t desc_len,
+<span class="lineNum">     144 </span>                :            :                       unsigned char *result, size_t result_length);
+<span class="lineNum">     145 </span>                :            : 
+<span class="lineNum">     146 </span>                :            : #endif /* DTLS_PSK */
+<span class="lineNum">     147 </span>                :            : 
+<span class="lineNum">     148 </span>                :            : #ifdef DTLS_ECC
+<span class="lineNum">     149 </span>                :            :   /**
+<span class="lineNum">     150 </span>                :            :    * Called during handshake to get the server's or client's ecdsa
+<span class="lineNum">     151 </span>                :            :    * key used to authenticate this server or client in this 
+<span class="lineNum">     152 </span>                :            :    * session. If found, the key must be stored in @p result and 
+<span class="lineNum">     153 </span>                :            :    * the return value must be @c 0. If not found, @p result is 
+<span class="lineNum">     154 </span>                :            :    * undefined and the return value must be less than zero.
+<span class="lineNum">     155 </span>                :            :    *
+<span class="lineNum">     156 </span>                :            :    * If ECDSA should not be supported, set this pointer to NULL.
+<span class="lineNum">     157 </span>                :            :    *
+<span class="lineNum">     158 </span>                :            :    * Implement this if you want to provide your own certificate to 
+<span class="lineNum">     159 </span>                :            :    * the other peer. This is mandatory for a server providing ECDSA
+<span class="lineNum">     160 </span>                :            :    * support and optional for a client. A client doing DTLS client
+<span class="lineNum">     161 </span>                :            :    * authentication has to implementing this callback.
+<span class="lineNum">     162 </span>                :            :    *
+<span class="lineNum">     163 </span>                :            :    * @param ctx     The current dtls context.
+<span class="lineNum">     164 </span>                :            :    * @param session The session where the key will be used.
+<span class="lineNum">     165 </span>                :            :    * @param result  Must be set to the key object to used for the given
+<span class="lineNum">     166 </span>                :            :    *                session.
+<span class="lineNum">     167 </span>                :            :    * @return @c 0 if result is set, or less than zero on error.
+<span class="lineNum">     168 </span>                :            :    */
+<span class="lineNum">     169 </span>                :            :   int (*get_ecdsa_key)(struct dtls_context_t *ctx, 
+<span class="lineNum">     170 </span>                :            :                        const session_t *session,
+<span class="lineNum">     171 </span>                :            :                        const dtls_ecdsa_key_t **result);
+<span class="lineNum">     172 </span>                :            : 
+<span class="lineNum">     173 </span>                :            :   /**
+<span class="lineNum">     174 </span>                :            :    * Called during handshake to check the peer's pubic key in this
+<span class="lineNum">     175 </span>                :            :    * session. If the public key matches the session and should be
+<span class="lineNum">     176 </span>                :            :    * considerated valid the return value must be @c 0. If not valid,
+<span class="lineNum">     177 </span>                :            :    * the return value must be less than zero.
+<span class="lineNum">     178 </span>                :            :    *
+<span class="lineNum">     179 </span>                :            :    * If ECDSA should not be supported, set this pointer to NULL.
+<span class="lineNum">     180 </span>                :            :    *
+<span class="lineNum">     181 </span>                :            :    * Implement this if you want to verify the other peers public key.
+<span class="lineNum">     182 </span>                :            :    * This is mandatory for a DTLS client doing based ECDSA
+<span class="lineNum">     183 </span>                :            :    * authentication. A server implementing this will request the
+<span class="lineNum">     184 </span>                :            :    * client to do DTLS client authentication.
+<span class="lineNum">     185 </span>                :            :    *
+<span class="lineNum">     186 </span>                :            :    * @param ctx          The current dtls context.
+<span class="lineNum">     187 </span>                :            :    * @param session      The session where the key will be used.
+<span class="lineNum">     188 </span>                :            :    * @param other_pub_x  x component of the public key.
+<span class="lineNum">     189 </span>                :            :    * @param other_pub_y  y component of the public key.
+<span class="lineNum">     190 </span>                :            :    * @return @c 0 if public key matches, or less than zero on error.
+<span class="lineNum">     191 </span>                :            :    * error codes:
+<span class="lineNum">     192 </span>                :            :    *   return dtls_alert_fatal_create(DTLS_ALERT_BAD_CERTIFICATE);
+<span class="lineNum">     193 </span>                :            :    *   return dtls_alert_fatal_create(DTLS_ALERT_UNSUPPORTED_CERTIFICATE);
+<span class="lineNum">     194 </span>                :            :    *   return dtls_alert_fatal_create(DTLS_ALERT_CERTIFICATE_REVOKED);
+<span class="lineNum">     195 </span>                :            :    *   return dtls_alert_fatal_create(DTLS_ALERT_CERTIFICATE_EXPIRED);
+<span class="lineNum">     196 </span>                :            :    *   return dtls_alert_fatal_create(DTLS_ALERT_CERTIFICATE_UNKNOWN);
+<span class="lineNum">     197 </span>                :            :    *   return dtls_alert_fatal_create(DTLS_ALERT_UNKNOWN_CA);
+<span class="lineNum">     198 </span>                :            :    */
+<span class="lineNum">     199 </span>                :            :   int (*verify_ecdsa_key)(struct dtls_context_t *ctx, 
+<span class="lineNum">     200 </span>                :            :                           const session_t *session,
+<span class="lineNum">     201 </span>                :            :                           const unsigned char *other_pub_x,
+<span class="lineNum">     202 </span>                :            :                           const unsigned char *other_pub_y,
+<span class="lineNum">     203 </span>                :            :                           size_t key_size);
+<span class="lineNum">     204 </span>                :            : #endif /* DTLS_ECC */
+<span class="lineNum">     205 </span>                :            : } dtls_handler_t;
+<span class="lineNum">     206 </span>                :            : 
+<span class="lineNum">     207 </span>                :            : struct netq_t;
+<span class="lineNum">     208 </span>                :            : 
+<span class="lineNum">     209 </span>                :            : /** Holds global information of the DTLS engine. */
+<span class="lineNum">     210 </span>                :            : typedef struct dtls_context_t {
+<span class="lineNum">     211 </span>                :            :   unsigned char cookie_secret[DTLS_COOKIE_SECRET_LENGTH];
+<span class="lineNum">     212 </span>                :            :   dtls_tick_t cookie_secret_age; /**&lt; the time the secret has been generated */
+<span class="lineNum">     213 </span>                :            : 
+<span class="lineNum">     214 </span>                :            :   dtls_peer_t *peers;           /**&lt; peer hash map */
+<span class="lineNum">     215 </span>                :            : 
+<span class="lineNum">     216 </span>                :            : #ifdef DTLS_SUPPORT_CONF_CONTEXT_STATE
+<span class="lineNum">     217 </span>                :            :   DTLS_SUPPORT_CONF_CONTEXT_STATE support;
+<span class="lineNum">     218 </span>                :            : #endif /* DTLS_SUPPORT_CONF_CONTEXT_STATE */
+<span class="lineNum">     219 </span>                :            : 
+<span class="lineNum">     220 </span>                :            :   struct netq_t *sendqueue;     /**&lt; the packets to send */
+<span class="lineNum">     221 </span>                :            : 
+<span class="lineNum">     222 </span>                :            :   void *app;                    /**&lt; application-specific data */
+<span class="lineNum">     223 </span>                :            : 
+<span class="lineNum">     224 </span>                :            :   const dtls_handler_t *h;      /**&lt; callback handlers */
+<span class="lineNum">     225 </span>                :            : 
+<span class="lineNum">     226 </span>                :            :   unsigned char readbuf[DTLS_MAX_BUF];
+<span class="lineNum">     227 </span>                :            : } dtls_context_t;
+<span class="lineNum">     228 </span>                :            : 
+<span class="lineNum">     229 </span>                :            : /** 
+<span class="lineNum">     230 </span>                :            :  * This function initializes the tinyDTLS memory management and must
+<span class="lineNum">     231 </span>                :            :  * be called first.
+<span class="lineNum">     232 </span>                :            :  */
+<span class="lineNum">     233 </span>                :            : void dtls_init(void);
+<span class="lineNum">     234 </span>                :            : 
+<span class="lineNum">     235 </span>                :            : /** 
+<span class="lineNum">     236 </span>                :            :  * Creates a new context object. The storage allocated for the new
+<span class="lineNum">     237 </span>                :            :  * object must be released with dtls_free_context(). */
+<span class="lineNum">     238 </span>                :            : dtls_context_t *dtls_new_context(void *app_data);
+<span class="lineNum">     239 </span>                :            : 
+<span class="lineNum">     240 </span>                :            : /** Releases any storage that has been allocated for \p ctx. */
+<span class="lineNum">     241 </span>                :            : void dtls_free_context(dtls_context_t *ctx);
+<span class="lineNum">     242 </span>                :            : 
+<span class="lineNum">     243 </span>                :            : #define dtls_set_app_data(CTX,DATA) ((CTX)-&gt;app = (DATA))
+<span class="lineNum">     244 </span>                :            : #define dtls_get_app_data(CTX) ((CTX)-&gt;app)
+<a name="245"><span class="lineNum">     245 </span>                :            : </a>
+<span class="lineNum">     246 </span>                :            : /** Sets the callback handler object for @p ctx to @p h. */
+<span class="lineNum">     247 </span>                :<span class="lineCov">        780 : static inline void dtls_set_handler(dtls_context_t *ctx,</span>
+<span class="lineNum">     248 </span>                :            :                                     const dtls_handler_t *h)
+<span class="lineNum">     249 </span>                :            : {
+<span class="lineNum">     250 </span>                :<span class="lineCov">        780 :   ctx-&gt;h = h;</span>
+<span class="lineNum">     251 </span>                :<span class="lineCov">        780 : }</span>
+<span class="lineNum">     252 </span>                :            : 
+<span class="lineNum">     253 </span>                :            : /**
+<span class="lineNum">     254 </span>                :            :  * Establishes a DTLS channel with the specified remote peer @p dst.
+<span class="lineNum">     255 </span>                :            :  * This function returns @c 0 if that channel already exists, a value
+<span class="lineNum">     256 </span>                :            :  * greater than zero when a new ClientHello message was sent, and
+<span class="lineNum">     257 </span>                :            :  * a value less than zero on error.
+<span class="lineNum">     258 </span>                :            :  *
+<span class="lineNum">     259 </span>                :            :  * @param ctx    The DTLS context to use.
+<span class="lineNum">     260 </span>                :            :  * @param dst    The remote party to connect to.
+<span class="lineNum">     261 </span>                :            :  * @return A value less than zero on error, greater or equal otherwise.
+<span class="lineNum">     262 </span>                :            :  */
+<span class="lineNum">     263 </span>                :            : int dtls_connect(dtls_context_t *ctx, const session_t *dst);
+<span class="lineNum">     264 </span>                :            : 
+<span class="lineNum">     265 </span>                :            : /**
+<span class="lineNum">     266 </span>                :            :  * Establishes a DTLS channel with the specified remote peer.
+<span class="lineNum">     267 </span>                :            :  * This function returns @c 0 if that channel already exists, a value
+<span class="lineNum">     268 </span>                :            :  * greater than zero when a new ClientHello message was sent, and
+<span class="lineNum">     269 </span>                :            :  * a value less than zero on error.
+<span class="lineNum">     270 </span>                :            :  *
+<span class="lineNum">     271 </span>                :            :  * @param ctx    The DTLS context to use.
+<span class="lineNum">     272 </span>                :            :  * @param peer   The peer object that describes the session.
+<span class="lineNum">     273 </span>                :            :  * @return A value less than zero on error, greater or equal otherwise.
+<span class="lineNum">     274 </span>                :            :  */
+<span class="lineNum">     275 </span>                :            : int dtls_connect_peer(dtls_context_t *ctx, dtls_peer_t *peer);
+<span class="lineNum">     276 </span>                :            : 
+<span class="lineNum">     277 </span>                :            : /**
+<span class="lineNum">     278 </span>                :            :  * Closes the DTLS connection associated with @p remote. This function
+<span class="lineNum">     279 </span>                :            :  * returns zero on success, and a value less than zero on error.
+<span class="lineNum">     280 </span>                :            :  */
+<span class="lineNum">     281 </span>                :            : int dtls_close(dtls_context_t *ctx, const session_t *remote);
+<span class="lineNum">     282 </span>                :            : 
+<span class="lineNum">     283 </span>                :            : int dtls_renegotiate(dtls_context_t *ctx, const session_t *dst);
+<span class="lineNum">     284 </span>                :            : 
+<span class="lineNum">     285 </span>                :            : /** 
+<span class="lineNum">     286 </span>                :            :  * Writes the application data given in @p buf to the peer specified
+<span class="lineNum">     287 </span>                :            :  * by @p session. 
+<span class="lineNum">     288 </span>                :            :  * 
+<span class="lineNum">     289 </span>                :            :  * @param ctx      The DTLS context to use.
+<span class="lineNum">     290 </span>                :            :  * @param session  The remote transport address and local interface.
+<span class="lineNum">     291 </span>                :            :  * @param buf      The data to write.
+<span class="lineNum">     292 </span>                :            :  * @param len      The actual length of @p data.
+<span class="lineNum">     293 </span>                :            :  * 
+<span class="lineNum">     294 </span>                :            :  * @return The number of bytes written or @c -1 on error.
+<span class="lineNum">     295 </span>                :            :  */
+<span class="lineNum">     296 </span>                :            : int dtls_write(struct dtls_context_t *ctx, session_t *session, 
+<span class="lineNum">     297 </span>                :            :                uint8_t *buf, size_t len);
+<span class="lineNum">     298 </span>                :            : 
+<span class="lineNum">     299 </span>                :            : /**
+<span class="lineNum">     300 </span>                :            :  * Checks sendqueue of given DTLS context object for any outstanding
+<span class="lineNum">     301 </span>                :            :  * packets to be transmitted. 
+<span class="lineNum">     302 </span>                :            :  *
+<span class="lineNum">     303 </span>                :            :  * @param context The DTLS context object to use.
+<span class="lineNum">     304 </span>                :            :  * @param next    If not NULL, @p next is filled with the timestamp
+<span class="lineNum">     305 </span>                :            :  *  of the next scheduled retransmission, or @c 0 when no packets are
+<span class="lineNum">     306 </span>                :            :  *  waiting.
+<span class="lineNum">     307 </span>                :            :  * @param all     if all retransmissions or a single retransmission should be performed
+<span class="lineNum">     308 </span>                :            :  */
+<span class="lineNum">     309 </span>                :            : void dtls_check_retransmit(dtls_context_t *context, dtls_tick_t *next, int all);
+<span class="lineNum">     310 </span>                :            : 
+<span class="lineNum">     311 </span>                :            : #define DTLS_COOKIE_LENGTH 16
+<span class="lineNum">     312 </span>                :            : 
+<span class="lineNum">     313 </span>                :            : #define DTLS_CT_CHANGE_CIPHER_SPEC 20
+<span class="lineNum">     314 </span>                :            : #define DTLS_CT_ALERT              21
+<span class="lineNum">     315 </span>                :            : #define DTLS_CT_HANDSHAKE          22
+<span class="lineNum">     316 </span>                :            : #define DTLS_CT_APPLICATION_DATA   23
+<span class="lineNum">     317 </span>                :            : 
+<span class="lineNum">     318 </span>                :            : /** Generic header structure of the DTLS record layer. */
+<span class="lineNum">     319 </span>                :            : typedef struct __attribute__((__packed__)) {
+<span class="lineNum">     320 </span>                :            :   uint8_t content_type;         /**&lt; content type of the included message */
+<span class="lineNum">     321 </span>                :            :   uint8_t version[2];           /**&lt; Protocol version */
+<span class="lineNum">     322 </span>                :            :   uint8_t epoch[2];             /**&lt; counter for cipher state changes */
+<span class="lineNum">     323 </span>                :            :   uint8_t sequence_number[6];   /**&lt; sequence number */
+<span class="lineNum">     324 </span>                :            :   uint8_t length[2];            /**&lt; length of the following fragment */
+<span class="lineNum">     325 </span>                :            :   /* fragment */
+<span class="lineNum">     326 </span>                :            : } dtls_record_header_t;
+<span class="lineNum">     327 </span>                :            : 
+<span class="lineNum">     328 </span>                :            : /* Handshake types */
+<span class="lineNum">     329 </span>                :            : 
+<span class="lineNum">     330 </span>                :            : #define DTLS_HT_HELLO_REQUEST        0
+<span class="lineNum">     331 </span>                :            : #define DTLS_HT_CLIENT_HELLO         1
+<span class="lineNum">     332 </span>                :            : #define DTLS_HT_SERVER_HELLO         2
+<span class="lineNum">     333 </span>                :            : #define DTLS_HT_HELLO_VERIFY_REQUEST 3
+<span class="lineNum">     334 </span>                :            : #define DTLS_HT_CERTIFICATE         11
+<span class="lineNum">     335 </span>                :            : #define DTLS_HT_SERVER_KEY_EXCHANGE 12
+<span class="lineNum">     336 </span>                :            : #define DTLS_HT_CERTIFICATE_REQUEST 13
+<span class="lineNum">     337 </span>                :            : #define DTLS_HT_SERVER_HELLO_DONE   14
+<span class="lineNum">     338 </span>                :            : #define DTLS_HT_CERTIFICATE_VERIFY  15
+<span class="lineNum">     339 </span>                :            : #define DTLS_HT_CLIENT_KEY_EXCHANGE 16
+<span class="lineNum">     340 </span>                :            : #define DTLS_HT_FINISHED            20
+<span class="lineNum">     341 </span>                :            : 
+<span class="lineNum">     342 </span>                :            : /** Header structure for the DTLS handshake protocol. */
+<span class="lineNum">     343 </span>                :            : typedef struct __attribute__((__packed__)) {
+<span class="lineNum">     344 </span>                :            :   uint8_t msg_type; /**&lt; Type of handshake message  (one of DTLS_HT_) */
+<span class="lineNum">     345 </span>                :            :   uint8_t length[3];  /**&lt; length of this message */
+<span class="lineNum">     346 </span>                :            :   uint8_t message_seq[2];       /**&lt; Message sequence number */
+<span class="lineNum">     347 </span>                :            :   uint8_t fragment_offset[3];   /**&lt; Fragment offset. */
+<span class="lineNum">     348 </span>                :            :   uint8_t fragment_length[3];   /**&lt; Fragment length. */
+<span class="lineNum">     349 </span>                :            :   /* body */
+<span class="lineNum">     350 </span>                :            : } dtls_handshake_header_t;
+<span class="lineNum">     351 </span>                :            : 
+<span class="lineNum">     352 </span>                :            : /** Structure of the Client Hello message. */
+<span class="lineNum">     353 </span>                :            : typedef struct __attribute__((__packed__)) {
+<span class="lineNum">     354 </span>                :            :   uint8_t version[2];     /**&lt; Client version */
+<span class="lineNum">     355 </span>                :            :   uint8_t gmt_random[4];  /**&lt; GMT time of the random byte creation */
+<span class="lineNum">     356 </span>                :            :   unsigned char random[28];     /**&lt; Client random bytes */
+<span class="lineNum">     357 </span>                :            :   /* session id (up to 32 bytes) */
+<span class="lineNum">     358 </span>                :            :   /* cookie (up to 32 bytes) */
+<span class="lineNum">     359 </span>                :            :   /* cipher suite (2 to 2^16 -1 bytes) */
+<span class="lineNum">     360 </span>                :            :   /* compression method */
+<span class="lineNum">     361 </span>                :            : } dtls_client_hello_t;
+<span class="lineNum">     362 </span>                :            : 
+<span class="lineNum">     363 </span>                :            : /** Structure of the Hello Verify Request. */
+<span class="lineNum">     364 </span>                :            : typedef struct __attribute__((__packed__)) {
+<span class="lineNum">     365 </span>                :            :   uint8_t version[2];           /**&lt; Server version */
+<span class="lineNum">     366 </span>                :            :   uint8_t cookie_length;        /**&lt; Length of the included cookie */
+<span class="lineNum">     367 </span>                :            :   uint8_t cookie[];             /**&lt; up to 32 bytes making up the cookie */
+<span class="lineNum">     368 </span>                :            : } dtls_hello_verify_t;  
+<span class="lineNum">     369 </span>                :            : 
+<span class="lineNum">     370 </span>                :            : #if 0
+<span class="lineNum">     371 </span>                :            : /** 
+<span class="lineNum">     372 </span>                :            :  * Checks a received DTLS record for consistency and eventually decrypt,
+<span class="lineNum">     373 </span>                :            :  * verify, decompress and reassemble the contained fragment for 
+<span class="lineNum">     374 </span>                :            :  * delivery to high-lever clients. 
+<span class="lineNum">     375 </span>                :            :  * 
+<span class="lineNum">     376 </span>                :            :  * \param state The DTLS record state for the current session. 
+<span class="lineNum">     377 </span>                :            :  * \param 
+<span class="lineNum">     378 </span>                :            :  */
+<span class="lineNum">     379 </span>                :            : int dtls_record_read(dtls_state_t *state, uint8_t *msg, int msglen);
+<span class="lineNum">     380 </span>                :            : #endif
+<span class="lineNum">     381 </span>                :            : 
+<span class="lineNum">     382 </span>                :            : /** 
+<span class="lineNum">     383 </span>                :            :  * Handles incoming data as DTLS message from given peer.
+<span class="lineNum">     384 </span>                :            :  *
+<span class="lineNum">     385 </span>                :            :  * @param ctx     The dtls context to use.
+<span class="lineNum">     386 </span>                :            :  * @param session The current session
+<span class="lineNum">     387 </span>                :            :  * @param msg     The received data
+<span class="lineNum">     388 </span>                :            :  * @param msglen  The actual length of @p msg.
+<span class="lineNum">     389 </span>                :            :  * @return A value less than zero on error, zero on success.
+<span class="lineNum">     390 </span>                :            :  */
+<span class="lineNum">     391 </span>                :            : int dtls_handle_message(dtls_context_t *ctx, session_t *session,
+<span class="lineNum">     392 </span>                :            :                         uint8_t *msg, int msglen);
+<span class="lineNum">     393 </span>                :            : 
+<span class="lineNum">     394 </span>                :            : /**
+<span class="lineNum">     395 </span>                :            :  * Check if @p session is associated with a peer object in @p context.
+<span class="lineNum">     396 </span>                :            :  * This function returns a pointer to the peer if found, NULL otherwise.
+<span class="lineNum">     397 </span>                :            :  *
+<span class="lineNum">     398 </span>                :            :  * @param context  The DTLS context to search.
+<span class="lineNum">     399 </span>                :            :  * @param session  The remote address and local interface
+<span class="lineNum">     400 </span>                :            :  * @return A pointer to the peer associated with @p session or NULL if
+<span class="lineNum">     401 </span>                :            :  *  none exists.
+<span class="lineNum">     402 </span>                :            :  */
+<span class="lineNum">     403 </span>                :            : dtls_peer_t *dtls_get_peer(const dtls_context_t *context,
+<span class="lineNum">     404 </span>                :            :                            const session_t *session);
+<span class="lineNum">     405 </span>                :            : 
+<span class="lineNum">     406 </span>                :            : /**
+<span class="lineNum">     407 </span>                :            :  * Resets all connections with @p peer.
+<span class="lineNum">     408 </span>                :            :  *
+<span class="lineNum">     409 </span>                :            :  * @param context  The active DTLS context.
+<span class="lineNum">     410 </span>                :            :  * @param peer     The peer to reset.
+<span class="lineNum">     411 </span>                :            :  */
+<span class="lineNum">     412 </span>                :            : void dtls_reset_peer(dtls_context_t *context, dtls_peer_t *peer);
+<span class="lineNum">     413 </span>                :            : 
+<span class="lineNum">     414 </span>                :            : #endif /* _DTLS_DTLS_H_ */
+<span class="lineNum">     415 </span>                :            : 
+<span class="lineNum">     416 </span>                :            : /**
+<span class="lineNum">     417 </span>                :            :  * @author Olaf Bergmann, TZI Uni Bremen
+<span class="lineNum">     418 </span>                :            :  *
+<span class="lineNum">     419 </span>                :            :  * This library provides a very simple datagram server with DTLS
+<span class="lineNum">     420 </span>                :            :  * support. It is designed to support session multiplexing in
+<span class="lineNum">     421 </span>                :            :  * single-threaded applications and thus targets specifically on
+<span class="lineNum">     422 </span>                :            :  * embedded systems.
+<span class="lineNum">     423 </span>                :            :  *
+<span class="lineNum">     424 </span>                :            :  * @section license License
+<span class="lineNum">     425 </span>                :            :  *
+<span class="lineNum">     426 </span>                :            :  * This software is under the &lt;a
+<span class="lineNum">     427 </span>                :            :  * href=&quot;http://www.opensource.org/licenses/mit-license.php&quot;&gt;MIT License&lt;/a&gt;.
+<span class="lineNum">     428 </span>                :            :  *
+<span class="lineNum">     429 </span>                :            :  * @subsection sha256 Aaron D. Gifford's SHA256 Implementation
+<span class="lineNum">     430 </span>                :            :  *
+<span class="lineNum">     431 </span>                :            :  * tinyDTLS provides HMAC-SHA256 with BSD-licensed code from Aaron D. Gifford,
+<span class="lineNum">     432 </span>                :            :  * see &lt;a href=&quot;http://www.aarongifford.com/&quot;&gt;www.aarongifford.com&lt;/a&gt;.
+<span class="lineNum">     433 </span>                :            :  *
+<span class="lineNum">     434 </span>                :            :  * @subsection aes Rijndael Implementation From OpenBSD
+<span class="lineNum">     435 </span>                :            :  *
+<span class="lineNum">     436 </span>                :            :  * The AES implementation is taken from rijndael.{c,h} contained in the crypto
+<span class="lineNum">     437 </span>                :            :  * sub-system of the OpenBSD operating system. It is copyright by Vincent Rijmen, *
+<span class="lineNum">     438 </span>                :            :  * Antoon Bosselaers and Paulo Barreto. See &lt;a
+<span class="lineNum">     439 </span>                :            :  * href=&quot;http://www.openbsd.org/cgi-bin/cvsweb/src/sys/crypto/rijndael.c&quot;&gt;rijndael.c&lt;/a&gt;
+<span class="lineNum">     440 </span>                :            :  * for License info.
+<span class="lineNum">     441 </span>                :            :  *
+<span class="lineNum">     442 </span>                :            :  */
+</pre>
+      </td>
+    </tr>
+  </table>
+  <br>
+
+  <table width="100%" border=0 cellspacing=0 cellpadding=0>
+    <tr><td class="ruler"><img src="../glass.png" width=3 height=3 alt=""></td></tr>
+    <tr><td class="versionInfo">Generated by: <a href="http://ltp.sourceforge.net/coverage/lcov.php" target="_parent">LCOV version 1.13</a></td></tr>
+  </table>
+  <br>
+
+</body>
+</html>

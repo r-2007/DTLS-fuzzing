@@ -1,0 +1,13 @@
+diff id:000210,src:000192,time:14105997,op:havoc-smart,rep:16,+cov -> id:000211,src:000192+000180,time:14123441,op:splice,rep:4,+cov
+Src file: /home/rahbar/tinydtls-fuzz-cov/dtls.c
+  New 'function' coverage: verify_ext_ec_point_formats()
+  New 'line' coverage: 788
+  New 'line' coverage: 792
+  New 'line' coverage: 793
+  New 'line' coverage: 794
+  New 'line' coverage: 795
+  New 'line' coverage: 796
+  New 'line' coverage: 892
+  New 'line' coverage: 893
+  New 'line' coverage: 894
+  New 'line' coverage: 895

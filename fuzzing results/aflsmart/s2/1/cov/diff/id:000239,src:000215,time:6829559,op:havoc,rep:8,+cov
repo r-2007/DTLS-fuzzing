@@ -1,0 +1,13 @@
+diff id:000238,src:000215,time:6829012,op:havoc,rep:2,+cov -> id:000239,src:000215,time:6829559,op:havoc,rep:8,+cov
+Src file: /home/rahbar/tinydtls-fuzz-cov/dtls.c
+  New 'function' coverage: verify_ext_eliptic_curves()
+  New 'line' coverage: 740
+  New 'line' coverage: 744
+  New 'line' coverage: 745
+  New 'line' coverage: 746
+  New 'line' coverage: 747
+  New 'line' coverage: 748
+  New 'line' coverage: 867
+  New 'line' coverage: 868
+  New 'line' coverage: 869
+  New 'line' coverage: 870

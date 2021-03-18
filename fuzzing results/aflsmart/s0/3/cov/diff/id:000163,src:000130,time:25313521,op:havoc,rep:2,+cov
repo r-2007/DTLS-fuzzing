@@ -1,0 +1,14 @@
+diff id:000162,src:000143,time:24442542,op:havoc,rep:2 -> id:000163,src:000130,time:25313521,op:havoc,rep:2,+cov
+Src file: /home/rahbar/tinydtls-fuzz-cov/dtls-peer.h
+  New 'line' coverage: 54
+Src file: /home/rahbar/tinydtls-fuzz-cov/dtls.c
+  New 'line' coverage: 1052
+  New 'line' coverage: 1053
+  New 'line' coverage: 1056
+  New 'line' coverage: 3043
+  New 'line' coverage: 3044
+  New 'line' coverage: 3488
+  New 'line' coverage: 3489
+  New 'line' coverage: 3594
+  New 'line' coverage: 3596
+  New 'line' coverage: 983

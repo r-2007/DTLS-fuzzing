@@ -1,0 +1,22 @@
+diff id:000163,src:000130,time:25313521,op:havoc,rep:2,+cov -> id:000164,src:000163,time:25337538,op:havoc,rep:4,+cov
+Src file: /home/rahbar/tinydtls-fuzz-cov/netq.c
+  New 'line' coverage: 165
+  New 'line' coverage: 166
+  New 'line' coverage: 167
+  New 'line' coverage: 168
+Src file: /home/rahbar/tinydtls-fuzz-cov/dtls.c
+  New 'line' coverage: 3602
+  New 'line' coverage: 3607
+  New 'line' coverage: 3608
+  New 'line' coverage: 3609
+  New 'line' coverage: 3610
+  New 'line' coverage: 3614
+  New 'line' coverage: 3617
+  New 'line' coverage: 3618
+  New 'line' coverage: 3623
+  New 'line' coverage: 3624
+  New 'line' coverage: 3625
+  New 'line' coverage: 3627
+  New 'line' coverage: 3629
+  New 'line' coverage: 3631
+  New 'line' coverage: 3632

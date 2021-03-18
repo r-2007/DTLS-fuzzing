@@ -1,0 +1,133 @@
+# All functions / lines in this file were never executed by any
+# AFL test case.
+File: /home/rahbar/tinydtls-fuzz-cov/dtls-log.h
+File: /home/rahbar/tinydtls-fuzz-cov/aes/rijndael.c
+File: /home/rahbar/tinydtls-fuzz-cov/tests/ccm-test.c
+    function: dump()
+    function: main()
+File: /home/rahbar/tinydtls-fuzz-cov/tests/prf-test.c
+    function: main()
+File: /home/rahbar/tinydtls-fuzz-cov/dtls-alert.h
+    function: dtls_alert_create()
+    function: dtls_alert_fatal_create()
+File: /home/rahbar/tinydtls-fuzz-cov/netq.c
+    function: netq_pop_first()
+File: /home/rahbar/tinydtls-fuzz-cov/dtls.c
+    function: check_certificate_request()
+    function: check_client_certificate_verify()
+    function: check_server_certificate()
+    function: check_server_key_exchange_ecdsa()
+    function: check_server_key_exchange_psk()
+    function: dtls_add_ecdsa_signature_elem()
+    function: dtls_alert_send_from_err()
+    function: dtls_check_ecdsa_signature_elem()
+    function: dtls_check_retransmit()
+    function: dtls_handshake_type_to_name()
+    function: dtls_renegotiate()
+    function: dtls_reset_peer()
+    function: dtls_retransmit()
+    function: dtls_send_certificate_ecdsa()
+    function: dtls_send_certificate_verify_ecdh()
+    function: dtls_send_hello_request()
+    function: dtls_send_server_certificate_request()
+    function: dtls_send_server_key_exchange_ecdh()
+    function: dtls_send_server_key_exchange_psk()
+    function: dtls_write()
+    function: handle_alert()
+    function: hs_attempt_with_existing_peer()
+    function: is_ecdsa_client_auth_supported()
+    function: verify_ext_cert_type()
+    function: verify_ext_ec_point_formats()
+    function: verify_ext_eliptic_curves()
+File: /home/rahbar/tinydtls-fuzz-cov/sha2/sha2.c
+    function: dtls_sha256_data()
+    function: dtls_sha256_end()
+File: /home/rahbar/tinydtls-fuzz-cov/dtls-peer.c
+File: /home/rahbar/tinydtls-fuzz-cov/dtls.h
+File: /home/rahbar/tinydtls-fuzz-cov/tests/dtls-server.c
+    function: dtls_handle_read()
+    function: get_ecdsa_key()
+    function: get_psk_info()
+    function: main()
+    function: read_from_peer()
+    function: resolve_address()
+    function: send_to_peer()
+    function: usage()
+    function: verify_ecdsa_key()
+File: /home/rahbar/tinydtls-fuzz-cov/dtls-ccm.c
+File: /home/rahbar/tinydtls-fuzz-cov/dtls-peer.h
+File: /home/rahbar/tinydtls-fuzz-cov/ecc/ecc.h
+    function: ecc_ecdh()
+    function: ecc_gen_pub_key()
+File: /home/rahbar/tinydtls-fuzz-cov/tinydtls.h
+File: /home/rahbar/tinydtls-fuzz-cov/posix/dtls-support.c
+    function: dtls_session_init()
+    function: dtls_session_log()
+    function: dtls_session_print()
+    function: dtls_support_log_prefix()
+File: /home/rahbar/tinydtls-fuzz-cov/ecc/ecc.c
+    function: add()
+    function: copy()
+    function: ec_add()
+    function: ec_double()
+    function: ecc_ec_mult()
+    function: ecc_ecdsa_sign_hash()
+    function: ecc_ecdsa_validate()
+    function: ecc_is_valid_key()
+    function: fieldAdd()
+    function: fieldAddAndDivide()
+    function: fieldInv()
+    function: fieldModO()
+    function: fieldModP()
+    function: fieldMult()
+    function: fieldSub()
+    function: isGreater()
+    function: isOne()
+    function: isSame()
+    function: isZero()
+    function: rshift()
+    function: rshiftby()
+    function: setZero()
+    function: sub()
+File: /home/rahbar/tinydtls-fuzz-cov/dtls-log.c
+    function: dtls_log_dump()
+    function: dtls_log_hexdump()
+    function: dtls_package_name()
+    function: dtls_package_version()
+File: /home/rahbar/tinydtls-fuzz-cov/dtls-crypto.c
+    function: dtls_ec_key_from_uint32()
+    function: dtls_ec_key_from_uint32_asn1()
+    function: dtls_ec_key_to_uint32()
+    function: dtls_ecdh_pre_master_secret()
+    function: dtls_ecdsa_create_sig()
+    function: dtls_ecdsa_create_sig_hash()
+    function: dtls_ecdsa_generate_key()
+    function: dtls_ecdsa_verify_sig()
+    function: dtls_ecdsa_verify_sig_hash()
+    function: dtls_mac()
+File: /home/rahbar/tinydtls-fuzz-cov/dtls-hmac.h
+File: /home/rahbar/tinydtls-fuzz-cov/tests/dtls-fuzz.c
+    function: add_peer()
+    function: dtls_add_peer()
+    function: get_ecdsa_key()
+    function: make_dirs()
+    function: read_from_peer()
+    function: verify_ecdsa_key()
+File: /home/rahbar/tinydtls-fuzz-cov/dtls-numeric.h
+    function: dtls_int_to_uint64()
+    function: dtls_uint32_to_int()
+File: /home/rahbar/tinydtls-fuzz-cov/dtls-hmac.c
+File: /home/rahbar/tinydtls-fuzz-cov/tests/dtls-client.c
+    function: dtls_handle_read()
+    function: dtls_handle_signal()
+    function: get_ecdsa_key()
+    function: get_psk_info()
+    function: handle_stdin()
+    function: main()
+    function: read_from_file()
+    function: read_from_peer()
+    function: resolve_address()
+    function: send_to_peer()
+    function: try_send()
+    function: usage()
+    function: verify_ecdsa_key()

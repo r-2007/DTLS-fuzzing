@@ -1,0 +1,17 @@
+0,34,DTLS_record,Enabled
+0,0,DTLS_record~Content_type,Enabled
+0,0,DTLS_record~Content_type~Change_CS,Disabled
+1,2,DTLS_record~Record_layer_version,Disabled
+3,4,DTLS_record~Epoch,Enabled
+5,10,DTLS_record~Sequence_number,Enabled
+11,12,DTLS_record~Length_of_dtls_data,Enabled
+13,34,DTLS_record~payload,Enabled
+13,34,DTLS_record~payload~Handshake_Payload,Enabled
+13,34,DTLS_record~payload~Handshake_Payload~Client_key_exchange,Enabled
+13,13,DTLS_record~payload~Handshake_Payload~Client_key_exchange~Handshake_type,Disabled
+14,16,DTLS_record~payload~Handshake_Payload~Client_key_exchange~Handshake_length,Enabled
+17,18,DTLS_record~payload~Handshake_Payload~Client_key_exchange~Handshake_message_sequence,Enabled
+19,21,DTLS_record~payload~Handshake_Payload~Client_key_exchange~Fragment_offset,Enabled
+22,24,DTLS_record~payload~Handshake_Payload~Client_key_exchange~Fragment_length,Enabled
+25,27,DTLS_record~payload~Handshake_Payload~Client_key_exchange~Fragment_payload,Enabled
+28,34,DTLS_record~payload~Handshake_Payload~Client_key_exchange~content,Enabled

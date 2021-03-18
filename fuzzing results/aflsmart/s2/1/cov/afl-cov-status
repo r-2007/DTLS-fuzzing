@@ -1,0 +1,3 @@
+afl_cov_pid     : 24834
+afl_cov_version : 0.6.1
+command_line    : /usr/bin/afl-cov -c ../ -d //home/rahbar/plot/cov/aflsmart/s2/1/ --coverage-cmd ./dtls-fuzz AFL_FILE psk 2 --enable-branch-coverage --overwrite

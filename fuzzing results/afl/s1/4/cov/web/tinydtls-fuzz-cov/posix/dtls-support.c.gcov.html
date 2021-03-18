@@ -1,0 +1,360 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+
+<html lang="en">
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <title>LCOV - trace.lcov_info_final - tinydtls-fuzz-cov/posix/dtls-support.c</title>
+  <link rel="stylesheet" type="text/css" href="../../gcov.css">
+</head>
+
+<body>
+
+  <table width="100%" border=0 cellspacing=0 cellpadding=0>
+    <tr><td class="title">LCOV - code coverage report</td></tr>
+    <tr><td class="ruler"><img src="../../glass.png" width=3 height=3 alt=""></td></tr>
+
+    <tr>
+      <td width="100%">
+        <table cellpadding=1 border=0 width="100%">
+          <tr>
+            <td width="10%" class="headerItem">Current view:</td>
+            <td width="35%" class="headerValue"><a href="../../index.html">top level</a> - <a href="index.html">tinydtls-fuzz-cov/posix</a> - dtls-support.c<span style="font-size: 80%;"> (source / <a href="dtls-support.c.func-sort-c.html">functions</a>)</span></td>
+            <td width="5%"></td>
+            <td width="15%"></td>
+            <td width="10%" class="headerCovTableHead">Hit</td>
+            <td width="10%" class="headerCovTableHead">Total</td>
+            <td width="15%" class="headerCovTableHead">Coverage</td>
+          </tr>
+          <tr>
+            <td class="headerItem">Test:</td>
+            <td class="headerValue">trace.lcov_info_final</td>
+            <td></td>
+            <td class="headerItem">Lines:</td>
+            <td class="headerCovTableEntry">57</td>
+            <td class="headerCovTableEntry">114</td>
+            <td class="headerCovTableEntryLo">50.0 %</td>
+          </tr>
+          <tr>
+            <td class="headerItem">Date:</td>
+            <td class="headerValue">2020-11-25 03:09:58</td>
+            <td></td>
+            <td class="headerItem">Functions:</td>
+            <td class="headerCovTableEntry">15</td>
+            <td class="headerCovTableEntry">18</td>
+            <td class="headerCovTableEntryMed">83.3 %</td>
+          </tr>
+          <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td class="headerItem">Branches:</td>
+            <td class="headerCovTableEntry">15</td>
+            <td class="headerCovTableEntry">49</td>
+            <td class="headerCovTableEntryLo">30.6 %</td>
+          </tr>
+          <tr><td><img src="../../glass.png" width=3 height=3 alt=""></td></tr>
+        </table>
+      </td>
+    </tr>
+
+    <tr><td class="ruler"><img src="../../glass.png" width=3 height=3 alt=""></td></tr>
+  </table>
+
+  <table cellpadding=0 cellspacing=0 border=0>
+    <tr>
+      <td><br></td>
+    </tr>
+    <tr>
+      <td>
+<pre class="sourceHeading">           Branch data     Line data    Source code</pre>
+<pre class="source">
+<a name="1"><span class="lineNum">       1 </span>                :            : /* POSIX support for memb alloc / free and other functions needed to</a>
+<span class="lineNum">       2 </span>                :            :    run the tinyDTSL applications */
+<span class="lineNum">       3 </span>                :            : 
+<span class="lineNum">       4 </span>                :            : #include &quot;tinydtls.h&quot;
+<span class="lineNum">       5 </span>                :            : #include &quot;lib/memb.h&quot;
+<span class="lineNum">       6 </span>                :            : #include &quot;dtls-support.h&quot;
+<span class="lineNum">       7 </span>                :            : #include &lt;stdlib.h&gt;
+<span class="lineNum">       8 </span>                :            : #include &lt;time.h&gt;
+<span class="lineNum">       9 </span>                :            : #include &lt;sys/time.h&gt;
+<span class="lineNum">      10 </span>                :            : #ifdef HAVE_ASSERT_H
+<span class="lineNum">      11 </span>                :            : #include &lt;assert.h&gt;
+<span class="lineNum">      12 </span>                :            : #endif
+<span class="lineNum">      13 </span>                :            : 
+<span class="lineNum">      14 </span>                :            : #include &lt;arpa/inet.h&gt;
+<span class="lineNum">      15 </span>                :            : #include &lt;stdarg.h&gt;
+<span class="lineNum">      16 </span>                :            : #include &lt;stdio.h&gt;
+<span class="lineNum">      17 </span>                :            : 
+<span class="lineNum">      18 </span>                :            : #include &lt;pthread.h&gt;
+<span class="lineNum">      19 </span>                :            : static pthread_mutex_t cipher_context_mutex = PTHREAD_MUTEX_INITIALIZER;
+<span class="lineNum">      20 </span>                :            : static dtls_cipher_context_t cipher_context;
+<span class="lineNum">      21 </span>                :            : #define LOCK(P) pthread_mutex_lock(P)
+<span class="lineNum">      22 </span>                :            : #define UNLOCK(P) pthread_mutex_unlock(P)
+<span class="lineNum">      23 </span>                :            : 
+<span class="lineNum">      24 </span>                :            : /* Log configuration */
+<span class="lineNum">      25 </span>                :            : #define LOG_MODULE &quot;dtls-support&quot;
+<span class="lineNum">      26 </span>                :            : #define LOG_LEVEL  LOG_LEVEL_DTLS
+<span class="lineNum">      27 </span>                :            : #include &quot;dtls-log.h&quot;
+<span class="lineNum">      28 </span>                :            : 
+<span class="lineNum">      29 </span>                :            : #ifndef MAX
+<span class="lineNum">      30 </span>                :            : #define MAX(a,b) (((a) &lt; (b)) ? (b) : (a))
+<span class="lineNum">      31 </span>                :            : #endif /* MAX */
+<a name="32"><span class="lineNum">      32 </span>                :            : </a>
+<span class="lineNum">      33 </span>                :            : void
+<span class="lineNum">      34 </span>                :<span class="lineCov">       4130 : dtls_support_log_prefix(int level, const char *level_str, const char *module)</span>
+<span class="lineNum">      35 </span>                :            : {
+<span class="lineNum">      36 </span>                :            :   struct timeval now;
+<span class="lineNum">      37 </span>                :            :   struct tm loctime;
+<span class="lineNum">      38 </span>                :<span class="lineCov">       4130 :   int n = 0;</span>
+<span class="lineNum">      39 </span>                :            :   char buf[28];
+<span class="lineNum">      40 </span>                :            : 
+<span class="lineNum">      41 </span>  [<span class="branchCov" title="Branch 1 was taken 4130 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span><span class="branchCov" title="Branch 3 was taken 4130 times"> + </span><span class="branchNoCov" title="Branch 4 was not taken"> - </span>]:<span class="lineCov">       8260 :   if((gettimeofday(&amp;now, 0) == 0) &amp;&amp;</span>
+<span class="lineNum">      42 </span>        [<span class="branchCov" title="Branch 1 was taken 4130 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>]:<span class="lineCov">       8260 :      (localtime_r(&amp;now.tv_sec, &amp;loctime) != NULL) &amp;&amp;</span>
+<span class="lineNum">      43 </span>                :<span class="lineCov">       4130 :      (n = strftime(buf, sizeof(buf), &quot;%F %T&quot;, &amp;loctime)) &gt; 0) {</span>
+<span class="lineNum">      44 </span>                :<span class="lineCov">       4130 :     buf[n] = '\0';</span>
+<span class="lineNum">      45 </span>                :<span class="lineCov">       4130 :     LOG_OUTPUT(&quot;%s.%03u [%s] %-4s - &quot;, buf, (unsigned)(now.tv_usec / 1000),</span>
+<span class="lineNum">      46 </span>                :            :                module, level_str);
+<span class="lineNum">      47 </span>                :            :   } else {
+<span class="lineNum">      48 </span>                :<span class="lineNoCov">          0 :     LOG_OUTPUT(&quot;- [%s] %s - &quot;, module, level_str);</span>
+<span class="lineNum">      49 </span>                :            :   }
+<span class="lineNum">      50 </span>                :<span class="lineCov">       4130 : }</span>
+<a name="51"><span class="lineNum">      51 </span>                :            : </a>
+<span class="lineNum">      52 </span>                :            : dtls_cipher_context_t *
+<span class="lineNum">      53 </span>                :<span class="lineCov">       1130 : dtls_cipher_context_acquire(void)</span>
+<span class="lineNum">      54 </span>                :            : {
+<span class="lineNum">      55 </span>                :<span class="lineCov">       1130 :   LOCK(&amp;cipher_context_mutex);</span>
+<span class="lineNum">      56 </span>                :<span class="lineCov">       1130 :   return &amp;cipher_context;</span>
+<span class="lineNum">      57 </span>                :            : }
+<a name="58"><span class="lineNum">      58 </span>                :            : </a>
+<span class="lineNum">      59 </span>                :            : void
+<span class="lineNum">      60 </span>                :<span class="lineCov">       1130 : dtls_cipher_context_release(dtls_cipher_context_t *c)</span>
+<span class="lineNum">      61 </span>                :            : {
+<span class="lineNum">      62 </span>                :            :   /* just one single context for now */
+<span class="lineNum">      63 </span>                :<span class="lineCov">       1130 :   UNLOCK(&amp;cipher_context_mutex);</span>
+<span class="lineNum">      64 </span>                :<span class="lineCov">       1130 : }</span>
+<span class="lineNum">      65 </span>                :            : 
+<a name="66"><span class="lineNum">      66 </span>                :            : </a>
+<span class="lineNum">      67 </span>                :            : void
+<span class="lineNum">      68 </span>                :<span class="lineCov">       1555 : memb_init(struct memb *m)</span>
+<span class="lineNum">      69 </span>                :            : {
+<span class="lineNum">      70 </span>                :<span class="lineCov">       1555 : }</span>
+<span class="lineNum">      71 </span>                :            : 
+<a name="72"><span class="lineNum">      72 </span>                :            : </a>
+<span class="lineNum">      73 </span>                :            : void *
+<span class="lineNum">      74 </span>                :<span class="lineCov">       8038 : memb_alloc(struct memb *m)</span>
+<span class="lineNum">      75 </span>                :            : {
+<span class="lineNum">      76 </span>                :<span class="lineCov">       8038 :   return malloc(m-&gt;size);</span>
+<span class="lineNum">      77 </span>                :            : }
+<a name="78"><span class="lineNum">      78 </span>                :            : </a>
+<span class="lineNum">      79 </span>                :            : char
+<span class="lineNum">      80 </span>                :<span class="lineCov">       7916 : memb_free(struct memb *m, void *ptr)</span>
+<span class="lineNum">      81 </span>                :            : {
+<span class="lineNum">      82 </span>                :<span class="lineCov">       7916 :   free(ptr);</span>
+<span class="lineNum">      83 </span>                :<span class="lineCov">       7916 :   return 1;</span>
+<span class="lineNum">      84 </span>                :            : }
+<span class="lineNum">      85 </span>                :            : 
+<a name="86"><span class="lineNum">      86 </span>                :            : </a>
+<span class="lineNum">      87 </span>                :            : dtls_context_t *
+<span class="lineNum">      88 </span>                :<span class="lineCov">        622 : dtls_context_acquire(void)</span>
+<span class="lineNum">      89 </span>                :            : {
+<span class="lineNum">      90 </span>                :<span class="lineCov">        622 :   return (dtls_context_t *)malloc(sizeof(dtls_context_t));</span>
+<span class="lineNum">      91 </span>                :            : }
+<a name="92"><span class="lineNum">      92 </span>                :            : </a>
+<span class="lineNum">      93 </span>                :            : void
+<span class="lineNum">      94 </span>                :<span class="lineCov">        622 : dtls_context_release(dtls_context_t *context)</span>
+<span class="lineNum">      95 </span>                :            : {
+<span class="lineNum">      96 </span>                :<span class="lineCov">        622 :   free(context);</span>
+<span class="lineNum">      97 </span>                :<span class="lineCov">        622 : }</span>
+<span class="lineNum">      98 </span>                :            : 
+<span class="lineNum">      99 </span>                :            : /* --------- time support ----------- */
+<span class="lineNum">     100 </span>                :            : 
+<span class="lineNum">     101 </span>                :            : static time_t dtls_clock_offset;
+<a name="102"><span class="lineNum">     102 </span>                :            : </a>
+<span class="lineNum">     103 </span>                :            : void
+<span class="lineNum">     104 </span>                :<span class="lineCov">       3242 : dtls_ticks(dtls_tick_t *t)</span>
+<span class="lineNum">     105 </span>                :            : {
+<span class="lineNum">     106 </span>                :            :   struct timeval tv;
+<span class="lineNum">     107 </span>                :<span class="lineCov">       3242 :   gettimeofday(&amp;tv, NULL);</span>
+<span class="lineNum">     108 </span>                :<span class="lineCov">       6484 :   *t = (tv.tv_sec - dtls_clock_offset) * (dtls_tick_t)DTLS_TICKS_PER_SECOND</span>
+<span class="lineNum">     109 </span>                :<span class="lineCov">       3242 :     + (tv.tv_usec * (dtls_tick_t)DTLS_TICKS_PER_SECOND / 1000000);</span>
+<span class="lineNum">     110 </span>                :<span class="lineCov">       3242 : }</span>
+<a name="111"><span class="lineNum">     111 </span>                :            : </a>
+<span class="lineNum">     112 </span>                :            : int
+<span class="lineNum">     113 </span>                :<span class="lineCov">       1568 : dtls_fill_random(uint8_t *buf, size_t len)</span>
+<span class="lineNum">     114 </span>                :            : {
+<span class="lineNum">     115 </span>                :<span class="lineCov">       1568 :   FILE *urandom = fopen(&quot;/dev/urandom&quot;, &quot;r&quot;);</span>
+<span class="lineNum">     116 </span>                :            : 
+<span class="lineNum">     117 </span>        [<span class="branchNoCov" title="Branch 0 was not taken"> - </span><span class="branchCov" title="Branch 1 was taken 1568 times"> + </span>]:<span class="lineCov">       1568 :   if(!urandom) {</span>
+<span class="lineNum">     118 </span>                :<span class="lineNoCov">          0 :     dtls_emerg(&quot;cannot initialize random\n&quot;);</span>
+<span class="lineNum">     119 </span>                :<span class="lineNoCov">          0 :     return 0;</span>
+<span class="lineNum">     120 </span>                :            :   }
+<span class="lineNum">     121 </span>                :            : 
+<span class="lineNum">     122 </span>        [<span class="branchNoCov" title="Branch 1 was not taken"> - </span><span class="branchCov" title="Branch 2 was taken 1568 times"> + </span>]:<span class="lineCov">       1568 :   if(fread(buf, 1, len, urandom) != len) {</span>
+<span class="lineNum">     123 </span>                :<span class="lineNoCov">          0 :     dtls_emerg(&quot;cannot fill random\n&quot;);</span>
+<span class="lineNum">     124 </span>                :<span class="lineNoCov">          0 :     fclose(urandom);</span>
+<span class="lineNum">     125 </span>                :<span class="lineNoCov">          0 :     return 0;</span>
+<span class="lineNum">     126 </span>                :            :   }
+<span class="lineNum">     127 </span>                :            : 
+<span class="lineNum">     128 </span>                :<span class="lineCov">       1568 :   fclose(urandom);</span>
+<span class="lineNum">     129 </span>                :            : 
+<span class="lineNum">     130 </span>                :            :   // Fuzzing change
+<span class="lineNum">     131 </span>        [<span class="branchCov" title="Branch 0 was taken 26488 times"> + </span><span class="branchCov" title="Branch 1 was taken 1568 times"> + </span>]:<span class="lineCov">      28056 :   for(int i=0; i&lt;len; i++) {</span>
+<span class="lineNum">     132 </span>                :<span class="lineCov">      26488 :     buf[i] = 1;</span>
+<span class="lineNum">     133 </span>                :            :   }
+<span class="lineNum">     134 </span>                :            : 
+<span class="lineNum">     135 </span>                :<span class="lineCov">       1568 :   return 1;</span>
+<span class="lineNum">     136 </span>                :            : }
+<a name="137"><span class="lineNum">     137 </span>                :            : </a>
+<span class="lineNum">     138 </span>                :            : void
+<span class="lineNum">     139 </span>                :<span class="lineCov">       1985 : dtls_set_retransmit_timer(dtls_context_t *ctx, unsigned int timeout)</span>
+<span class="lineNum">     140 </span>                :            : {
+<span class="lineNum">     141 </span>                :            :   /* Do nothing for now ... */
+<span class="lineNum">     142 </span>                :<span class="lineCov">       1985 : }</span>
+<span class="lineNum">     143 </span>                :            : 
+<a name="144"><span class="lineNum">     144 </span>                :            : /* Implementation of session functions */</a>
+<span class="lineNum">     145 </span>                :            : void
+<span class="lineNum">     146 </span>                :<span class="lineNoCov">          0 : dtls_session_init(session_t *sess) {</span>
+<span class="lineNum">     147 </span>        [<span class="branchNoExec" title="Branch 0 was not executed"> # </span><span class="branchNoExec" title="Branch 1 was not executed"> # </span>]:<span class="lineNoCov">          0 :   assert(sess);</span>
+<span class="lineNum">     148 </span>                :<span class="lineNoCov">          0 :   memset(sess, 0, sizeof(session_t));</span>
+<span class="lineNum">     149 </span>                :<span class="lineNoCov">          0 :   sess-&gt;size = sizeof(sess-&gt;addr);</span>
+<span class="lineNum">     150 </span>                :<span class="lineNoCov">          0 : }</span>
+<a name="151"><span class="lineNum">     151 </span>                :            : </a>
+<span class="lineNum">     152 </span>                :            : int
+<span class="lineNum">     153 </span>                :<span class="lineCov">       5136 : dtls_session_equals(const session_t *a, const session_t *b) {</span>
+<span class="lineNum">     154 </span>[<span class="branchNoCov" title="Branch 0 was not taken"> - </span><span class="branchCov" title="Branch 1 was taken 5136 times"> + </span>][<span class="branchNoCov" title="Branch 3 was not taken"> - </span><span class="branchCov" title="Branch 4 was taken 5136 times"> + </span>]:<span class="lineCov">       5136 :   assert(a); assert(b);</span>
+<span class="lineNum">     155 </span>                :            : 
+<span class="lineNum">     156 </span>[<span class="branchCov" title="Branch 0 was taken 5136 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>][<span class="branchCov" title="Branch 2 was taken 5136 times"> + </span><span class="branchNoCov" title="Branch 3 was not taken"> - </span>]:<span class="lineCov">       5136 :   if(a-&gt;ifindex != b-&gt;ifindex ||</span>
+<span class="lineNum">     157 </span>        [<span class="branchNoCov" title="Branch 0 was not taken"> - </span><span class="branchCov" title="Branch 1 was taken 5136 times"> + </span>]:<span class="lineCov">       5136 :      a-&gt;size != b-&gt;size ||</span>
+<span class="lineNum">     158 </span>                :<span class="lineCov">       5136 :      a-&gt;addr.sa.sa_family != b-&gt;addr.sa.sa_family) {</span>
+<span class="lineNum">     159 </span>                :<span class="lineNoCov">          0 :     return 0;</span>
+<span class="lineNum">     160 </span>                :            :   }
+<span class="lineNum">     161 </span>                :            : 
+<span class="lineNum">     162 </span>                :            :   /* need to compare only relevant parts of sockaddr_in6 */
+<span class="lineNum">     163 </span>     [<span class="branchCov" title="Branch 0 was taken 5136 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>]:<span class="lineCov">       5136 :   switch (a-&gt;addr.sa.sa_family) {</span>
+<span class="lineNum">     164 </span>                :<span class="lineCov">       5136 :   case AF_INET:</span>
+<span class="lineNum">     165 </span>                :            :     return
+<span class="lineNum">     166 </span>[<span class="branchCov" title="Branch 0 was taken 5136 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>][<span class="branchCov" title="Branch 2 was taken 5136 times"> + </span><span class="branchNoCov" title="Branch 3 was not taken"> - </span>]:<span class="lineCov">       5136 :      a-&gt;addr.sin.sin_port == b-&gt;addr.sin.sin_port &amp;&amp;</span>
+<span class="lineNum">     167 </span>                :<span class="lineCov">       5136 :      memcmp(&amp;a-&gt;addr.sin.sin_addr, &amp;b-&gt;addr.sin.sin_addr,</span>
+<span class="lineNum">     168 </span>                :            :             sizeof(struct in_addr)) == 0;
+<span class="lineNum">     169 </span>                :<span class="lineNoCov">          0 :   case AF_INET6:</span>
+<span class="lineNum">     170 </span>[<span class="branchNoExec" title="Branch 0 was not executed"> # </span><span class="branchNoExec" title="Branch 1 was not executed"> # </span>][<span class="branchNoExec" title="Branch 2 was not executed"> # </span><span class="branchNoExec" title="Branch 3 was not executed"> # </span>]:<span class="lineNoCov">          0 :     return a-&gt;addr.sin6.sin6_port == b-&gt;addr.sin6.sin6_port &amp;&amp;</span>
+<span class="lineNum">     171 </span>                :<span class="lineNoCov">          0 :       memcmp(&amp;a-&gt;addr.sin6.sin6_addr, &amp;b-&gt;addr.sin6.sin6_addr,</span>
+<span class="lineNum">     172 </span>                :            :              sizeof(struct in6_addr)) == 0;
+<span class="lineNum">     173 </span>                :<span class="lineNoCov">          0 :   default: /* fall through and signal error */</span>
+<span class="lineNum">     174 </span>                :            :     ;
+<span class="lineNum">     175 </span>                :            :   }
+<span class="lineNum">     176 </span>                :<span class="lineNoCov">          0 :   return 0;</span>
+<span class="lineNum">     177 </span>                :            : }
+<a name="178"><span class="lineNum">     178 </span>                :            : </a>
+<span class="lineNum">     179 </span>                :            : void *
+<span class="lineNum">     180 </span>                :<span class="lineCov">        622 : dtls_session_get_address(const session_t *a)</span>
+<span class="lineNum">     181 </span>                :            : {
+<span class="lineNum">     182 </span>                :            :   /* improve this to only contain the addressing info */
+<span class="lineNum">     183 </span>                :<span class="lineCov">        622 :   return (void *)a;</span>
+<span class="lineNum">     184 </span>                :            : }
+<a name="185"><span class="lineNum">     185 </span>                :            : </a>
+<span class="lineNum">     186 </span>                :            : int
+<span class="lineNum">     187 </span>                :<span class="lineCov">        622 : dtls_session_get_address_size(const session_t *a)</span>
+<span class="lineNum">     188 </span>                :            : {
+<span class="lineNum">     189 </span>                :            :   /* improve this to only contain the addressing info */
+<span class="lineNum">     190 </span>                :<span class="lineCov">        622 :   return sizeof(session_t);</span>
+<span class="lineNum">     191 </span>                :            : }
+<a name="192"><span class="lineNum">     192 </span>                :            : </a>
+<span class="lineNum">     193 </span>                :            : void
+<span class="lineNum">     194 </span>                :<span class="lineNoCov">          0 : dtls_session_log(const session_t *addr)</span>
+<span class="lineNum">     195 </span>                :            : {
+<span class="lineNum">     196 </span>                :            :   char buf[MAX(INET_ADDRSTRLEN, INET6_ADDRSTRLEN)];
+<span class="lineNum">     197 </span>                :<span class="lineNoCov">          0 :   const void *addrptr = NULL;</span>
+<span class="lineNum">     198 </span>                :            :   in_port_t port;
+<span class="lineNum">     199 </span>                :            : 
+<span class="lineNum">     200 </span>     [<span class="branchNoExec" title="Branch 0 was not executed"> # </span><span class="branchNoExec" title="Branch 1 was not executed"> # </span><span class="branchNoExec" title="Branch 2 was not executed"> # </span>]:<span class="lineNoCov">          0 :   switch(addr-&gt;addr.sa.sa_family) {</span>
+<span class="lineNum">     201 </span>                :<span class="lineNoCov">          0 :   case AF_INET:</span>
+<span class="lineNum">     202 </span>                :<span class="lineNoCov">          0 :     addrptr = &amp;addr-&gt;addr.sin.sin_addr;</span>
+<span class="lineNum">     203 </span>                :<span class="lineNoCov">          0 :     port = ntohs(addr-&gt;addr.sin.sin_port);</span>
+<span class="lineNum">     204 </span>                :<span class="lineNoCov">          0 :     break;</span>
+<span class="lineNum">     205 </span>                :<span class="lineNoCov">          0 :   case AF_INET6:</span>
+<span class="lineNum">     206 </span>                :<span class="lineNoCov">          0 :     addrptr = &amp;addr-&gt;addr.sin6.sin6_addr;</span>
+<span class="lineNum">     207 </span>                :<span class="lineNoCov">          0 :     port = ntohs(addr-&gt;addr.sin6.sin6_port);</span>
+<span class="lineNum">     208 </span>                :<span class="lineNoCov">          0 :     break;</span>
+<span class="lineNum">     209 </span>                :<span class="lineNoCov">          0 :   default:</span>
+<span class="lineNum">     210 </span>                :<span class="lineNoCov">          0 :     LOG_OUTPUT(&quot;(unknown address type)&quot;);</span>
+<span class="lineNum">     211 </span>                :<span class="lineNoCov">          0 :     return;</span>
+<span class="lineNum">     212 </span>                :            :   }
+<span class="lineNum">     213 </span>                :            : 
+<span class="lineNum">     214 </span>        [<span class="branchNoExec" title="Branch 1 was not executed"> # </span><span class="branchNoExec" title="Branch 2 was not executed"> # </span>]:<span class="lineNoCov">          0 :   if(inet_ntop(addr-&gt;addr.sa.sa_family, addrptr, buf, sizeof(buf)) == 0) {</span>
+<span class="lineNum">     215 </span>                :<span class="lineNoCov">          0 :     perror(&quot;dtls_session_log&quot;);</span>
+<span class="lineNum">     216 </span>                :<span class="lineNoCov">          0 :     return;</span>
+<span class="lineNum">     217 </span>                :            :   }
+<span class="lineNum">     218 </span>                :            : 
+<span class="lineNum">     219 </span>                :            : 
+<span class="lineNum">     220 </span>        [<span class="branchNoExec" title="Branch 0 was not executed"> # </span><span class="branchNoExec" title="Branch 1 was not executed"> # </span>]:<span class="lineNoCov">          0 :   if(addr-&gt;addr.sa.sa_family == AF_INET6) {</span>
+<span class="lineNum">     221 </span>                :<span class="lineNoCov">          0 :     LOG_OUTPUT(&quot;[%s]:%d&quot;, buf, port);</span>
+<span class="lineNum">     222 </span>                :            :   } else {
+<span class="lineNum">     223 </span>                :<span class="lineNoCov">          0 :     LOG_OUTPUT(&quot;%s:%d&quot;, buf, port);</span>
+<span class="lineNum">     224 </span>                :            :   }
+<span class="lineNum">     225 </span>                :            : }
+<a name="226"><span class="lineNum">     226 </span>                :            : </a>
+<span class="lineNum">     227 </span>                :            : void
+<span class="lineNum">     228 </span>                :<span class="lineNoCov">          0 : dtls_session_print(const session_t *addr)</span>
+<span class="lineNum">     229 </span>                :            : {
+<span class="lineNum">     230 </span>                :            :   char buf[MAX(INET_ADDRSTRLEN, INET6_ADDRSTRLEN)];
+<span class="lineNum">     231 </span>                :<span class="lineNoCov">          0 :   const void *addrptr = NULL;</span>
+<span class="lineNum">     232 </span>                :            :   in_port_t port;
+<span class="lineNum">     233 </span>                :            : 
+<span class="lineNum">     234 </span>     [<span class="branchNoExec" title="Branch 0 was not executed"> # </span><span class="branchNoExec" title="Branch 1 was not executed"> # </span><span class="branchNoExec" title="Branch 2 was not executed"> # </span>]:<span class="lineNoCov">          0 :   switch(addr-&gt;addr.sa.sa_family) {</span>
+<span class="lineNum">     235 </span>                :<span class="lineNoCov">          0 :   case AF_INET:</span>
+<span class="lineNum">     236 </span>                :<span class="lineNoCov">          0 :     addrptr = &amp;addr-&gt;addr.sin.sin_addr;</span>
+<span class="lineNum">     237 </span>                :<span class="lineNoCov">          0 :     port = ntohs(addr-&gt;addr.sin.sin_port);</span>
+<span class="lineNum">     238 </span>                :<span class="lineNoCov">          0 :     break;</span>
+<span class="lineNum">     239 </span>                :<span class="lineNoCov">          0 :   case AF_INET6:</span>
+<span class="lineNum">     240 </span>                :<span class="lineNoCov">          0 :     addrptr = &amp;addr-&gt;addr.sin6.sin6_addr;</span>
+<span class="lineNum">     241 </span>                :<span class="lineNoCov">          0 :     port = ntohs(addr-&gt;addr.sin6.sin6_port);</span>
+<span class="lineNum">     242 </span>                :<span class="lineNoCov">          0 :     break;</span>
+<span class="lineNum">     243 </span>                :<span class="lineNoCov">          0 :   default:</span>
+<span class="lineNum">     244 </span>                :<span class="lineNoCov">          0 :     printf(&quot;(unknown address type)&quot;);</span>
+<span class="lineNum">     245 </span>                :<span class="lineNoCov">          0 :     return;</span>
+<span class="lineNum">     246 </span>                :            :   }
+<span class="lineNum">     247 </span>                :            : 
+<span class="lineNum">     248 </span>        [<span class="branchNoExec" title="Branch 1 was not executed"> # </span><span class="branchNoExec" title="Branch 2 was not executed"> # </span>]:<span class="lineNoCov">          0 :   if(inet_ntop(addr-&gt;addr.sa.sa_family, addrptr, buf, sizeof(buf)) == 0) {</span>
+<span class="lineNum">     249 </span>                :<span class="lineNoCov">          0 :     perror(&quot;dtls_session_log&quot;);</span>
+<span class="lineNum">     250 </span>                :<span class="lineNoCov">          0 :     return;</span>
+<span class="lineNum">     251 </span>                :            :   }
+<span class="lineNum">     252 </span>                :            : 
+<span class="lineNum">     253 </span>                :            : 
+<span class="lineNum">     254 </span>        [<span class="branchNoExec" title="Branch 0 was not executed"> # </span><span class="branchNoExec" title="Branch 1 was not executed"> # </span>]:<span class="lineNoCov">          0 :   if(addr-&gt;addr.sa.sa_family == AF_INET6) {</span>
+<span class="lineNum">     255 </span>                :<span class="lineNoCov">          0 :     printf(&quot;[%s]:%d&quot;, buf, port);</span>
+<span class="lineNum">     256 </span>                :            :   } else {
+<span class="lineNum">     257 </span>                :<span class="lineNoCov">          0 :     printf(&quot;%s:%d&quot;, buf, port);</span>
+<span class="lineNum">     258 </span>                :            :   }
+<span class="lineNum">     259 </span>                :            : }
+<span class="lineNum">     260 </span>                :            : 
+<a name="261"><span class="lineNum">     261 </span>                :            : /* The init */</a>
+<span class="lineNum">     262 </span>                :            : void
+<span class="lineNum">     263 </span>                :<span class="lineCov">        311 : dtls_support_init(void)</span>
+<span class="lineNum">     264 </span>                :            : {
+<span class="lineNum">     265 </span>                :            : #ifdef HAVE_TIME_H
+<span class="lineNum">     266 </span>                :<span class="lineCov">        311 :   dtls_clock_offset = time(NULL);</span>
+<span class="lineNum">     267 </span>                :            : #else
+<span class="lineNum">     268 </span>                :            : # ifdef __GNUC__
+<span class="lineNum">     269 </span>                :            :   /* Issue a warning when using gcc. Other prepropressors do
+<span class="lineNum">     270 </span>                :            :    *  not seem to have a similar feature. */
+<span class="lineNum">     271 </span>                :            : #  warning &quot;cannot initialize clock&quot;
+<span class="lineNum">     272 </span>                :            : # endif
+<span class="lineNum">     273 </span>                :            :   dtls_clock_offset = 0;
+<span class="lineNum">     274 </span>                :            : #endif
+<span class="lineNum">     275 </span>                :<span class="lineCov">        311 : }</span>
+</pre>
+      </td>
+    </tr>
+  </table>
+  <br>
+
+  <table width="100%" border=0 cellspacing=0 cellpadding=0>
+    <tr><td class="ruler"><img src="../../glass.png" width=3 height=3 alt=""></td></tr>
+    <tr><td class="versionInfo">Generated by: <a href="http://ltp.sourceforge.net/coverage/lcov.php" target="_parent">LCOV version 1.13</a></td></tr>
+  </table>
+  <br>
+
+</body>
+</html>

@@ -1,0 +1,19 @@
+diff id:000247,src:000239,op:havoc,rep:2 -> id:000248,src:000241,op:flip2,pos:139,+cov
+Src file: /home/rahbar/tinydtls-fuzz-cov/dtls.c
+  New 'function' coverage: check_server_key_exchange_psk()
+  New 'line' coverage: 2824
+  New 'line' coverage: 2831
+  New 'line' coverage: 2834
+  New 'line' coverage: 2836
+  New 'line' coverage: 2838
+  New 'line' coverage: 2840
+  New 'line' coverage: 2842
+  New 'line' coverage: 2847
+  New 'line' coverage: 2848
+  New 'line' coverage: 2850
+  New 'line' coverage: 2851
+  New 'line' coverage: 2852
+  New 'line' coverage: 3253
+  New 'line' coverage: 3256
+  New 'line' coverage: 3261
+  New 'line' coverage: 3262

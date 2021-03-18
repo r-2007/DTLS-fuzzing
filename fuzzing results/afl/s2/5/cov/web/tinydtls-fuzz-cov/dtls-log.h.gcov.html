@@ -1,0 +1,198 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+
+<html lang="en">
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <title>LCOV - trace.lcov_info_final - tinydtls-fuzz-cov/dtls-log.h</title>
+  <link rel="stylesheet" type="text/css" href="../gcov.css">
+</head>
+
+<body>
+
+  <table width="100%" border=0 cellspacing=0 cellpadding=0>
+    <tr><td class="title">LCOV - code coverage report</td></tr>
+    <tr><td class="ruler"><img src="../glass.png" width=3 height=3 alt=""></td></tr>
+
+    <tr>
+      <td width="100%">
+        <table cellpadding=1 border=0 width="100%">
+          <tr>
+            <td width="10%" class="headerItem">Current view:</td>
+            <td width="35%" class="headerValue"><a href="../index.html">top level</a> - <a href="index.html">tinydtls-fuzz-cov</a> - dtls-log.h<span style="font-size: 80%;"> (source / <a href="dtls-log.h.func-sort-c.html">functions</a>)</span></td>
+            <td width="5%"></td>
+            <td width="15%"></td>
+            <td width="10%" class="headerCovTableHead">Hit</td>
+            <td width="10%" class="headerCovTableHead">Total</td>
+            <td width="15%" class="headerCovTableHead">Coverage</td>
+          </tr>
+          <tr>
+            <td class="headerItem">Test:</td>
+            <td class="headerValue">trace.lcov_info_final</td>
+            <td></td>
+            <td class="headerItem">Lines:</td>
+            <td class="headerCovTableEntry">6</td>
+            <td class="headerCovTableEntry">6</td>
+            <td class="headerCovTableEntryHi">100.0 %</td>
+          </tr>
+          <tr>
+            <td class="headerItem">Date:</td>
+            <td class="headerValue">2020-11-25 03:35:39</td>
+            <td></td>
+            <td class="headerItem">Functions:</td>
+            <td class="headerCovTableEntry">3</td>
+            <td class="headerCovTableEntry">3</td>
+            <td class="headerCovTableEntryHi">100.0 %</td>
+          </tr>
+          <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td class="headerItem">Branches:</td>
+            <td class="headerCovTableEntry">0</td>
+            <td class="headerCovTableEntry">0</td>
+            <td class="headerCovTableEntryHi">-</td>
+          </tr>
+          <tr><td><img src="../glass.png" width=3 height=3 alt=""></td></tr>
+        </table>
+      </td>
+    </tr>
+
+    <tr><td class="ruler"><img src="../glass.png" width=3 height=3 alt=""></td></tr>
+  </table>
+
+  <table cellpadding=0 cellspacing=0 border=0>
+    <tr>
+      <td><br></td>
+    </tr>
+    <tr>
+      <td>
+<pre class="sourceHeading">           Branch data     Line data    Source code</pre>
+<pre class="source">
+<a name="1"><span class="lineNum">       1 </span>                :            : /*******************************************************************************</a>
+<span class="lineNum">       2 </span>                :            :  *
+<span class="lineNum">       3 </span>                :            :  * Copyright (c) 2011, 2012, 2013, 2014, 2015 Olaf Bergmann (TZI) and others.
+<span class="lineNum">       4 </span>                :            :  * All rights reserved. This program and the accompanying materials
+<span class="lineNum">       5 </span>                :            :  * are made available under the terms of the Eclipse Public License v1.0
+<span class="lineNum">       6 </span>                :            :  * and Eclipse Distribution License v. 1.0 which accompanies this distribution.
+<span class="lineNum">       7 </span>                :            :  *
+<span class="lineNum">       8 </span>                :            :  * The Eclipse Public License is available at http://www.eclipse.org/legal/epl-v10.html
+<span class="lineNum">       9 </span>                :            :  * and the Eclipse Distribution License is available at
+<span class="lineNum">      10 </span>                :            :  * http://www.eclipse.org/org/documents/edl-v10.php.
+<span class="lineNum">      11 </span>                :            :  *
+<span class="lineNum">      12 </span>                :            :  * Contributors:
+<span class="lineNum">      13 </span>                :            :  *    Olaf Bergmann  - initial API and implementation
+<span class="lineNum">      14 </span>                :            :  *    Hauke Mehrtens - memory optimization, ECC integration
+<span class="lineNum">      15 </span>                :            :  *
+<span class="lineNum">      16 </span>                :            :  *******************************************************************************/
+<span class="lineNum">      17 </span>                :            : 
+<span class="lineNum">      18 </span>                :            : #ifndef DTLS_LOG_H_
+<span class="lineNum">      19 </span>                :            : #define DTLS_LOG_H_
+<span class="lineNum">      20 </span>                :            : 
+<span class="lineNum">      21 </span>                :            : #include &quot;tinydtls.h&quot;
+<span class="lineNum">      22 </span>                :            : 
+<span class="lineNum">      23 </span>                :            : #ifdef DTLS_LOG_CONF_PATH
+<span class="lineNum">      24 </span>                :            : #include DTLS_LOG_CONF_PATH
+<span class="lineNum">      25 </span>                :            : #else /* DTLS_LOG_CONF_PATH */
+<span class="lineNum">      26 </span>                :            : #include &quot;dtls-log-default.h&quot;
+<span class="lineNum">      27 </span>                :            : #endif /* DTLS_LOG_CONF_PATH */
+<span class="lineNum">      28 </span>                :            : 
+<span class="lineNum">      29 </span>                :            : /** Returns a zero-terminated string with the name of this library. */
+<span class="lineNum">      30 </span>                :            : const char *dtls_package_name(void);
+<span class="lineNum">      31 </span>                :            : 
+<span class="lineNum">      32 </span>                :            : /** Returns a zero-terminated string with the library version. */
+<span class="lineNum">      33 </span>                :            : const char *dtls_package_version(void);
+<span class="lineNum">      34 </span>                :            : 
+<span class="lineNum">      35 </span>                :            : /**
+<span class="lineNum">      36 </span>                :            :  * Logs data as a hexdump.
+<span class="lineNum">      37 </span>                :            :  */
+<span class="lineNum">      38 </span>                :            : void dtls_log_hexdump(const unsigned char *buf, int len);
+<span class="lineNum">      39 </span>                :            : 
+<span class="lineNum">      40 </span>                :            : /**
+<span class="lineNum">      41 </span>                :            :  * Logs data as a narrow strig of hex digits.
+<span class="lineNum">      42 </span>                :            :  */
+<span class="lineNum">      43 </span>                :            : void dtls_log_dump(const unsigned char *buf, int len);
+<span class="lineNum">      44 </span>                :            : 
+<span class="lineNum">      45 </span>                :            : /* DTLS address */
+<span class="lineNum">      46 </span>                :            : #define LOG_DTLS_ADDR(level, endpoint) do {                 \
+<span class="lineNum">      47 </span>                :            :     if(level &lt;= (LOG_LEVEL)) {                              \
+<span class="lineNum">      48 </span>                :            :       dtls_session_log(endpoint);                           \
+<span class="lineNum">      49 </span>                :            :     }                                                       \
+<span class="lineNum">      50 </span>                :            :   } while (0)
+<span class="lineNum">      51 </span>                :            : 
+<span class="lineNum">      52 </span>                :            : #define LOG_ERR_DTLS_ADDR(endpoint)  LOG_DTLS_ADDR(LOG_LEVEL_ERR, endpoint)
+<span class="lineNum">      53 </span>                :            : #define LOG_WARN_DTLS_ADDR(endpoint) LOG_DTLS_ADDR(LOG_LEVEL_WARN, endpoint)
+<span class="lineNum">      54 </span>                :            : #define LOG_INFO_DTLS_ADDR(endpoint) LOG_DTLS_ADDR(LOG_LEVEL_INFO, endpoint)
+<span class="lineNum">      55 </span>                :            : #define LOG_DBG_DTLS_ADDR(endpoint)  LOG_DTLS_ADDR(LOG_LEVEL_DBG, endpoint)
+<span class="lineNum">      56 </span>                :            : 
+<span class="lineNum">      57 </span>                :            : /* DTLS log data as a hexdump */
+<span class="lineNum">      58 </span>                :            : #define LOG_DTLS_DUMP(level, data, len) do {                \
+<span class="lineNum">      59 </span>                :            :     if(level &lt;= (LOG_LEVEL)) {                              \
+<span class="lineNum">      60 </span>                :            :       dtls_log_dump(data, len);                             \
+<span class="lineNum">      61 </span>                :            :     }                                                       \
+<span class="lineNum">      62 </span>                :            :   } while (0)
+<span class="lineNum">      63 </span>                :            : 
+<span class="lineNum">      64 </span>                :            : #define LOG_ERR_DTLS_DUMP(data, len)  LOG_DTLS_DUMP(LOG_LEVEL_ERR, data, len)
+<span class="lineNum">      65 </span>                :            : #define LOG_WARN_DTLS_DUMP(data, len) LOG_DTLS_DUMP(LOG_LEVEL_WARN, data, len)
+<span class="lineNum">      66 </span>                :            : #define LOG_INFO_DTLS_DUMP(data, len) LOG_DTLS_DUMP(LOG_LEVEL_INFO, data, len)
+<span class="lineNum">      67 </span>                :            : #define LOG_DBG_DTLS_DUMP(data, len)  LOG_DTLS_DUMP(LOG_LEVEL_DBG, data, len)
+<span class="lineNum">      68 </span>                :            : 
+<span class="lineNum">      69 </span>                :            : /* DTLS log as narrow string of hex digits */
+<span class="lineNum">      70 </span>                :            : #define LOG_DTLS_DUMP(level, data, len) do {                \
+<span class="lineNum">      71 </span>                :            :     if(level &lt;= (LOG_LEVEL)) {                              \
+<span class="lineNum">      72 </span>                :            :       dtls_log_dump(data, len);                             \
+<span class="lineNum">      73 </span>                :            :     }                                                       \
+<span class="lineNum">      74 </span>                :            :   } while (0)
+<span class="lineNum">      75 </span>                :            : 
+<span class="lineNum">      76 </span>                :            : #define LOG_ERR_DTLS_DUMP(data, len)  LOG_DTLS_DUMP(LOG_LEVEL_ERR, data, len)
+<span class="lineNum">      77 </span>                :            : #define LOG_WARN_DTLS_DUMP(data, len) LOG_DTLS_DUMP(LOG_LEVEL_WARN, data, len)
+<span class="lineNum">      78 </span>                :            : #define LOG_INFO_DTLS_DUMP(data, len) LOG_DTLS_DUMP(LOG_LEVEL_INFO, data, len)
+<span class="lineNum">      79 </span>                :            : #define LOG_DBG_DTLS_DUMP(data, len)  LOG_DTLS_DUMP(LOG_LEVEL_DBG, data, len)
+<span class="lineNum">      80 </span>                :            : 
+<span class="lineNum">      81 </span>                :            : /* Limited support for old debug API */
+<span class="lineNum">      82 </span>                :            : #define dtls_debug(...) LOG_DBG(__VA_ARGS__)
+<span class="lineNum">      83 </span>                :            : #define dtls_info(...)  LOG_INFO(__VA_ARGS__)
+<span class="lineNum">      84 </span>                :            : #define dtls_warn(...)  LOG_WARN(__VA_ARGS__)
+<span class="lineNum">      85 </span>                :            : #define dtls_crit(...)  LOG_ERR(__VA_ARGS__)
+<span class="lineNum">      86 </span>                :            : #define dtls_alert(...) LOG_ERR(__VA_ARGS__)
+<span class="lineNum">      87 </span>                :            : #define dtls_emerg(...) LOG_ERR(__VA_ARGS__)
+<a name="88"><span class="lineNum">      88 </span>                :            : </a>
+<span class="lineNum">      89 </span>                :            : static inline void
+<span class="lineNum">      90 </span>                :<span class="lineCov">      44956 : dtls_debug_dump(const char *name, const unsigned char *buf, int len)</span>
+<span class="lineNum">      91 </span>                :            : {
+<span class="lineNum">      92 </span>                :            :   LOG_DBG(&quot;%s: &quot;, name);
+<span class="lineNum">      93 </span>                :            :   LOG_DBG_DTLS_DUMP(buf, len);
+<span class="lineNum">      94 </span>                :            :   LOG_DBG(&quot;\n&quot;);
+<span class="lineNum">      95 </span>                :<span class="lineCov">      22478 : }</span>
+<a name="96"><span class="lineNum">      96 </span>                :            : </a>
+<span class="lineNum">      97 </span>                :            : static inline void
+<span class="lineNum">      98 </span>                :<span class="lineCov">      66058 : dtls_debug_hexdump(const char *name, const unsigned char *buf, int len)</span>
+<span class="lineNum">      99 </span>                :            : {
+<span class="lineNum">     100 </span>                :            :   LOG_DBG(&quot;%s: &quot;, name);
+<span class="lineNum">     101 </span>                :            :   LOG_DBG_DTLS_DUMP(buf, len);
+<span class="lineNum">     102 </span>                :            :   LOG_DBG(&quot;\n&quot;);
+<span class="lineNum">     103 </span>                :<span class="lineCov">      33029 : }</span>
+<a name="104"><span class="lineNum">     104 </span>                :            : </a>
+<span class="lineNum">     105 </span>                :            : static inline void
+<span class="lineNum">     106 </span>                :<span class="lineCov">       7626 : dtls_debug_session(const char *name, const session_t *session)</span>
+<span class="lineNum">     107 </span>                :            : {
+<span class="lineNum">     108 </span>                :            :   LOG_DBG(&quot;%s: &quot;, name);
+<span class="lineNum">     109 </span>                :            :   LOG_DBG_DTLS_ADDR(session);
+<span class="lineNum">     110 </span>                :            :   LOG_DBG_(&quot;\n&quot;);
+<span class="lineNum">     111 </span>                :<span class="lineCov">       3813 : }</span>
+<span class="lineNum">     112 </span>                :            : 
+<span class="lineNum">     113 </span>                :            : #endif /* DTLS_LOG_H_ */
+</pre>
+      </td>
+    </tr>
+  </table>
+  <br>
+
+  <table width="100%" border=0 cellspacing=0 cellpadding=0>
+    <tr><td class="ruler"><img src="../glass.png" width=3 height=3 alt=""></td></tr>
+    <tr><td class="versionInfo">Generated by: <a href="http://ltp.sourceforge.net/coverage/lcov.php" target="_parent">LCOV version 1.13</a></td></tr>
+  </table>
+  <br>
+
+</body>
+</html>

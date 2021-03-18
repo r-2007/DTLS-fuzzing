@@ -1,0 +1,11 @@
+0,69,DTLS_record,Enabled
+0,0,DTLS_record~Content_type,Enabled
+0,0,DTLS_record~Content_type~Alert,Disabled
+1,2,DTLS_record~Record_layer_version,Disabled
+3,4,DTLS_record~Epoch,Enabled
+5,10,DTLS_record~Sequence_number,Enabled
+11,12,DTLS_record~Length_of_dtls_data,Enabled
+13,69,DTLS_record~payload,Enabled
+13,69,DTLS_record~payload~Handshake_Payload,Enabled
+13,69,DTLS_record~payload~Handshake_Payload~Encrypted_handshake_message,Enabled
+13,69,DTLS_record~payload~Handshake_Payload~Encrypted_handshake_message~Content,Enabled
