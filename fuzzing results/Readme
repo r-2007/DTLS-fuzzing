@@ -1,4 +1,4 @@
-
+Fuzzing States:
 
 s0 - Client Hello (From Client)
 s1 - Hello verify Request (From server)
